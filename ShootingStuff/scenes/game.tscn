@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://default_env.tres" type="Environment" id=1]
+[ext_resource path="res://world/default_env.tres" type="Environment" id=1]
 [ext_resource path="res://scripts/players_manager.gd" type="Script" id=2]
 [ext_resource path="res://models/player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://textures/player_red.png" type="Texture" id=4]
@@ -65,6 +65,18 @@ margin_bottom = 599.0
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 1 )
 text = "PRESS ANY KEY TO JOIN"
+align = 1
+valign = 1
+
+[node name="Loading" type="Label" parent="GameLobbyHUD"]
+visible = false
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 1025.0
+margin_bottom = 599.0
+size_flags_vertical = 1
+custom_fonts/font = SubResource( 1 )
+text = "Loading..."
 align = 1
 valign = 1
 
