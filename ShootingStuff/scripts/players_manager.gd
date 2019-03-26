@@ -3,8 +3,8 @@ extends Node
 var players = [
 	"PlayerA",
 	"PlayerB",
-	"PlayerC",
-	"PlayerD",
+	#"PlayerC",
+	#"PlayerD",
 ]
 
 enum DEVICE_TYPE {

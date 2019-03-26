@@ -27,7 +27,7 @@ _global_script_class_icons={
 [application]
 
 config/name="ShootingStuff"
-run/main_scene="res://scenes/game.tscn"
+run/main_scene="res://scenes/menu.tscn"
 config/icon="res://sprites/icon.png"
 
 [editor_plugins]
