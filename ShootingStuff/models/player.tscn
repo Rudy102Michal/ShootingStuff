@@ -3,8 +3,6 @@
 [ext_resource path="res://scripts/player_model.gd" type="Script" id=1]
 [ext_resource path="res://materials/player.material" type="Material" id=2]
 
-
-
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Mesh"
 surfaces/0 = {

@@ -1,0 +1,18 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/badass_dude.obj-c6a14a6d64bced4cab17afa6448e17c1.mesh"
+
+[deps]
+
+files=[ "res://.import/badass_dude.obj-c6a14a6d64bced4cab17afa6448e17c1.mesh" ]
+
+source_file="res://models/player/badass_dude.obj"
+dest_files=[ "res://.import/badass_dude.obj-c6a14a6d64bced4cab17afa6448e17c1.mesh", "res://.import/badass_dude.obj-c6a14a6d64bced4cab17afa6448e17c1.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+optimize_mesh=true
