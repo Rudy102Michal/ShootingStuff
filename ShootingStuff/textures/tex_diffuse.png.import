@@ -17,7 +17,7 @@ dest_files=[ "res://.import/tex_diffuse.png-d9be07b2719ce72773366de88f96f7a3.s3t
 [params]
 
 compress/mode=2
-compress/lossy_quality=0.7
+compress/lossy_quality=1.0
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0

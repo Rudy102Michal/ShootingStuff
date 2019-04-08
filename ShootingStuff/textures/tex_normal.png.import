@@ -17,7 +17,7 @@ dest_files=[ "res://.import/tex_normal.png-03f48314586a0f79db821fdbd9da4144.s3tc
 [params]
 
 compress/mode=2
-compress/lossy_quality=0.7
+compress/lossy_quality=1.0
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=1
