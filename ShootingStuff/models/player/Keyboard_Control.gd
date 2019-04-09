@@ -26,5 +26,11 @@ func should_move_forward() -> bool:
 func should_move_backward() -> bool:
 	return Input.is_action_pressed("move_backward")
 	
+func should_start_sprint() -> bool:
+	return Input.is_action_just_pressed("move_sprint")
+
+func should_stop_sprint() -> bool:
+	return Input.is_action_just_released("move_sprint")
+	
 func attach_player_node(node : KinematicBody) -> void:
 	player_node = node

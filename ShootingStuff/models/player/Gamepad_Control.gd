@@ -21,5 +21,11 @@ func should_move_forward() -> bool:
 func should_move_backward() -> bool:
 	return false
 	
+func should_start_sprint() -> bool:
+	return false
+	
+func should_stop_sprint() -> bool:
+	return false
+	
 func attach_player_node(node : KinematicBody) -> void:
 	player_node = node

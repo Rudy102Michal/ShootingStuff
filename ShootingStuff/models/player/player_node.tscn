@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://models/player/Player_Logic.gd" type="Script" id=1]
 [ext_resource path="res://models/animations/player_animations/Material_003.material" type="Material" id=2]
@@ -50,6 +50,11 @@ normal_texture = ExtResource( 4 )
 
 [sub_resource type="AnimationNodeBlend2" id=5]
 
+[sub_resource type="AnimationNodeBlend2" id=10]
+
+[sub_resource type="AnimationNodeAnimation" id=9]
+animation = "Gun_Sprint"
+
 [sub_resource type="AnimationNodeAnimation" id=6]
 animation = "Gun_Stand_Idle"
 
@@ -57,15 +62,19 @@ animation = "Gun_Stand_Idle"
 animation = "Gun_Walk"
 
 [sub_resource type="AnimationNodeBlendTree" id=8]
-graph_offset = Vector2( 0, 54 )
-nodes/Blend2/node = SubResource( 5 )
-nodes/Blend2/position = Vector2( 440, 140 )
+graph_offset = Vector2( 0, 119.75 )
+nodes/Blend2_1/node = SubResource( 5 )
+nodes/Blend2_1/position = Vector2( 340, 140 )
+nodes/Blend2_2/node = SubResource( 10 )
+nodes/Blend2_2/position = Vector2( 580, 220 )
+nodes/Gun_Sprint-loop/node = SubResource( 9 )
+nodes/Gun_Sprint-loop/position = Vector2( 320, 340 )
 nodes/Gun_Stand_Idle-loop/node = SubResource( 6 )
 nodes/Gun_Stand_Idle-loop/position = Vector2( 60, 120 )
 nodes/Gun_Walk-loop/node = SubResource( 7 )
 nodes/Gun_Walk-loop/position = Vector2( 60, 240 )
-nodes/output/position = Vector2( 700, 160 )
-node_connections = [ "output", 0, "Blend2", "Blend2", 0, "Gun_Stand_Idle-loop", "Blend2", 1, "Gun_Walk-loop" ]
+nodes/output/position = Vector2( 780, 120 )
+node_connections = [ "output", 0, "Blend2_2", "Blend2_1", 0, "Gun_Stand_Idle-loop", "Blend2_1", 1, "Gun_Walk-loop", "Blend2_2", 0, "Blend2_1", "Blend2_2", 1, "Gun_Sprint-loop" ]
 
 [node name="PlayerKB" type="KinematicBody"]
 script = ExtResource( 1 )
@@ -434,5 +443,6 @@ anims/Walk_Shoot = ExtResource( 17 )
 tree_root = SubResource( 8 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
-parameters/Blend2/blend_amount = 0
+parameters/Blend2_1/blend_amount = 0
+parameters/Blend2_2/blend_amount = 0
 

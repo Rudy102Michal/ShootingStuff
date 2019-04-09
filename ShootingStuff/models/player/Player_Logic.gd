@@ -4,7 +4,7 @@ extends KinematicBody
 
 # Constants
 const GRAVITY : Vector3 = Vector3(0.0, -9.8, 0.0)
-const MAX_SPEED : float = 4.0
+var MAX_SPEED : float = 4.0
 const ACCELERATION : float  = 3.0
 const DE_ACCELERATION : float = 7.0
 #const ANGLE_STEP : int = 90
@@ -35,6 +35,11 @@ func handle_player_movement(delta):
 	var front_vec : Vector3 = get_global_transform().basis.z
 	var left_vec : Vector3 = FLOOR_NORMAL.cross(front_vec)
 	var direction : Vector3 = Vector3(0.0, 0.0, 0.0)
+	
+	if control_node.should_start_sprint():
+		MAX_SPEED = 8.0
+	if control_node.should_stop_sprint():
+		MAX_SPEED = 4.0
 	
 	if control_node.should_move_forward():
 		direction += front_vec
@@ -67,11 +72,14 @@ func handle_player_movement(delta):
 #		var asm : AnimationNodeStateMachinePlayback = animation_tree["parameters/playback"]
 #		asm.travel("Gun_Stand_Idle")
 	
-	var blend_value : float = min(velocity.length(), 1.0)
-	blend_value *= blend_value
-	animation_tree.set("parameters/Blend2/blend_amount", blend_value)
+	var walk_blend_value : float = min(velocity.length(), 1.0)
+	walk_blend_value *= walk_blend_value
+	animation_tree.set("parameters/Blend2_1/blend_amount", walk_blend_value)
 	
-	old_velocity = velocity
+	var sprint_blend_value : float = min(1.0, max(0, velocity.length() - 4.0))
+	animation_tree.set("parameters/Blend2_2/blend_amount", sprint_blend_value)
+#	print(walk_blend_value)
+#	old_velocity = velocity
 
 func attach_control_node(node : Node) -> void:
 	add_child(node)
