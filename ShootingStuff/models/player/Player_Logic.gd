@@ -21,11 +21,11 @@ var velocity : Vector3
 func _ready():
 	# Temporary, later should be set to null and attached with function
 	control_node = $Keyboard_Control
+	control_node.attach_player_node(self)
+	
 	velocity = Vector3(0.0, 0.0, 0.0)
 	
 func _physics_process(delta):
-	
-	
 	handle_player_movement(delta)
 	
 func handle_player_movement(delta):
@@ -34,10 +34,8 @@ func handle_player_movement(delta):
 	var direction : Vector3 = Vector3(0.0, 0.0, 0.0)
 	
 	if control_node.should_move_forward():
-		print("W")
 		direction += front_vec
 	if control_node.should_move_backward():
-		print("S")
 		direction += -front_vec
 		
 	direction.y = 0.0
