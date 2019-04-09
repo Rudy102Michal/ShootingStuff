@@ -18,7 +18,6 @@ func _input(event):
 		var mouse_pos : Vector2 = get_viewport().get_mouse_position()
 		var pm = mouse_pos - projected_player_pos
 		var pf = projected_player_front - projected_player_pos
-		print(pf.angle_to(pm))
 		player_node.global_rotate(VECTOR_UP, pm.angle_to(pf))
 
 func should_move_forward() -> bool:
