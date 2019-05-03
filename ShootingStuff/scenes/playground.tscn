@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=2]
 
-[ext_resource path="res://scenes/Isometric_Camera.gd" type="Script" id=1]
+[ext_resource path="res://scripts/Isometric_Camera.gd" type="Script" id=1]
 [ext_resource path="res://models/tree01.tscn" type="PackedScene" id=2]
 [ext_resource path="res://models/Rock_6.OBJ" type="ArrayMesh" id=3]
 [ext_resource path="res://materials/rock.material" type="Material" id=4]
@@ -77,9 +77,6 @@ __meta__ = {
 "_edit_lock_": true,
 "_editor_icon": ExtResource( 8 )
 }
-collision_enabled = true
-ambient_wind = 0.0
-lod_scale = 2.0
 map_scale = Vector3( 0.2, 0.2, 0.2 )
 _terrain_data = ExtResource( 9 )
 chunk_size = 16
