@@ -427,7 +427,7 @@ mesh = SubResource( 3 )
 material/0 = SubResource( 4 )
 
 [node name="BoneAttachment" type="BoneAttachment" parent="Rotation_Helper/Model/Skeleton"]
-transform = Transform( 0.337647, 0.847355, 0.409856, 0.872223, -0.445356, 0.202194, 0.353862, 0.28922, -0.889456, -0.891461, 12.0554, 2.55703 )
+transform = Transform( 0.364375, 0.872836, 0.324631, 0.875151, -0.44011, 0.20103, 0.31834, 0.210854, -0.924229, -1.38798, 12.0286, 2.13396 )
 bone_name = "Bag_Retopo_Bag_Low_Bag_Retopo_RightHand"
 
 [node name="MeshInstance" type="MeshInstance" parent="Rotation_Helper/Model/Skeleton/BoneAttachment"]
