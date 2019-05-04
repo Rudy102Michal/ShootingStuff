@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scripts/Isometric_Camera.gd" type="Script" id=1]
 [ext_resource path="res://models/tree01.tscn" type="PackedScene" id=2]
@@ -6,13 +6,14 @@
 [ext_resource path="res://materials/rock.material" type="Material" id=4]
 [ext_resource path="res://scripts/players_node_setup.gd" type="Script" id=5]
 [ext_resource path="res://models/player/player_node.tscn" type="PackedScene" id=6]
-[ext_resource path="res://addons/zylann.hterrain/hterrain.gd" type="Script" id=7]
-[ext_resource path="res://addons/zylann.hterrain/tools/icons/icon_heightmap_node.svg" type="Texture" id=8]
-[ext_resource path="res://playground_terrain/data.hterrain" type="Resource" id=9]
-[ext_resource path="res://textures/burned_ground.png" type="Texture" id=10]
-[ext_resource path="res://textures/cave1.png" type="Texture" id=11]
-[ext_resource path="res://textures/cave3.png" type="Texture" id=12]
-[ext_resource path="res://textures/cave2.png" type="Texture" id=13]
+[ext_resource path="res://scripts/enemy_manager.gd" type="Script" id=7]
+[ext_resource path="res://addons/zylann.hterrain/hterrain.gd" type="Script" id=8]
+[ext_resource path="res://addons/zylann.hterrain/tools/icons/icon_heightmap_node.svg" type="Texture" id=9]
+[ext_resource path="res://playground_terrain/data.hterrain" type="Resource" id=10]
+[ext_resource path="res://textures/burned_ground.png" type="Texture" id=11]
+[ext_resource path="res://textures/cave1.png" type="Texture" id=12]
+[ext_resource path="res://textures/cave3.png" type="Texture" id=13]
+[ext_resource path="res://textures/cave2.png" type="Texture" id=14]
 
 [sub_resource type="Environment" id=1]
 background_mode = 1
@@ -70,15 +71,18 @@ script = ExtResource( 5 )
 [node name="Player_B" parent="StuffOnScreen/Players" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.48381, 0, 0 )
 
+[node name="Enemies" type="Spatial" parent="StuffOnScreen"]
+script = ExtResource( 7 )
+
 [node name="HTerrain" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -25.09, -7.11, -26.59 )
-script = ExtResource( 7 )
+script = ExtResource( 8 )
 __meta__ = {
 "_edit_lock_": true,
-"_editor_icon": ExtResource( 8 )
+"_editor_icon": ExtResource( 9 )
 }
 map_scale = Vector3( 0.2, 0.2, 0.2 )
-_terrain_data = ExtResource( 9 )
+_terrain_data = ExtResource( 10 )
 chunk_size = 16
 shader_type = "Classic4"
 custom_shader = null
@@ -87,13 +91,13 @@ shader_params/u_depth_blending = true
 shader_params/u_triplanar = false
 shader_params/u_globalmap_blend_start = null
 shader_params/u_globalmap_blend_distance = null
-ground/albedo_bump_0 = ExtResource( 10 )
+ground/albedo_bump_0 = ExtResource( 11 )
 ground/normal_roughness_0 = null
-ground/albedo_bump_1 = ExtResource( 11 )
+ground/albedo_bump_1 = ExtResource( 12 )
 ground/normal_roughness_1 = null
-ground/albedo_bump_2 = ExtResource( 12 )
+ground/albedo_bump_2 = ExtResource( 13 )
 ground/normal_roughness_2 = null
-ground/albedo_bump_3 = ExtResource( 13 )
+ground/albedo_bump_3 = ExtResource( 14 )
 ground/normal_roughness_3 = null
 _detail_objects_data = null
 

@@ -64,7 +64,7 @@ animation = "Gun_Stand_Idle"
 animation = "Gun_Walk"
 
 [sub_resource type="AnimationNodeBlendTree" id=10]
-graph_offset = Vector2( 0, 119.75 )
+graph_offset = Vector2( 0, 124.5 )
 nodes/Blend2_1/node = SubResource( 5 )
 nodes/Blend2_1/position = Vector2( 340, 140 )
 nodes/Blend2_2/node = SubResource( 6 )
@@ -76,7 +76,7 @@ nodes/Gun_Stand_Idle-loop/position = Vector2( 60, 120 )
 nodes/Gun_Walk-loop/node = SubResource( 9 )
 nodes/Gun_Walk-loop/position = Vector2( 60, 240 )
 nodes/output/position = Vector2( 780, 120 )
-node_connections = [ "output", 0, "Blend2_2", "Blend2_1", 0, "Gun_Stand_Idle-loop", "Blend2_1", 1, "Gun_Walk-loop", "Blend2_2", 0, "Blend2_1", "Blend2_2", 1, "Gun_Sprint-loop" ]
+node_connections = [ "output", 0, "Blend2_2", "Blend2_2", 0, "Blend2_1", "Blend2_2", 1, "Gun_Sprint-loop", "Blend2_1", 0, "Gun_Stand_Idle-loop", "Blend2_1", 1, "Gun_Walk-loop" ]
 
 [node name="PlayerKB" type="KinematicBody"]
 script = ExtResource( 1 )
@@ -95,6 +95,7 @@ shape = SubResource( 2 )
 transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0 )
 
 [node name="Skeleton" type="Skeleton" parent="Rotation_Helper/Model"]
+editor/display_folded = true
 bones_in_world_transform = true
 bones/0/name = "Bag_Retopo_Bag_Low_Bag_Retopo_Hips"
 bones/0/parent = -1
@@ -270,7 +271,7 @@ bones/34/name = "Bag_Retopo_Bag_Low_Bag_Retopo_RightHand"
 bones/34/parent = 33
 bones/34/rest = Transform( 0.981034, -0.126859, 0.146557, 0.182329, 0.860565, -0.475589, -0.0657895, 0.493291, 0.867373, 2.6226e-006, 2.37448, -5.72205e-006 )
 bones/34/enabled = true
-bones/34/bound_children = [ NodePath("BoneAttachment") ]
+bones/34/bound_children = [  ]
 bones/35/name = "Bag_Retopo_Bag_Low_Bag_Retopo_RightHandThumb1"
 bones/35/parent = 34
 bones/35/rest = Transform( 0.952003, 0.286524, -0.107675, -0.306087, 0.891154, -0.334895, 4.91738e-007, 0.35178, 0.936083, 0.382567, 0.463755, 0.209923 )
@@ -427,7 +428,7 @@ mesh = SubResource( 3 )
 material/0 = SubResource( 4 )
 
 [node name="BoneAttachment" type="BoneAttachment" parent="Rotation_Helper/Model/Skeleton"]
-transform = Transform( 0.364375, 0.872836, 0.324631, 0.875151, -0.44011, 0.20103, 0.31834, 0.210854, -0.924229, -1.38798, 12.0286, 2.13396 )
+transform = Transform( 0.344361, 0.870635, 0.351296, 0.886161, -0.425003, 0.184637, 0.310053, 0.247727, -0.917876, -1.41252, 12.0693, 2.13554 )
 bone_name = "Bag_Retopo_Bag_Low_Bag_Retopo_RightHand"
 
 [node name="MeshInstance" type="MeshInstance" parent="Rotation_Helper/Model/Skeleton/BoneAttachment"]
