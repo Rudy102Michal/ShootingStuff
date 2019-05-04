@@ -47,6 +47,6 @@ func update_players():
 	for player in players:
 		var player_node = get_tree().get_root().find_node(player, true, false) as Spatial
 		player_node.visible = connected_devices.values().has(player)
-	var GameLobbyHud = get_tree().get_root().find_node("GameLobbyHUD", true, false) as Node2D
+	var GameLobbyHud = get_tree().get_root().find_node("GameLobbyHUD", true, false) as MarginContainer
 	GameLobbyHud.menu_visible = connected_devices.size() > 0
 	GameLobbyHud.invitation_visible = connected_devices.size() < players.size()

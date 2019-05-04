@@ -109,42 +109,77 @@ transform = Transform( 0.0324072, 0, -0.0380759, 0, 0.05, 0, 0.0380759, 0, 0.032
 visible = false
 texture = ExtResource( 7 )
 
-[node name="GameLobbyHUD" type="Node2D" parent="."]
+[node name="GameLobbyHUD" type="MarginContainer" parent="."]
+margin_left = 16.0
+margin_top = 18.0
+margin_right = 1008.0
+margin_bottom = 582.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
 script = ExtResource( 8 )
 
-[node name="Invitation" type="Label" parent="GameLobbyHUD"]
-margin_left = 579.0
-margin_top = 508.0
-margin_right = 1023.0
-margin_bottom = 599.0
-size_flags_vertical = 1
-custom_fonts/font = SubResource( 6 )
-text = "PRESS ANY KEY TO JOIN"
-align = 1
-valign = 1
+[node name="HBoxContainer" type="HBoxContainer" parent="GameLobbyHUD"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 982.0
+margin_bottom = 554.0
+alignment = 1
 
-[node name="Loading" type="Label" parent="GameLobbyHUD"]
-visible = false
-margin_left = 1.0
-margin_top = 1.0
-margin_right = 1025.0
-margin_bottom = 599.0
-size_flags_vertical = 1
+[node name="Loading" type="Label" parent="GameLobbyHUD/HBoxContainer"]
+margin_right = 972.0
+margin_bottom = 544.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 custom_fonts/font = SubResource( 6 )
 text = "Loading..."
 align = 1
 valign = 1
 
-[node name="Menu" type="Node2D" parent="GameLobbyHUD"]
+[node name="VSplitContainer" type="VSplitContainer" parent="GameLobbyHUD"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 982.0
+margin_bottom = 554.0
 
-[node name="Start New Game" type="Label" parent="GameLobbyHUD/Menu"]
-margin_left = 0.606689
-margin_top = 329.607
-margin_right = 444.607
-margin_bottom = 420.607
+[node name="HBoxContainer" type="HBoxContainer" parent="GameLobbyHUD/VSplitContainer"]
+margin_right = 972.0
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="GameLobbyHUD/VSplitContainer"]
+margin_top = 12.0
+margin_right = 972.0
+margin_bottom = 544.0
+
+[node name="Menu" type="MarginContainer" parent="GameLobbyHUD/VSplitContainer/HBoxContainer3"]
+editor/display_folded = true
+margin_right = 278.0
+margin_bottom = 532.0
+
+[node name="Start New Game" type="Label" parent="GameLobbyHUD/VSplitContainer/HBoxContainer3/Menu"]
+margin_right = 278.0
+margin_bottom = 532.0
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 6 )
 text = "START NEW GAME"
 align = 1
 valign = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="GameLobbyHUD/VSplitContainer"]
+margin_top = 51.0
+margin_right = 980.0
+margin_bottom = 558.0
+alignment = 2
+
+[node name="Invitation" type="Label" parent="GameLobbyHUD/VSplitContainer/HBoxContainer2"]
+margin_left = 618.0
+margin_right = 980.0
+margin_bottom = 507.0
+size_flags_vertical = 1
+custom_fonts/font = SubResource( 6 )
+text = "PRESS ANY KEY TO JOIN"
+align = 1
+valign = 2
 

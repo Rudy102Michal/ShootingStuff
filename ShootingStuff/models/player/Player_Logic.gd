@@ -19,7 +19,6 @@ var animation_tree : AnimationTree
 var velocity : Vector3
 var old_velocity : Vector3
 
-
 func _ready():
 	velocity = Vector3(0.0, 0.0, 0.0)
 	old_velocity = velocity
