@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://materials/rock3.material" type="Material" id=1]
+[ext_resource path="res://models/environment/rock03.obj" type="ArrayMesh" id=2]
+
+[sub_resource type="SphereShape" id=1]
+radius = 1.6
+
+[node name="rock3" type="StaticBody"]
+transform = Transform( 2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1.00169, 0, -0.417533, 0, 0.7, 0, 0.564898, 0, 0.740382, 0.230699, 0.486238, 0.0248746 )
+shape = SubResource( 1 )
+
+[node name="model" type="MeshInstance" parent="."]
+transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0.95842, 3.53574, 3.43002 )
+material_override = ExtResource( 1 )
+mesh = ExtResource( 2 )
+material/0 = null
+

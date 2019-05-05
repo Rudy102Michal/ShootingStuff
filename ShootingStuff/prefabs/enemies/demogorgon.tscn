@@ -72,9 +72,10 @@ shape = SubResource( 2 )
 transform = Transform( -0.855089, 0, -0.518482, 0, 1, 0, 0.518482, 0, -0.855089, 0, 0, 0 )
 
 [node name="Model" type="Spatial" parent="RotationHelper"]
-transform = Transform( 1.83947, 0, -0.78509, 0, 2, 0, 0.78509, 0, 1.83947, -0.378227, -0.00719124, -0.127879 )
+transform = Transform( 1.83355, 0.291949, -0.743564, -0.0795105, 1.9191, 0.557445, 0.794859, -0.481488, 1.77098, -0.378227, 0.401126, -0.127879 )
 
 [node name="Skeleton" type="Skeleton" parent="RotationHelper/Model"]
+transform = Transform( 0.999826, -0.018614, 0.0012199, 0.0186142, 0.991273, -0.130503, 0.00121991, 0.130502, 0.991447, 0, 0, 0 )
 bones_in_world_transform = true
 bones/0/name = "mixamorig_Hips"
 bones/0/parent = -1
