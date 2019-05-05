@@ -2,7 +2,7 @@
 
 [ext_resource path="res://textures/cavern_background.png" type="Texture" id=1]
 [ext_resource path="res://scripts/players_manager.gd" type="Script" id=2]
-[ext_resource path="res://models/player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://models/player/player_menu.tscn" type="PackedScene" id=3]
 [ext_resource path="res://textures/player_red.png" type="Texture" id=4]
 [ext_resource path="res://textures/player_green.png" type="Texture" id=5]
 [ext_resource path="res://textures/player_yellow.png" type="Texture" id=6]

@@ -1,7 +1,7 @@
 extends Spatial
 
 # Base file for managing (spawning etc... ) enemies
-const DEMOGORGON = preload("res://models/demog/demogorgon.tscn")
+const DEMOGORGON = preload("res://models/demogorgon/demogorgon.tscn")
 onready var players_container = get_node("../Players")
 
 # Called when the node enters the scene tree for the first time.
