@@ -2,7 +2,7 @@
 
 [ext_resource path="res://scripts/Isometric_Camera.gd" type="Script" id=1]
 [ext_resource path="res://scripts/players_node_setup.gd" type="Script" id=2]
-[ext_resource path="res://prefabs/player/player_node.tscn" type="PackedScene" id=3]
+[ext_resource path="res://prefabs/player/player_ingame.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scripts/enemy_manager.gd" type="Script" id=4]
 [ext_resource path="res://prefabs/enemies/demogorgon.tscn" type="PackedScene" id=5]
 [ext_resource path="res://prefabs/environment/tree01.tscn" type="PackedScene" id=6]
@@ -15,12 +15,6 @@
 [ext_resource path="res://textures/cave3.png" type="Texture" id=13]
 [ext_resource path="res://textures/cave2.png" type="Texture" id=14]
 
-
-
-
-
-
-
 [sub_resource type="Environment" id=1]
 background_mode = 1
 background_energy = 3.68
@@ -30,17 +24,17 @@ ambient_light_energy = 1.1
 [node name="GameScene" type="Spatial"]
 
 [node name="SpotLight" type="SpotLight" parent="."]
-transform = Transform( 0.129255, -0.170128, -0.976908, -0.159173, -0.975957, 0.148902, -0.978753, 0.136251, -0.153228, -11.0116, -1.0291, 7.12119 )
+transform = Transform( 0.129255, -0.170128, -0.976908, -0.159173, -0.975957, 0.148902, -0.978753, 0.136251, -0.153227, -30.3186, 7.79039, 1.71385 )
 light_color = Color( 1, 0.301961, 0.164706, 1 )
-light_energy = 1.55
-light_indirect_energy = 3.31
-light_specular = 0.6
+light_energy = 5.98
+light_indirect_energy = 7.77
+light_specular = 0.81
 shadow_enabled = true
 shadow_bias = 0.7
-spot_range = 20.0
-spot_attenuation = 0.574349
-spot_angle = 55.5
-spot_angle_attenuation = 4.59479
+spot_range = 96.4
+spot_attenuation = 2.14355
+spot_angle = 58.2
+spot_angle_attenuation = 0.615572
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 1 )

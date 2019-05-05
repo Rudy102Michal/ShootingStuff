@@ -3,16 +3,17 @@
 [ext_resource path="res://models/environment/tree01.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://materials/tree.material" type="Material" id=2]
 
-[sub_resource type="BoxShape" id=3]
+[sub_resource type="CylinderShape" id=1]
+height = 6.95801
 
 [node name="tree1" type="StaticBody"]
 
-[node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -3.6, 0, 1, -1.57361e-07, 0, 3.42882, 0 )
-shape = SubResource( 3 )
-
-[node name="model" type="MeshInstance" parent="CollisionShape"]
-transform = Transform( 3.99185, 0.0154627, 0.254671, -0.25514, 0.241925, 3.98452, 5.77316e-15, -1.10907, 0.0673386, -0.122672, 0.112592, 0.0581107 )
+[node name="model" type="MeshInstance" parent="."]
+transform = Transform( 3.99185, 0.0154627, 0.254671, 1.11525e-08, 3.99265, -0.242419, -0.25514, 0.241925, 3.98452, -0.122672, 3.21962, 0.112592 )
 mesh = ExtResource( 1 )
 material/0 = ExtResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 0.996147, -0.0876797, 0.00202477, 0.087474, 0.991613, -0.0951409, 0.00633413, 0.0949514, 0.995462, -0.319176, 3.29672, 0.148957 )
+shape = SubResource( 1 )
 

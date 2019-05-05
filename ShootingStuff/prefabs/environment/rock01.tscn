@@ -3,18 +3,17 @@
 [ext_resource path="res://models/environment/rock01.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://materials/rock.material" type="Material" id=2]
 
-
-[sub_resource type="BoxShape" id=1]
+[sub_resource type="SphereShape" id=1]
 
 [node name="rock1" type="StaticBody"]
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0 )
 
-[node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.991079, 0 )
-shape = SubResource( 1 )
-
-[node name="model" type="MeshInstance" parent="CollisionShape"]
-transform = Transform( -0.191868, 0.0134144, -0.879208, 0.0964197, 0.89479, -0.00738919, 0.874008, -0.0957675, -0.192194, 0.00895631, -0.637021, 0.00414884 )
+[node name="model" type="MeshInstance" parent="."]
+transform = Transform( -0.191868, 0.0134144, -0.879208, -0.0367907, 0.898985, 0.021745, 0.87854, 0.0405765, -0.191103, 0.00895631, 0.248314, 0.00414884 )
 mesh = ExtResource( 1 )
 material/0 = ExtResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1.18642, 0, 0, 0, 0.92083, 0, 0, 0, 1.16213, 0, 0.557978, 0 )
+shape = SubResource( 1 )
 
