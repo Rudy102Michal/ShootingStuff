@@ -1,38 +1,25 @@
 extends Node
 
-var players = [
-	"PlayerA",
-	"PlayerB",
-	#"PlayerC",
-	#"PlayerD",
-]
-
-enum DEVICE_TYPE {
-	KEYBOARD,
-	PAD_1,
-	PAD_2,
-	PAD_3,
-	PAD_4,
-}
-
+var players
 var connected_devices = {}
 
 func _ready():
+	players = global.PLAYERS
 	for player in players:
 		var player_node = get_tree().get_root().find_node(player, true, false) as Spatial
 		player_node.visible = false
 
 func _unhandled_input(event):
 	if event is InputEventKey and event.pressed:
-		if !connected_devices.has(DEVICE_TYPE.KEYBOARD):
-			player_joined(DEVICE_TYPE.KEYBOARD)
+		if !connected_devices.has(global.DEVICE_TYPE.KEYBOARD):
+			player_joined(global.DEVICE_TYPE.KEYBOARD)
 		elif event.scancode == KEY_ESCAPE:
-			player_left(DEVICE_TYPE.KEYBOARD)
+			player_left(global.DEVICE_TYPE.KEYBOARD)
 	elif event is InputEventJoypadButton and event.pressed:
-		if !connected_devices.has(DEVICE_TYPE.PAD_1 + event.device):
-			player_joined(DEVICE_TYPE.PAD_1 + event.device)
+		if !connected_devices.has(global.DEVICE_TYPE.PAD_1 + event.device):
+			player_joined(global.DEVICE_TYPE.PAD_1 + event.device)
 		elif event is InputEventJoypadButton and event.button_index == 1: #B
-			player_left(DEVICE_TYPE.PAD_1 + event.device)
+			player_left(global.DEVICE_TYPE.PAD_1 + event.device)
 
 func player_joined(device):
 	if connected_devices.size() < players.size():
@@ -50,3 +37,4 @@ func update_players():
 	var GameLobbyHud = get_tree().get_root().find_node("GameLobbyHUD", true, false) as MarginContainer
 	GameLobbyHud.menu_visible = connected_devices.size() > 0
 	GameLobbyHud.invitation_visible = connected_devices.size() < players.size()
+	global.connected_devices = connected_devices 

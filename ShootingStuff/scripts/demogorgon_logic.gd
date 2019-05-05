@@ -34,8 +34,9 @@ func rotate_towards_nearest_player(delta):
 	
 	# TODO: Add proper logic for it here
 	if players_container != null:
-		var player_1_position = players_container.get_child(0).global_transform.origin
-		look_at(player_1_position, VECTOR_UP)
+		if players_container.get_child_count() > 0:
+			var player_1_position = players_container.get_child(0).global_transform.origin
+			look_at(player_1_position, VECTOR_UP)
 	
 func handle_movement(delta):
 		
