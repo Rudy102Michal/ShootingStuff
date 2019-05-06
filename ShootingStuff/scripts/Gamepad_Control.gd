@@ -16,15 +16,17 @@ func _ready():
 func _input(event):
 	if player_node != null and event is InputEventJoypadMotion:
 		var right_analog_axis = Vector2(Input.get_joy_axis(DEVICE, JOY_AXIS_2), -Input.get_joy_axis(DEVICE, JOY_AXIS_3))
-		#print(right_analog_axis.angle())
+		# TODO: Also does not take into account camera rotation
 		player_node.rotation = VECTOR_UP * (right_analog_axis.angle() + PI/2)
 
-func should_move_forward() -> bool:
-	return Input.get_joy_axis(DEVICE, JOY_AXIS_1) < 0.1 # this is not quite 0 "at rest"
+func should_move() -> bool:
+	return (abs(Input.get_joy_axis(DEVICE, JOY_AXIS_0)) >= 0.1
+	or abs(Input.get_joy_axis(DEVICE, JOY_AXIS_1)) >= 0.1) # this is not quite 0 "at rest"
 	
-func should_move_backward() -> bool:
-	#print(Input.get_joy_axis(DEVICE, JOY_AXIS_1))
-	return Input.get_joy_axis(DEVICE, JOY_AXIS_1) > 0.1 # this is not quite 0 "at rest"
+func get_move_direction() -> Vector3:
+	var base_vector = Vector3(1.0, 0.0, 0.0)
+	var angle = Vector2(Input.get_joy_axis(DEVICE, JOY_AXIS_0), -Input.get_joy_axis(DEVICE, JOY_AXIS_1)).angle()
+	return base_vector.rotated(VECTOR_UP, angle)
 	
 func should_start_sprint() -> bool:
 	return Input.is_action_just_pressed("move_sprint")

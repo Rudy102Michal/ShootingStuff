@@ -84,7 +84,7 @@ far = 519.5
 environment = SubResource( 3 )
 
 [node name="BackPlane" type="MeshInstance" parent="."]
-transform = Transform( 100, 0, 0, 0, -4.37114e-08, -50, 0, 1, -2.18557e-06, -8.17502, 6.63813, -42.199 )
+transform = Transform( 100, 0, 0, 0, -4.37114e-008, -50, 0, 1, -2.18557e-006, -8.17502, 6.63813, -42.199 )
 mesh = SubResource( 4 )
 material/0 = SubResource( 5 )
 
@@ -183,4 +183,3 @@ custom_fonts/font = SubResource( 6 )
 text = "PRESS ANY KEY TO JOIN"
 align = 1
 valign = 2
-

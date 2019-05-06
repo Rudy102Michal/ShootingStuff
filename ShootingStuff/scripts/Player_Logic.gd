@@ -30,9 +30,7 @@ func _physics_process(delta):
 func handle_player_movement(delta):
 	if control_node == null:
 		return
-		
-	var front_vec : Vector3 = get_global_transform().basis.z
-	var left_vec : Vector3 = FLOOR_NORMAL.cross(front_vec)
+	
 	var direction : Vector3 = Vector3(0.0, 0.0, 0.0)
 	
 	if control_node.should_start_sprint():
@@ -40,10 +38,8 @@ func handle_player_movement(delta):
 	if control_node.should_stop_sprint():
 		MAX_SPEED = 4.0
 	
-	if control_node.should_move_forward():
-		direction += front_vec
-	if control_node.should_move_backward():
-		direction += -front_vec
+	if control_node.should_move():
+		direction += control_node.get_move_direction()
 		
 	direction.y = 0.0
 	direction = direction.normalized()
