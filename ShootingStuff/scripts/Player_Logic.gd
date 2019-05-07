@@ -73,7 +73,8 @@ func handle_player_movement(delta):
 	
 	var walk_blend_value : float = min(velocity.length(), 1.0)
 	walk_blend_value *= walk_blend_value
-	animation_tree.set("parameters/Blend2_1/blend_amount", walk_blend_value)
+	walk_blend_value *= sign(direction.normalized().dot(front_vec))
+	animation_tree.set("parameters/Blend3_1/blend_amount", walk_blend_value)
 	
 	var sprint_blend_value : float = min(1.0, max(0, velocity.length() - 4.0))
 	animation_tree.set("parameters/Blend2_2/blend_amount", sprint_blend_value)
