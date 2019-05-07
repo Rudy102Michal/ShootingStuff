@@ -1,6 +1,11 @@
 extends Node
 
-const PLAYERS = [
+const Device = preload("res://scripts/InputDevices/device.gd")
+const Gamepad = preload("res://scripts/InputDevices/gamepad.gd")
+const Keyboard = preload("res://scripts/InputDevices/keyboard.gd")
+const Player = preload("res://scripts/player.gd")
+
+const PLAYER_NAMES = [
 	"PlayerA",
 	"PlayerB",
 	#"PlayerC",
@@ -15,4 +20,12 @@ enum DEVICE_TYPE {
 	PAD_4,
 }
 
-var connected_devices = {}
+var players: Array = []
+var connected_devices: Dictionary = { 0: Keyboard.new() }
+
+func _init():
+	for pad_id in Input.get_connected_joypads():
+		connected_devices[DEVICE_TYPE.PAD_1 + pad_id] = Gamepad.new(pad_id)
+
+func _on_joy_connection_changed(device_id, connected):
+	pass
