@@ -60,7 +60,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.48381, 0, 0 )
 script = ExtResource( 4 )
 
 [node name="DemogorgonKB" parent="StuffOnScreen/Enemies" instance=ExtResource( 5 )]
-transform = Transform( -0.995181, 0, 0.0980572, 0, 1, 0, -0.0980572, 0, -0.995181, 14.1982, -6.52514, -7.37829 )
+transform = Transform( -0.995181, 0, 0.0980572, 0, 1, 0, -0.0980572, 0, -0.995181, 14.1982, -6.52514, 4.23854 )
 
 [node name="tree1" parent="StuffOnScreen" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.8971, -7.28028, 6.9424 )
@@ -93,9 +93,6 @@ __meta__ = {
 "_edit_lock_": true,
 "_editor_icon": ExtResource( 11 )
 }
-collision_enabled = true
-ambient_wind = 0.0
-lod_scale = 2.0
 map_scale = Vector3( 0.2, 0.2, 0.2 )
 _terrain_data = ExtResource( 12 )
 chunk_size = 16
