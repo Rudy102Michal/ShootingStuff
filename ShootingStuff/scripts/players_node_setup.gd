@@ -13,7 +13,7 @@ func _ready():
 	if global.connected_devices.size() == 0:
 		# This "if" is for test purposes only - when playing ONLY playground.tscn (not from GameLobby)
 		$PlayerA.attach_control_node(keyboard_control)
-		# $PlayerB.queue_free()
+		$PlayerB.queue_free()
 		return
 		
 	# We check if player is connected. If yes, we attach control device, if not, we queue_free him
