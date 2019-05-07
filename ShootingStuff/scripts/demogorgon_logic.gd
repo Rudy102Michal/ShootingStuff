@@ -11,6 +11,7 @@ const VECTOR_UP : Vector3 = Vector3(0.0, 1.0, 0.0)
 const MAX_ROTATION_ANGLE : float = PI * 0.75;
 const VIEW_DISTANCE : float = 50.0
 const DEMOGORGON_FOV : float = PI * 0.9 # about 160 degrees
+const AGGRO_MOD : float = 3.0
 
 # Controls
 var animation_tree : AnimationTree 
@@ -34,7 +35,7 @@ func _ready():
 	old_velocity = velocity
 	if players_container == null: # This is for test purposes only
 		set_players_container(get_node("../../Players"))
-	#animation_tree = $Rotation_Helper/Model/AnimationTree
+	animation_tree = $RotationHelper/Model/AnimationTree
 	pass
 
 func _physics_process(delta):
@@ -84,8 +85,11 @@ func check_if_player_seen():
 		var vector_dot = front_vec.dot(vector_to_player)
 		var angle_between_vectors = front_vec.angle_to(vector_to_player)
 		if abs(angle_between_vectors) <= DEMOGORGON_FOV / 2.0:
+			# player spotted, the hunt begins
 			seen_player = player
-			patrolling = false # player spotted, the hunt begins
+			patrolling = false
+			animation_tree["parameters/OneShot/active"] = true
+			animation_tree["parameters/Blend2/blend_amount"] = 1.0
 			return
 	pass
 	
@@ -104,8 +108,9 @@ func handle_movement(delta):
 	var hv : Vector3 = velocity
 	hv.y = 0
 	
-	var new_pos : Vector3 = direction * MAX_SPEED
+	var new_pos : Vector3 = direction * (MAX_SPEED * AGGRO_MOD if (not patrolling) else MAX_SPEED)
 	var acceleration = ACCELERATION if direction.dot(hv) > 0 else DE_ACCELERATION
+	acceleration = acceleration * AGGRO_MOD if (not patrolling) else acceleration
 	
 	hv = hv.linear_interpolate(new_pos, acceleration * delta)
 	hv.y = 0.0
@@ -113,7 +118,8 @@ func handle_movement(delta):
 	velocity.x = hv.x
 	velocity.z = hv.z
 	
-	velocity = move_and_slide(velocity, VECTOR_UP)
+	if not animation_tree["parameters/OneShot/active"]:
+		velocity = move_and_slide(velocity, VECTOR_UP)
 	pass
 	
 func set_players_container(value):
