@@ -67,12 +67,23 @@ func handle_player_movement(delta):
 #		var asm : AnimationNodeStateMachinePlayback = animation_tree["parameters/playback"]
 #		asm.travel("Gun_Stand_Idle")
 	
+	if control_node.is_shooting():
+		animation_tree.set("parameters/Blend2_1/blend_amount", 1.0)
+	else:
+		animation_tree.set("parameters/Blend2_1/blend_amount", 0.0)
+	
 	var walk_blend_value : float = min(velocity.length(), 1.0)
 	walk_blend_value *= walk_blend_value
-	animation_tree.set("parameters/Blend2_1/blend_amount", walk_blend_value)
+	walk_blend_value *= sign(direction.normalized().dot(front_vec))
+	animation_tree.set("parameters/Blend3_1/blend_amount", walk_blend_value)
+	animation_tree.set("parameters/Blend2_3/blend_amount", walk_blend_value)
 	
 	var sprint_blend_value : float = min(1.0, max(0, velocity.length() - 4.0))
 	animation_tree.set("parameters/Blend2_2/blend_amount", sprint_blend_value)
+	
+	if control_node.should_throw_grenade():
+		animation_tree.set("parameters/OneShot_Grenade/active", true)
+	
 #	print(walk_blend_value)
 #	old_velocity = velocity
 

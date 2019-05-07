@@ -45,5 +45,11 @@ func should_start_sprint() -> bool:
 func should_stop_sprint() -> bool:
 	return Input.is_action_just_released("move_sprint")
 	
+func should_throw_grenade() -> bool:
+	return Input.is_action_just_pressed("shoot_secondary")
+	
+func is_shooting() -> bool:
+	return Input.is_action_pressed("shoot_primary")
+	
 func attach_player_node(node : KinematicBody) -> void:
 	player_node = node
