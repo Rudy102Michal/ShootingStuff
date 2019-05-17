@@ -14,6 +14,8 @@ const FLOOR_NORMAL : Vector3 = Vector3(0, 1.0, 0.0)
 # Controls
 var control_node : Node = null
 var animation_tree : AnimationTree 
+var weapon_muzzle_node : Position3D
+var shooting_node : Spatial
 
 # Movement
 var velocity : Vector3
@@ -23,6 +25,8 @@ func _ready():
 	velocity = Vector3(0.0, 0.0, 0.0)
 	old_velocity = velocity
 	animation_tree = $Rotation_Helper/Model/AnimationTree
+	weapon_muzzle_node = $Rotation_Helper/Model/Skeleton/BoneAttachment/Weapon/Position3D
+	shooting_node = $"../../Bullets"
 	
 func _physics_process(delta):
 	handle_player_movement(delta)
@@ -73,6 +77,7 @@ func handle_player_movement(delta):
 	
 	if control_node.is_shooting():
 		animation_tree.set("parameters/Blend2_1/blend_amount", 1.0)
+		shooting_node.shoot(weapon_muzzle_node)
 	else:
 		animation_tree.set("parameters/Blend2_1/blend_amount", 0.0)
 	
