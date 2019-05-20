@@ -9,5 +9,5 @@ material_override = ExtResource( 1 )
 mesh = ExtResource( 2 )
 material/0 = null
 
-[node name="Position3D" type="Position3D" parent="."]
+[node name="BarrelPosition" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -45.8738, 9.58359, 0 )

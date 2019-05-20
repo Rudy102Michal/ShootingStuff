@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://models/player/shotgun-zx-76.dae.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://materials/shotgun.material" type="Material" id=2]
+
+[node name="shotgun-zx-76" type="MeshInstance"]
+mesh = ExtResource( 1 )
+material/0 = ExtResource( 2 )
+material/1 = ExtResource( 2 )
+material/2 = ExtResource( 2 )
+material/3 = ExtResource( 2 )
+material/4 = ExtResource( 2 )
+material/5 = ExtResource( 2 )
+material/6 = ExtResource( 2 )
+material/7 = ExtResource( 2 )
+material/8 = ExtResource( 2 )
+material/9 = ExtResource( 2 )
+material/10 = ExtResource( 2 )
+material/11 = ExtResource( 2 )
+material/12 = ExtResource( 2 )
+
+[node name="BarrelPosition" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.158579, -1.01437 )

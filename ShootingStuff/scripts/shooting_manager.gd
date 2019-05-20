@@ -15,17 +15,31 @@ func _ready():
 	add_child(shoot_timer)
 	pass
 
-func shoot(muzzle_node : Position3D):
+func shoot(barrel_node : Position3D, weapon_name : String):
+	match weapon_name:
+		"XCom_rifle":
+			shoot_xcom(barrel_node)
+		"shotgun-zx-76":
+			shoot_shotgun(barrel_node)
+			
+	
+func shoot_xcom(barrel_node : Position3D):
 	if not xcom_can_shoot:
 		return
 	xcom_can_shoot = false
 	shoot_timer.start()
-	var muzzle_transform = muzzle_node.global_transform
+	var muzzle_transform = barrel_node.global_transform
 	var muzzle_front_vec : Vector3 = -muzzle_transform.basis.x
 	var b = XCOM_BULLET.instance()
 	b.global_transform = muzzle_transform
 	b.shot_direction = muzzle_front_vec.normalized()
 	add_child(b)
+	pass
+	
+func shoot_shotgun(barrel_node : Position3D):
+	print("shotgun shot")
+	# TODO
+	
 	pass
 	
 func handle_hit(enemy : Object):
