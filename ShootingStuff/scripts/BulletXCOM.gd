@@ -4,7 +4,7 @@ var timeout : float
 var shot_direction : Vector3
 var velocity : Vector3
 var particle_scale : float
-const SPEED = 0.3
+const SPEED = 50.0
 
 onready var shooting_manager : Spatial = get_parent()
 
@@ -19,7 +19,7 @@ func _physics_process(delta):
 	timeout -= delta
 	if timeout <= 0:
 		self.queue_free()
-	var collision : KinematicCollision = move_and_collide(velocity)
+	var collision : KinematicCollision = move_and_collide(velocity * delta)
 	if collision != null:
 		if collision.collider != null:
 			if collision.collider.is_in_group("enemies"):
