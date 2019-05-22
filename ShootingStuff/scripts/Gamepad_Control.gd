@@ -20,7 +20,7 @@ func _input(event):
 		player_node.rotation = VECTOR_UP * (right_analog_axis.angle() + PI/2)
 
 func should_move_forward() -> bool:
-	return Input.get_joy_axis(DEVICE, JOY_AXIS_1) < 0.1 # this is not quite 0 "at rest"
+	return Input.get_joy_axis(DEVICE, JOY_AXIS_1) < -0.1 # this is not quite 0 "at rest"
 	
 func should_move_backward() -> bool:
 	#print(Input.get_joy_axis(DEVICE, JOY_AXIS_1))
