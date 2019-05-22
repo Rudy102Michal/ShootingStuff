@@ -40,14 +40,9 @@ func _physics_process(delta):
 		distances[1] = distances[1].normalized() * min_dist
 		var projected_player1_pos : Vector2 = unproject_position(global_transform.origin + distances[0])
 		var projected_player2_pos : Vector2 = unproject_position(global_transform.origin + distances[1])
-		#var distance = min((players[0].global_transform.origin - global_transform.origin).length(), (players[1].global_transform.origin - global_transform.origin).length())
-		#print(distance)
 		var fov_change : float = atan((abs(projected_player1_pos.y - projected_player2_pos.y) + edge_border) / (2 * global_transform.origin.distance_to((distances[0] + distances[1]) * 0.5)));
-		#fov_change = max(fov_change, 
 		fov = min(max(70, rad2deg(fov_change)), 90)
-		print(fov)
-		#print(max(70, rad2deg(fov_change)))
-	
+		
 	look_at_from_position(cam_position, at_target, VECTOR_UP)	
 			
 func _get_player_dependant_fov(player_origin : Vector3) -> float:
