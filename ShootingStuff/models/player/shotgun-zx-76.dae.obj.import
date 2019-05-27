@@ -1,0 +1,18 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/shotgun-zx-76.dae.obj-8b86b3d2df953654b12fe442d0ee9d0f.mesh"
+
+[deps]
+
+files=[ "res://.import/shotgun-zx-76.dae.obj-8b86b3d2df953654b12fe442d0ee9d0f.mesh" ]
+
+source_file="res://models/player/shotgun-zx-76.dae.obj"
+dest_files=[ "res://.import/shotgun-zx-76.dae.obj-8b86b3d2df953654b12fe442d0ee9d0f.mesh", "res://.import/shotgun-zx-76.dae.obj-8b86b3d2df953654b12fe442d0ee9d0f.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+optimize_mesh=true

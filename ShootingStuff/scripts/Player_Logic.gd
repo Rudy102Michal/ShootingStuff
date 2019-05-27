@@ -13,7 +13,13 @@ const FLOOR_NORMAL : Vector3 = Vector3(0, 1.0, 0.0)
 
 # Controls
 var control_node : Node = null
-var animation_tree : AnimationTree 
+var animation_tree : AnimationTree
+
+# Weapons variables
+var weapons_node : BoneAttachment
+var current_weapon_node : MeshInstance
+var shooting_node : Spatial
+var weapons_count : int
 
 # Movement
 var velocity : Vector3
@@ -23,6 +29,13 @@ func _ready():
 	velocity = Vector3(0.0, 0.0, 0.0)
 	old_velocity = velocity
 	animation_tree = $Rotation_Helper/Model/AnimationTree
+	weapons_node = $Rotation_Helper/Model/Skeleton/BoneAttachment
+	for weapon in weapons_node.get_children():
+		weapon.visible = false
+	current_weapon_node = weapons_node.get_children()[0] # starting weapon is xcom_rifle
+	current_weapon_node.visible = true
+	weapons_count = weapons_node.get_child_count()
+	shooting_node = $"../../Bullets"
 	
 func _physics_process(delta):
 	handle_player_movement(delta)
@@ -73,8 +86,12 @@ func handle_player_movement(delta):
 	
 	if control_node.is_shooting():
 		animation_tree.set("parameters/Blend2_1/blend_amount", 1.0)
+		shooting_node.shoot(get_barrel_position(), current_weapon_node.name)
 	else:
 		animation_tree.set("parameters/Blend2_1/blend_amount", 0.0)
+		
+	if control_node.should_change_weapon():
+		change_weapon()
 	
 	var walk_blend_value : float = min(velocity.length(), 1.0)
 	walk_blend_value *= walk_blend_value
@@ -96,3 +113,18 @@ func attach_control_node(node : Node) -> void:
 	control_node = node
 	control_node.attach_player_node(self)
 	# Other stuff to trigger, maybe
+	
+func change_weapon() -> void:
+	for index in range(weapons_count):
+		if weapons_node.get_children()[index].visible:
+			weapons_node.get_children()[index].visible = false
+			if index + 1 == weapons_count: # Last weapon, cycle back to 1
+				current_weapon_node = weapons_node.get_children()[0] as MeshInstance
+				current_weapon_node.visible = true
+			else: 
+				current_weapon_node = weapons_node.get_children()[index + 1] as MeshInstance
+				current_weapon_node.visible = true
+			return
+
+func get_barrel_position() -> Position3D:
+	return current_weapon_node.get_node("./BarrelPosition") as Position3D

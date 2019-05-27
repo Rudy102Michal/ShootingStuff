@@ -3,8 +3,8 @@
 [ext_resource path="res://scripts/Player_Logic.gd" type="Script" id=1]
 [ext_resource path="res://textures/player/tex_diffuse.png" type="Texture" id=2]
 [ext_resource path="res://textures/player/tex_normal.png" type="Texture" id=3]
-[ext_resource path="res://materials/XCOM_rifle.material" type="Material" id=4]
-[ext_resource path="res://models/player/XCom_rifle.obj" type="ArrayMesh" id=5]
+[ext_resource path="res://prefabs/player/XCom_rifle.tscn" type="PackedScene" id=4]
+[ext_resource path="res://prefabs/player/shotgun-zx-76.tscn" type="PackedScene" id=5]
 [ext_resource path="res://animations/player/Crouch_Idle.tres" type="Animation" id=6]
 [ext_resource path="res://animations/player/Crouch_Shoot.tres" type="Animation" id=7]
 [ext_resource path="res://animations/player/Crouch_Walk.tres" type="Animation" id=8]
@@ -119,7 +119,7 @@ nodes/Stand_Shoot-loop/position = Vector2( 60, 380 )
 nodes/Walk_Shoot-loop/node = SubResource( 19 )
 nodes/Walk_Shoot-loop/position = Vector2( 60, 520 )
 nodes/output/position = Vector2( 1560, 220 )
-node_connections = [ "output", 0, "OneShot_Dash", "Blend2_1", 0, "Blend3_1", "Blend2_1", 1, "Blend2_3", "OneShot_Grenade", 0, "Blend2_2", "OneShot_Grenade", 1, "Grenade_Throw", "Blend2_3", 0, "Stand_Shoot-loop", "Blend2_3", 1, "Walk_Shoot-loop", "Blend3_1", 0, "Gun_Walk_Back-loop", "Blend3_1", 1, "Gun_Stand_Idle-loop", "Blend3_1", 2, "Gun_Walk-loop", "Blend2_2", 0, "Blend2_1", "Blend2_2", 1, "Gun_Sprint-loop", "OneShot_Dash", 0, "OneShot_Grenade", "OneShot_Dash", 1, "Dash_Roll" ]
+node_connections = [ "output", 0, "OneShot_Dash", "Blend2_1", 0, "Blend3_1", "Blend2_1", 1, "Blend2_3", "OneShot_Grenade", 0, "Blend2_2", "OneShot_Grenade", 1, "Grenade_Throw", "OneShot_Dash", 0, "OneShot_Grenade", "OneShot_Dash", 1, "Dash_Roll", "Blend3_1", 0, "Gun_Walk_Back-loop", "Blend3_1", 1, "Gun_Stand_Idle-loop", "Blend3_1", 2, "Gun_Walk-loop", "Blend2_3", 0, "Stand_Shoot-loop", "Blend2_3", 1, "Walk_Shoot-loop", "Blend2_2", 0, "Blend2_1", "Blend2_2", 1, "Gun_Sprint-loop" ]
 
 [node name="PlayerKB" type="KinematicBody"]
 script = ExtResource( 1 )
@@ -313,7 +313,7 @@ bones/34/name = "Bag_Retopo_Bag_Low_Bag_Retopo_RightHand"
 bones/34/parent = 33
 bones/34/rest = Transform( 0.981034, -0.126859, 0.146557, 0.182329, 0.860565, -0.475589, -0.0657895, 0.493291, 0.867373, 2.6226e-006, 2.37448, -5.72205e-006 )
 bones/34/enabled = true
-bones/34/bound_children = [ NodePath("BoneAttachment") ]
+bones/34/bound_children = [  ]
 bones/35/name = "Bag_Retopo_Bag_Low_Bag_Retopo_RightHandThumb1"
 bones/35/parent = 34
 bones/35/rest = Transform( 0.952003, 0.286524, -0.107675, -0.306087, 0.891154, -0.334895, 4.91738e-007, 0.35178, 0.936083, 0.382567, 0.463755, 0.209923 )
@@ -470,14 +470,14 @@ mesh = SubResource( 3 )
 material/0 = SubResource( 4 )
 
 [node name="BoneAttachment" type="BoneAttachment" parent="Rotation_Helper/Model/Skeleton"]
-transform = Transform( 0.395974, 0.867996, 0.299642, 0.854478, -0.467794, 0.225909, 0.336259, 0.166586, -0.926918, -0.907711, 12.0318, 2.23316 )
+transform = Transform( 0.347303, 0.854986, 0.385198, 0.876461, -0.44202, 0.190872, 0.333459, 0.271324, -0.902878, -1.08618, 12.0594, 2.23633 )
 bone_name = "Bag_Retopo_Bag_Low_Bag_Retopo_RightHand"
 
-[node name="Weapon" type="MeshInstance" parent="Rotation_Helper/Model/Skeleton/BoneAttachment"]
-transform = Transform( -0.0289847, 0.0949914, -0.0116857, -0.0951063, -0.0299535, -0.00758761, -0.0107084, 0.00891392, 0.0990252, 1.01631, 2.48496, 0.525325 )
-material_override = ExtResource( 4 )
-mesh = ExtResource( 5 )
-material/0 = null
+[node name="XCom_rifle" parent="Rotation_Helper/Model/Skeleton/BoneAttachment" instance=ExtResource( 4 )]
+transform = Transform( -0.012627, 0.0971998, -0.0198184, -0.0991492, -0.0130029, -0.000602575, -0.00316251, 0.0195734, 0.0980158, 0.617697, 1.64744, 0.683533 )
+
+[node name="shotgun-zx-76" parent="Rotation_Helper/Model/Skeleton/BoneAttachment" instance=ExtResource( 5 )]
+transform = Transform( 1.10029, 3.83647, -0.266401, -0.0641675, -0.258723, -3.99108, -3.84515, 1.10212, -0.00963849, 0.58779, 3.49523, 0.112236 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Rotation_Helper/Model"]
 anims/Crouch_Idle = ExtResource( 6 )

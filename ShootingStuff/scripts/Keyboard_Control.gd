@@ -34,6 +34,9 @@ func should_stop_sprint() -> bool:
 	
 func should_throw_grenade() -> bool:
 	return Input.is_action_just_pressed("shoot_secondary")
+
+func should_change_weapon() -> bool:
+	return Input.is_action_just_pressed("action_change_weapon")
 	
 func is_shooting() -> bool:
 	return Input.is_action_pressed("shoot_primary")

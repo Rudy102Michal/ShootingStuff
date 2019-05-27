@@ -35,6 +35,9 @@ func should_stop_sprint() -> bool:
 func should_throw_grenade() -> bool:
 	return false
 	
+func should_change_weapon() -> bool:
+	return false
+	
 func is_shooting() -> bool:
 	return false
 	
