@@ -119,7 +119,7 @@ nodes/Stand_Shoot-loop/position = Vector2( 60, 380 )
 nodes/Walk_Shoot-loop/node = SubResource( 19 )
 nodes/Walk_Shoot-loop/position = Vector2( 60, 520 )
 nodes/output/position = Vector2( 1560, 220 )
-node_connections = [ "output", 0, "OneShot_Dash", "Blend2_1", 0, "Blend3_1", "Blend2_1", 1, "Blend2_3", "OneShot_Grenade", 0, "Blend2_2", "OneShot_Grenade", 1, "Grenade_Throw", "OneShot_Dash", 0, "OneShot_Grenade", "OneShot_Dash", 1, "Dash_Roll", "Blend3_1", 0, "Gun_Walk_Back-loop", "Blend3_1", 1, "Gun_Stand_Idle-loop", "Blend3_1", 2, "Gun_Walk-loop", "Blend2_3", 0, "Stand_Shoot-loop", "Blend2_3", 1, "Walk_Shoot-loop", "Blend2_2", 0, "Blend2_1", "Blend2_2", 1, "Gun_Sprint-loop" ]
+node_connections = [ "output", 0, "OneShot_Dash", "Blend2_2", 0, "Blend2_1", "Blend2_2", 1, "Gun_Sprint-loop", "OneShot_Grenade", 0, "Blend2_2", "OneShot_Grenade", 1, "Grenade_Throw", "OneShot_Dash", 0, "OneShot_Grenade", "OneShot_Dash", 1, "Dash_Roll", "Blend2_3", 0, "Stand_Shoot-loop", "Blend2_3", 1, "Walk_Shoot-loop", "Blend2_1", 0, "Blend3_1", "Blend2_1", 1, "Blend2_3", "Blend3_1", 0, "Gun_Walk_Back-loop", "Blend3_1", 1, "Gun_Stand_Idle-loop", "Blend3_1", 2, "Gun_Walk-loop" ]
 
 [node name="PlayerKB" type="KinematicBody"]
 script = ExtResource( 1 )
@@ -313,7 +313,7 @@ bones/34/name = "Bag_Retopo_Bag_Low_Bag_Retopo_RightHand"
 bones/34/parent = 33
 bones/34/rest = Transform( 0.981034, -0.126859, 0.146557, 0.182329, 0.860565, -0.475589, -0.0657895, 0.493291, 0.867373, 2.6226e-006, 2.37448, -5.72205e-006 )
 bones/34/enabled = true
-bones/34/bound_children = [  ]
+bones/34/bound_children = [ NodePath("BA_RightHand") ]
 bones/35/name = "Bag_Retopo_Bag_Low_Bag_Retopo_RightHandThumb1"
 bones/35/parent = 34
 bones/35/rest = Transform( 0.952003, 0.286524, -0.107675, -0.306087, 0.891154, -0.334895, 4.91738e-007, 0.35178, 0.936083, 0.382567, 0.463755, 0.209923 )
@@ -469,15 +469,20 @@ bones/64/bound_children = [  ]
 mesh = SubResource( 3 )
 material/0 = SubResource( 4 )
 
-[node name="BoneAttachment" type="BoneAttachment" parent="Rotation_Helper/Model/Skeleton"]
-transform = Transform( 0.347303, 0.854986, 0.385198, 0.876461, -0.44202, 0.190872, 0.333459, 0.271324, -0.902878, -1.08618, 12.0594, 2.23633 )
+[node name="BA_RightHand" type="BoneAttachment" parent="Rotation_Helper/Model/Skeleton"]
+transform = Transform( 0.395851, 0.868059, 0.299623, 0.854533, -0.467673, 0.225951, 0.336264, 0.166598, -0.926914, -0.91022, 12.0316, 2.23236 )
 bone_name = "Bag_Retopo_Bag_Low_Bag_Retopo_RightHand"
 
-[node name="XCom_rifle" parent="Rotation_Helper/Model/Skeleton/BoneAttachment" instance=ExtResource( 4 )]
-transform = Transform( -0.012627, 0.0971998, -0.0198184, -0.0991492, -0.0130029, -0.000602575, -0.00316251, 0.0195734, 0.0980158, 0.617697, 1.64744, 0.683533 )
+[node name="Weapon" type="Spatial" parent="Rotation_Helper/Model/Skeleton/BA_RightHand"]
+transform = Transform( 1, 1.86265e-008, 0, 7.45058e-009, 1, -1.49012e-008, 0, 1.49012e-008, 1, 0, 0, 0 )
 
-[node name="shotgun-zx-76" parent="Rotation_Helper/Model/Skeleton/BoneAttachment" instance=ExtResource( 5 )]
-transform = Transform( 1.10029, 3.83647, -0.266401, -0.0641675, -0.258723, -3.99108, -3.84515, 1.10212, -0.00963849, 0.58779, 3.49523, 0.112236 )
+[node name="XCom_rifle" parent="Rotation_Helper/Model/Skeleton/BA_RightHand/Weapon" instance=ExtResource( 4 )]
+transform = Transform( -0.012627, 0.0971998, -0.0198184, -0.0991492, -0.0130029, -0.000602571, -0.00316251, 0.0195734, 0.0980158, 0.617697, 1.64744, 0.683533 )
+
+[node name="shotgun-zx-76" parent="Rotation_Helper/Model/Skeleton/BA_RightHand/Weapon" instance=ExtResource( 5 )]
+transform = Transform( 1.10029, 3.83647, -0.266401, -0.0641676, -0.258723, -3.99108, -3.84515, 1.10212, -0.00963855, 0.587789, 3.49523, 0.112236 )
+
+[node name="BA_LeftHand" type="BoneAttachment" parent="Rotation_Helper/Model/Skeleton"]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Rotation_Helper/Model"]
 anims/Crouch_Idle = ExtResource( 6 )

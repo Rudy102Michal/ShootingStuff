@@ -29,7 +29,8 @@ func _ready():
 	velocity = Vector3(0.0, 0.0, 0.0)
 	old_velocity = velocity
 	animation_tree = $Rotation_Helper/Model/AnimationTree
-	weapons_node = $Rotation_Helper/Model/Skeleton/BoneAttachment
+	#weapons_node = $Rotation_Helper/Model/Skeleton/BoneAttachment
+	weapons_node = find_node("Weapon")
 	for weapon in weapons_node.get_children():
 		weapon.visible = false
 	current_weapon_node = weapons_node.get_children()[0] # starting weapon is xcom_rifle
