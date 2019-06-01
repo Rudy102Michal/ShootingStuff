@@ -13,6 +13,7 @@ const FLOOR_NORMAL : Vector3 = Vector3(0, 1.0, 0.0)
 
 # Controls
 var control_node : Node = null
+var can_move : bool = true
 var animation_tree : AnimationTree
 
 # Weapons variables
@@ -24,6 +25,7 @@ var weapons_count : int
 # Movement
 var velocity : Vector3
 var old_velocity : Vector3
+var direction : Vector3
 
 func _ready():
 	velocity = Vector3(0.0, 0.0, 0.0)
@@ -40,14 +42,15 @@ func _ready():
 	
 func _physics_process(delta):
 	handle_player_movement(delta)
+	handle_player_behaviour()
 	
 func handle_player_movement(delta):
-	if control_node == null:
+	if control_node == null or not can_move:
 		return
 		
 	var front_vec : Vector3 = get_global_transform().basis.z
 	var left_vec : Vector3 = FLOOR_NORMAL.cross(front_vec)
-	var direction : Vector3 = Vector3(0.0, 0.0, 0.0)
+	direction = Vector3(0.0, 0.0, 0.0)
 	
 	if control_node.should_start_sprint():
 		MAX_SPEED = 8.0
@@ -77,8 +80,9 @@ func handle_player_movement(delta):
 	velocity.z = hv.z
 	
 	velocity = move_and_slide(velocity, FLOOR_NORMAL)
-	
-#	if old_velocity.length() < 0.08 and velocity.length() > 0.08:
+
+func handle_player_behaviour() -> void:
+	#	if old_velocity.length() < 0.08 and velocity.length() > 0.08:
 #		var asm : AnimationNodeStateMachinePlayback = animation_tree["parameters/playback"]
 #		asm.travel("Gun_Walk")
 #	elif old_velocity.length() > 0.08 and velocity.length() < 0.08:
@@ -96,7 +100,7 @@ func handle_player_movement(delta):
 	
 	var walk_blend_value : float = min(velocity.length(), 1.0)
 	walk_blend_value *= walk_blend_value
-	walk_blend_value *= sign(direction.normalized().dot(front_vec))
+	walk_blend_value *= sign(direction.normalized().dot(get_global_transform().basis.z))
 	animation_tree.set("parameters/Blend3_1/blend_amount", walk_blend_value)
 	animation_tree.set("parameters/Blend2_3/blend_amount", walk_blend_value)
 	
@@ -105,9 +109,6 @@ func handle_player_movement(delta):
 	
 	if control_node.should_throw_grenade():
 		animation_tree.set("parameters/OneShot_Grenade/active", true)
-	
-#	print(walk_blend_value)
-#	old_velocity = velocity
 
 func attach_control_node(node : Node) -> void:
 	add_child(node)
@@ -129,3 +130,9 @@ func change_weapon() -> void:
 
 func get_barrel_position() -> Position3D:
 	return current_weapon_node.get_node("./BarrelPosition") as Position3D
+	
+func lock_movement() -> void:
+	can_move = false
+	
+func unlock_movement() -> void:
+	can_move = true
