@@ -9,13 +9,19 @@ func _ready():
 	left_hand = $Skeleton/BA_LeftHand
 	
 func attach_weapon_to_left_hand() -> void:
-	var Weapon : Node = find_node("Weapon", true, false)
+	var Weapon : Spatial = find_node("Weapon", true, false)
 	var p = Weapon.find_parent("*")
+	var gtf : Transform = Weapon.get_global_transform()
 	p.remove_child(Weapon)
 	left_hand.add_child(Weapon, true)
+	Weapon.global_transform = gtf
+	print("Weapon to left")
 	
 func attach_weapon_to_right_hand() -> void:
-	var Weapon : Node = find_node("Weapon", true, false)
+	var Weapon : Spatial = find_node("Weapon", true, false)
 	var p = Weapon.find_parent("*")
+	var gtf : Transform = Weapon.get_global_transform()
 	p.remove_child(Weapon)
 	right_hand.add_child(Weapon, true)
+	Weapon.global_transform = gtf
+	print("WEapon to right")
