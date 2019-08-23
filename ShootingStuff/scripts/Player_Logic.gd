@@ -32,6 +32,7 @@ func handle_player_movement(delta):
 		return
 	
 	var direction : Vector3 = Vector3(0.0, 0.0, 0.0)
+	var front_vec : Vector3 = get_global_transform().basis.z
 	
 	if control_node.should_start_sprint():
 		MAX_SPEED = 8.0
