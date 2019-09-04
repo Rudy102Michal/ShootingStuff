@@ -4,8 +4,8 @@ const GRAVITY : float = -9.8
 const ACCELERATION : float  = 3.0
 const DE_ACCELERATION : float = 7.0
 const VECTOR_UP : Vector3 = Vector3(0.0, 1.0, 0.0)
-const WALK_SPEED : float = 15.0
-const RUN_SPEED : float = 40.0
+const WALK_SPEED : float = 4.0
+const RUN_SPEED : float = 10.0
 
 const Player = preload("res://scripts/player.gd")
 
@@ -28,14 +28,15 @@ func _physics_process(delta):
 	var front_vec : Vector3 = get_global_transform().basis.z
 	var max_speed = RUN_SPEED if player.sprint else WALK_SPEED
 	
-	velocity += Vector3(0, GRAVITY * delta, 0)
+	#velocity += Vector3(0, GRAVITY * delta, 0)
 	
-	var hv = Vector3(0, 0, 0)
+	var hv = Vector3(velocity.x, 0, velocity.z)
 	var new_pos : Vector3 = direction * max_speed
-	var acceleration = ACCELERATION if direction.dot(hv) > 0 else DE_ACCELERATION
+	var acceleration = ACCELERATION if direction.dot(velocity) > 0 else DE_ACCELERATION
 	
 	hv = hv.linear_interpolate(new_pos, acceleration * delta)
 	velocity.x = hv.x
+	velocity.y += GRAVITY * delta
 	velocity.z = hv.z
 	velocity = move_and_slide(velocity, VECTOR_UP)
 		
@@ -50,7 +51,8 @@ func _physics_process(delta):
 	animation_tree.set("parameters/Blend3_1/blend_amount", walk_blend_value)
 	animation_tree.set("parameters/Blend2_3/blend_amount", walk_blend_value)
 	
-	var sprint_blend_value : float = min(1.0, max(0, velocity.length() - WALK_SPEED))
+	var sprint_blend_value : float = range_lerp(velocity.length(), WALK_SPEED, RUN_SPEED, 0.0, 1.0)
+	#print(velocity.length())
 	animation_tree.set("parameters/Blend2_2/blend_amount", sprint_blend_value)
 	
 	if player.grenade:
