@@ -22,6 +22,11 @@ var current_weapon_node : MeshInstance
 var shooting_node : Spatial
 var weapons_count : int
 
+# Grenades
+export(NodePath) var grenade_manager
+onready var grenade = preload("res://prefabs/Equipment/Grenade.tscn")
+var current_nade = null
+
 # Movement
 var velocity : Vector3
 var old_velocity : Vector3
@@ -136,3 +141,26 @@ func lock_movement() -> void:
 	
 func unlock_movement() -> void:
 	can_move = true
+	
+func pick_up_grenade() -> void:
+	print("Hakuna granata")
+	var new_grenade : RigidBody = grenade.instance()
+	new_grenade.add_collision_exception_with(self)
+	new_grenade.set_mode(RigidBody.MODE_KINEMATIC)
+	$"Rotation_Helper/Model/Skeleton/BA_RightHand".add_child(new_grenade, true)
+	current_nade = new_grenade
+	
+func throw_grenade() -> void:
+	var gm : Node = get_node(grenade_manager)
+	if current_nade != null:
+		current_nade.set_mode(RigidBody.MODE_RIGID)
+		var gtf : Transform = current_nade.get_global_transform()
+		$"Rotation_Helper/Model/Skeleton/BA_RightHand".remove_child(current_nade)
+		gm.add_child(current_nade, true)
+		current_nade.global_transform = gtf
+		var front_vec : Vector3 = get_global_transform().basis.z.normalized()
+		var left_vec : Vector3 = FLOOR_NORMAL.cross(front_vec)
+		var nade_vel : Vector3 = front_vec.rotated(-left_vec, PI / 4.0) * 10
+		current_nade.set_velocity(nade_vel)
+		current_nade.set_thrown(true)
+		current_nade = null

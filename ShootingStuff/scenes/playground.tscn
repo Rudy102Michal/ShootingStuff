@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://scripts/Isometric_Camera.gd" type="Script" id=1]
 [ext_resource path="res://scripts/players_node_setup.gd" type="Script" id=2]
@@ -6,17 +6,18 @@
 [ext_resource path="res://scripts/enemy_manager.gd" type="Script" id=4]
 [ext_resource path="res://prefabs/enemies/demogorgon.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scripts/shooting_manager.gd" type="Script" id=6]
-[ext_resource path="res://prefabs/environment/tree01.tscn" type="PackedScene" id=7]
-[ext_resource path="res://prefabs/environment/rock01.tscn" type="PackedScene" id=8]
-[ext_resource path="res://prefabs/environment/rock02.tscn" type="PackedScene" id=9]
-[ext_resource path="res://prefabs/environment/rock03.tscn" type="PackedScene" id=10]
-[ext_resource path="res://addons/zylann.hterrain/hterrain.gd" type="Script" id=11]
-[ext_resource path="res://addons/zylann.hterrain/tools/icons/icon_heightmap_node.svg" type="Texture" id=12]
-[ext_resource path="res://playground_terrain/data.hterrain" type="Resource" id=13]
-[ext_resource path="res://textures/ground/burned_ground.png" type="Texture" id=14]
-[ext_resource path="res://textures/ground/cave1.png" type="Texture" id=15]
-[ext_resource path="res://textures/ground/cave3.png" type="Texture" id=16]
-[ext_resource path="res://textures/ground/cave2.png" type="Texture" id=17]
+[ext_resource path="res://scripts/grenade_manager.gd" type="Script" id=7]
+[ext_resource path="res://prefabs/environment/tree01.tscn" type="PackedScene" id=8]
+[ext_resource path="res://prefabs/environment/rock01.tscn" type="PackedScene" id=9]
+[ext_resource path="res://prefabs/environment/rock02.tscn" type="PackedScene" id=10]
+[ext_resource path="res://prefabs/environment/rock03.tscn" type="PackedScene" id=11]
+[ext_resource path="res://addons/zylann.hterrain/hterrain.gd" type="Script" id=12]
+[ext_resource path="res://addons/zylann.hterrain/tools/icons/icon_heightmap_node.svg" type="Texture" id=13]
+[ext_resource path="res://playground_terrain/data.hterrain" type="Resource" id=14]
+[ext_resource path="res://textures/ground/burned_ground.png" type="Texture" id=15]
+[ext_resource path="res://textures/ground/cave1.png" type="Texture" id=16]
+[ext_resource path="res://textures/ground/cave3.png" type="Texture" id=17]
+[ext_resource path="res://textures/ground/cave2.png" type="Texture" id=18]
 
 [sub_resource type="Environment" id=1]
 background_mode = 1
@@ -53,9 +54,11 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.3398, -6.82957, -0.691459 )
 script = ExtResource( 2 )
 
 [node name="PlayerA" parent="StuffOnScreen/Players" instance=ExtResource( 3 )]
+grenade_manager = NodePath("../../Grenades")
 
 [node name="PlayerB" parent="StuffOnScreen/Players" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.48381, 0, 0 )
+grenade_manager = NodePath("../../Grenades")
 
 [node name="Enemies" type="Spatial" parent="StuffOnScreen"]
 script = ExtResource( 4 )
@@ -66,42 +69,44 @@ transform = Transform( -0.995181, 0, 0.0980572, 0, 1, 0, -0.0980572, 0, -0.99518
 [node name="Bullets" type="Spatial" parent="StuffOnScreen"]
 script = ExtResource( 6 )
 
-[node name="tree1" parent="StuffOnScreen" instance=ExtResource( 7 )]
+[node name="Grenades" type="Spatial" parent="StuffOnScreen"]
+script = ExtResource( 7 )
+
+[node name="Blasts" type="Spatial" parent="StuffOnScreen/Grenades"]
+
+[node name="tree1" parent="StuffOnScreen" instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.8971, -7.28028, 6.9424 )
 
-[node name="rock1" parent="StuffOnScreen" instance=ExtResource( 8 )]
+[node name="rock1" parent="StuffOnScreen" instance=ExtResource( 9 )]
 transform = Transform( 1.56378, 0.191102, -1.2321, -0.0874427, 1.98831, 0.19741, 1.24376, -0.100484, 1.563, 7.4512, -7.14985, -10.5843 )
 
-[node name="rock2" parent="StuffOnScreen" instance=ExtResource( 8 )]
+[node name="rock2" parent="StuffOnScreen" instance=ExtResource( 9 )]
 transform = Transform( -1.64695, 0.471571, 1.03208, 0.359365, 1.94224, -0.313974, -1.0763, -0.0731036, -1.68411, 7.15272, -7.08166, 3.34174 )
 
-[node name="rock3" parent="StuffOnScreen" instance=ExtResource( 8 )]
+[node name="rock3" parent="StuffOnScreen" instance=ExtResource( 9 )]
 transform = Transform( -0.157653, 0.0469499, 1.49054, 0.0261031, 1.19897, -0.0562485, -1.49146, 0.0160213, -0.15854, 8.97818, -7.00221, 4.27059 )
 
-[node name="tree2" parent="StuffOnScreen" instance=ExtResource( 7 )]
+[node name="tree2" parent="StuffOnScreen" instance=ExtResource( 8 )]
 transform = Transform( 0.995548, 0.0942577, 0, -0.0942577, 0.995548, 0, 0, 0, 1, 1.00249, -6.50266, -0.655462 )
 
-[node name="rock4" parent="StuffOnScreen" instance=ExtResource( 9 )]
+[node name="rock4" parent="StuffOnScreen" instance=ExtResource( 10 )]
 transform = Transform( 0.359155, 0, 0.933278, 0, 1, 0, -0.933278, 0, 0.359155, 19.8135, -7.48297, 0.953045 )
 
-[node name="rock5" parent="StuffOnScreen" instance=ExtResource( 9 )]
+[node name="rock5" parent="StuffOnScreen" instance=ExtResource( 10 )]
 transform = Transform( -0.678332, 0, -0.734755, 0, 1, 0, 0.734755, 0, -0.678332, 9.21072, -7.48297, 0.953045 )
 
-[node name="rock6" parent="StuffOnScreen" instance=ExtResource( 10 )]
+[node name="rock6" parent="StuffOnScreen" instance=ExtResource( 11 )]
 transform = Transform( -1.35666, 0, -1.46951, 0, 2, 0, 1.46951, 0, -1.35666, 0.195589, -6.77236, 11.9855 )
 
 [node name="HTerrain" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -25.09, -7.11, -26.59 )
-script = ExtResource( 11 )
+script = ExtResource( 12 )
 __meta__ = {
 "_edit_lock_": true,
-"_editor_icon": ExtResource( 12 )
+"_editor_icon": ExtResource( 13 )
 }
-collision_enabled = true
-ambient_wind = 0.0
-lod_scale = 2.0
 map_scale = Vector3( 0.2, 0.2, 0.2 )
-_terrain_data = ExtResource( 13 )
+_terrain_data = ExtResource( 14 )
 chunk_size = 16
 shader_type = "Classic4"
 custom_shader = null
@@ -110,12 +115,12 @@ shader_params/u_depth_blending = true
 shader_params/u_triplanar = false
 shader_params/u_globalmap_blend_start = null
 shader_params/u_globalmap_blend_distance = null
-ground/albedo_bump_0 = ExtResource( 14 )
+ground/albedo_bump_0 = ExtResource( 15 )
 ground/normal_roughness_0 = null
-ground/albedo_bump_1 = ExtResource( 15 )
+ground/albedo_bump_1 = ExtResource( 16 )
 ground/normal_roughness_1 = null
-ground/albedo_bump_2 = ExtResource( 16 )
+ground/albedo_bump_2 = ExtResource( 17 )
 ground/normal_roughness_2 = null
-ground/albedo_bump_3 = ExtResource( 17 )
+ground/albedo_bump_3 = ExtResource( 18 )
 ground/normal_roughness_3 = null
 _detail_objects_data = null

@@ -23,7 +23,6 @@ func attach_weapon_to_left_hand() -> void:
 	#Weapon.set_global_transform(gtf)
 	#Weapon.global_transform = base_gtf
 	#Weapon.orthonormalize()
-	print("Weapon to left")
 	
 func attach_weapon_to_right_hand() -> void:
 	var Weapon : Spatial = find_node("Weapon", true, false)
@@ -37,11 +36,3 @@ func attach_weapon_to_right_hand() -> void:
 	#Weapon.set_global_transform(gtf)
 	#Weapon.global_transform = base_gtf
 	#Weapon.orthonormalize()
-	print("WEapon to right")
-
-func _on_AnimationPlayer_animation_changed(old_name, new_name):
-	print(old_name + " --> " + new_name)
-
-
-func _on_AnimationPlayer_animation_started(anim_name):
-	print(anim_name)

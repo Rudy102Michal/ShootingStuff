@@ -375,11 +375,17 @@ tracks/52/loop_wrap = true
 tracks/52/imported = false
 tracks/52/enabled = true
 tracks/52/keys = {
-"times": PoolRealArray( 0, 3.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.32, 1.85, 3.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "values": [ {
 "args": [  ],
 "method": "lock_movement"
+}, {
+"args": [  ],
+"method": "pick_up_grenade"
+}, {
+"args": [  ],
+"method": "throw_grenade"
 }, {
 "args": [  ],
 "method": "unlock_movement"
