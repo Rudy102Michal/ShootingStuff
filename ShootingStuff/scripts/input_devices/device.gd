@@ -10,6 +10,3 @@ func handleInput(event: InputEvent):
 	if not player.readiness and event.is_action_pressed("ui_accept"):
 		player.readiness = true
 		return
-		
-		
-	pass

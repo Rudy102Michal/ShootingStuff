@@ -29,6 +29,7 @@ var connected_devices: Dictionary = { 0: Keyboard.new() }
 func _init():
 	for device_id in Input.get_connected_joypads():
 		connected_devices[DEVICE_TYPE.PAD_1 + device_id] = Gamepad.new(device_id)
+	Input.connect("joy_connection_changed", self, "_on_joy_connection_changed")
 
 func _on_joy_connection_changed(device_id, connected):
 	if connected:

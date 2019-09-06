@@ -28,4 +28,3 @@ func handleInput(event: InputEvent):
 			player.sprint = false
 		
 		.handleInput(event)
-	pass
