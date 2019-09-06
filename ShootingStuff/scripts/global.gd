@@ -36,7 +36,7 @@ func _on_joy_connection_changed(device_id, connected):
 		connected_devices[DEVICE_TYPE.PAD_1 + device_id] = Gamepad.new(device_id)
 	else:
 		if connected_devices[DEVICE_TYPE.PAD_1 + device_id].player != null:
-			emit_signal("controller_disconnected")
+			emit_signal("controller_disconnected", connected_devices[DEVICE_TYPE.PAD_1 + device_id])
 		connected_devices.erase(DEVICE_TYPE.PAD_1 + device_id)
 	pass
 

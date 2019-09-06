@@ -15,11 +15,16 @@ func _on_player_joined():
 	set_menu_visible(global.players.size() > 0)
 	set_invitation_visible(global.players.size() < global.PLAYER_NAMES.size())
 	
+func _on_player_left():
+	set_menu_visible(global.players.size() > 0)
+	set_invitation_visible(true)
+	
 func _ready():
 	find_node("Menu").visible = menu_visible
 	find_node("Invitation").visible = invitation_visible
 	find_node("Loading").visible = false
 	global.connect("player_joined", self, "_on_player_joined")
+	global.connect("controller_disconnected", self, "_on_player_left")
 	
 func _input(event):
 	var all_ready = global.players.size() > 0

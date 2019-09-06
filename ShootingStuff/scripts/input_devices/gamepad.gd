@@ -1,6 +1,8 @@
 extends "res://scripts/input_devices/device.gd"
 class_name Gamepad
 
+const Character = preload("res://scripts/player_character.gd")
+
 const VECTOR_UP : Vector3 = Vector3(0.0, 1.0, 0.0)
 var deviceId: int
 var aiming: bool
@@ -13,7 +15,7 @@ func updateRotation():
 	player.player_node.rotation = (player.player_node.rotation + target_rotation) / 2
 
 func handleInput(event: InputEvent):
-	if (event is InputEventJoypadMotion):
+	if (player and player.player_node is Character and event is InputEventJoypadMotion):
 		var holding = abs(event.axis_value) > 0.25
 		if (event.axis == JOY_AXIS_0):
 			player.walk_direction.x = event.axis_value if holding else 0
