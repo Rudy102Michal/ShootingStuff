@@ -53,6 +53,7 @@ func _input(event):
 		# 3. If no player connected with this device yet, join game
 		if (device.player == null
 			and not event is InputEventMouseMotion # but not with mouse movement
+			and not event is InputEventJoypadMotion # or with joypad movement
 			and players.size() < PLAYER_NAMES.size()):
 			device.player = Player.new()
 			players.push_back(device.player)

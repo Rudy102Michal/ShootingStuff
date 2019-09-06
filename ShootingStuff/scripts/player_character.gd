@@ -28,8 +28,6 @@ func _physics_process(delta):
 	var front_vec : Vector3 = get_global_transform().basis.z
 	var max_speed = RUN_SPEED if player.sprint else WALK_SPEED
 	
-	#velocity += Vector3(0, GRAVITY * delta, 0)
-	
 	var hv = Vector3(velocity.x, 0, velocity.z)
 	var new_pos : Vector3 = direction * max_speed
 	var acceleration = ACCELERATION if direction.dot(velocity) > 0 else DE_ACCELERATION
@@ -52,7 +50,6 @@ func _physics_process(delta):
 	animation_tree.set("parameters/Blend2_3/blend_amount", walk_blend_value)
 	
 	var sprint_blend_value : float = range_lerp(velocity.length(), WALK_SPEED, RUN_SPEED, 0.0, 1.0)
-	#print(velocity.length())
 	animation_tree.set("parameters/Blend2_2/blend_amount", sprint_blend_value)
 	
 	if player.grenade:
