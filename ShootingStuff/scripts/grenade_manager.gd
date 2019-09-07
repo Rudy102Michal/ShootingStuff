@@ -1,7 +1,7 @@
 extends Spatial
 
 onready var impulse_blast = preload("res://prefabs/Equipment/ImpulseBlast.tscn")
-
+	
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -19,6 +19,14 @@ func grenade_hit(grenade) -> void:
 	blast.global_transform.origin = nade_pos
 	$Blasts.add_child(blast)
 	blast.set_manager(self)
+	var enemies = get_tree().get_nodes_in_group("enemies")
+	for enemy in enemies:
+		var ray : Vector3 = enemy.get_global_transform().origin - nade_pos
+		var dist_sqr : float = ray.length_squared()
+		if dist_sqr < blast.max_radius * blast.max_radius:
+			var force_vec : Vector3 = ray.normalized() * blast.recoil_force # / dist_sqr
+			force_vec = force_vec.rotated(force_vec.cross(Vector3(0, 1, 0)).normalized(), PI / 4.0) * 10
+			enemy.recoil_from_explosion(force_vec)
 	
 func blast_finished(blast : Node) -> void:
 	$Blasts.remove_child(blast)

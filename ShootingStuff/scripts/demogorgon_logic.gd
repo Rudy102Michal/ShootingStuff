@@ -127,7 +127,7 @@ func handle_movement(delta):
 	
 	if not animation_tree["parameters/OneShot/active"]:
 		velocity = move_and_slide(velocity, VECTOR_UP)
-	pass
+		pass
 	
 func set_players_container(value):
 	players_container = value
@@ -139,3 +139,7 @@ func get_self_2d_position() -> Vector2:
 func kill_yourself():
 	print("fucking rip")
 	pass
+
+func recoil_from_explosion(recoil_force : Vector3) -> void:
+	velocity += recoil_force
+	

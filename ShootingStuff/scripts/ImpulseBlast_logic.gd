@@ -4,7 +4,7 @@ var blast_progress : float
 var elapsed_time : float
 var finished : bool
 
-export var max_radius = 10.0
+export var max_radius = 15.0
 export var radius : float = 1.0
 export var duration : float = 1.0
 var manager : Node
@@ -21,7 +21,7 @@ func _process(delta):
 		elapsed_time += delta
 		blast_progress = smoothstep(0.0, duration, elapsed_time)
 		$BlastMesh.get_surface_material(0).set_shader_param("DissolveProgress", blast_progress + 0.2)
-		print(blast_progress)
+#		print(blast_progress)
 		radius = range_lerp(blast_progress, 0.0, 1.0, 0.5, max_radius)
 		#global_scale(Vector3(radius, radius, radius))
 		$BlastMesh.get_surface_material(0).set_shader_param("BlastSize", radius)
