@@ -21,10 +21,6 @@
 [ext_resource path="res://textures/ground/cave3.png" type="Texture" id=19]
 [ext_resource path="res://textures/ground/cave2.png" type="Texture" id=20]
 
-
-
-
-
 [sub_resource type="Environment" id=1]
 background_mode = 1
 background_energy = 3.68
@@ -74,6 +70,9 @@ script = ExtResource( 6 )
 
 [node name="DemogorgonKB" parent="StuffOnScreen/Enemies" instance=ExtResource( 7 )]
 transform = Transform( -0.995181, 0, 0.0980572, 0, 1, 0, -0.0980572, 0, -0.995181, 14.1982, -6.52514, 4.23854 )
+
+[node name="DemogorgonKB2" parent="StuffOnScreen/Enemies" instance=ExtResource( 7 )]
+transform = Transform( -0.299998, 0, -0.95394, 0, 1, 0, 0.95394, 0, -0.299998, 27.1348, -6.80656, 2.6869 )
 
 [node name="Bullets" type="Spatial" parent="StuffOnScreen"]
 script = ExtResource( 8 )

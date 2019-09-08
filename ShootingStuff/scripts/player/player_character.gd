@@ -1,9 +1,10 @@
 extends KinematicBody
 
 const Player = preload("res://scripts/player/player.gd")
+const Grenade = preload("res://prefabs/Equipment/Grenade.tscn")
 	
 # Constants
-const GRAVITY : float = -9.8
+const GRAVITY : float = -20.0
 const ACCELERATION : float  = 3.0
 const DE_ACCELERATION : float = 7.0
 const VECTOR_UP : Vector3 = Vector3(0.0, 1.0, 0.0)
@@ -24,7 +25,6 @@ var weapons_count : int
 
 # Grenades
 export(NodePath) var grenade_manager
-onready var grenade = preload("res://prefabs/Equipment/Grenade.tscn")
 var current_nade = null
 
 func _ready():
@@ -42,6 +42,8 @@ func _ready():
 func set_player(p: Player):
 	player = p
 	set_physics_process(true)
+	player.connect("player_change_weapon", self, "change_weapon")
+	player.connect("player_throw_grenade", self, "throw_grenade")
 
 func _physics_process(delta):
 	var direction = Vector3(player.walk_direction.x, 0.0, player.walk_direction.y).normalized()
@@ -72,10 +74,6 @@ func _physics_process(delta):
 	
 	var sprint_blend_value : float = range_lerp(velocity.length(), WALK_SPEED, RUN_SPEED, 0.0, 1.0)
 	animation_tree.set("parameters/Blend2_2/blend_amount", sprint_blend_value)
-	
-	if player.grenade:
-		throw_grenade()
-		animation_tree.set("parameters/OneShot_Grenade/active", true)
 
 func update_rotation_from_mouse_position():
 	if player:
@@ -90,18 +88,30 @@ func update_rotation_from_mouse_position():
 		global_rotate(VECTOR_UP, pm.angle_to(pf))
 		player.look_direction = rotation
 
+func change_weapon():
+	for index in range(weapons_count):
+		if weapons_node.get_children()[index].visible:
+			weapons_node.get_children()[index].visible = false
+			if index + 1 == weapons_count: # Last weapon, cycle back to 1
+				current_weapon_node = weapons_node.get_children()[0] as MeshInstance
+				current_weapon_node.visible = true
+			else: 
+				current_weapon_node = weapons_node.get_children()[index + 1] as MeshInstance
+				current_weapon_node.visible = true
+			return
+
 func get_barrel_position() -> Position3D:
 	return current_weapon_node.get_node("./BarrelPosition") as Position3D
 
 func pick_up_grenade():
-	print("Hakuna granata")
-	var new_grenade : RigidBody = grenade.instance()
+	var new_grenade : RigidBody = Grenade.instance()
 	new_grenade.add_collision_exception_with(self)
 	new_grenade.set_mode(RigidBody.MODE_KINEMATIC)
 	$"Rotation_Helper/Model/Skeleton/BA_RightHand".add_child(new_grenade, true)
 	current_nade = new_grenade
 	
 func throw_grenade():
+	animation_tree.set("parameters/OneShot_Grenade/active", true)
 	var gm : Node = get_node(grenade_manager)
 	if current_nade != null:
 		current_nade.set_mode(RigidBody.MODE_RIGID)

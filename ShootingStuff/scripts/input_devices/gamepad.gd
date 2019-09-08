@@ -9,10 +9,6 @@ var aiming: bool
 
 func _init(deviceId: int):
 	self.deviceId = deviceId
-	
-func updateRotation():
-	var target_rotation = VECTOR_UP * (player.look_direction.angle() + PI/2)
-	player.player_node.rotation = (player.player_node.rotation + target_rotation) / 2
 
 func handleInput(event: InputEvent):
 	if (player and player.player_node is Character):
@@ -29,10 +25,18 @@ func handleInput(event: InputEvent):
 					player.look_direction.y = -player.walk_direction.y
 					updateRotation()
 			elif (event.axis == JOY_AXIS_2 or event.axis == JOY_AXIS_3):
-				if (holding):
+				if (abs(Input.get_joy_axis(deviceId, JOY_AXIS_2)) < 0.4
+					and abs(Input.get_joy_axis(deviceId, JOY_AXIS_3)) < 0.4):
+					aiming = false
+					if not (player.walk_direction.x == 0 and player.walk_direction.y == 0):
+						player.look_direction.x = player.walk_direction.x
+						player.look_direction.y = -player.walk_direction.y
+						updateRotation()
+				else:
 					aiming = true
 					player.look_direction = Vector2(Input.get_joy_axis(deviceId, JOY_AXIS_2), -Input.get_joy_axis(deviceId, JOY_AXIS_3))
-					updateRotation()
-				else:
-					aiming = false
+					updateRotation()	
 	.handleInput(event)
+	
+func updateRotation():
+	player.player_node.rotation = VECTOR_UP * (player.look_direction.angle() + PI/2)
