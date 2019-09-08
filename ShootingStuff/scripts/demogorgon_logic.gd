@@ -26,6 +26,10 @@ var rotating_on_patrol : bool = false
 var angle_to_rotate_to : float
 var angle_already_rotated : float = 0.0
 
+# Collision shapes
+onready var col_shape_patrolling : CollisionShape = $Demog_Body_CS
+onready var col_shape_running : CollisionShape = $Demog_Body_Run_CS
+
 # Players data
 var players_container : Spatial setget set_players_container
 var seen_player : KinematicBody = null
@@ -36,6 +40,7 @@ func _ready():
 	if players_container == null: # This is for test purposes only
 		set_players_container(get_node("../../Players"))
 	animation_tree = $RotationHelper/Model/AnimationTree
+	col_shape_running.disabled = true
 	pass
 
 func _physics_process(delta):
@@ -88,6 +93,8 @@ func check_if_player_seen():
 			# player spotted, the hunt begins
 			seen_player = player
 			patrolling = false
+			col_shape_patrolling.disabled = true
+			col_shape_running.disabled = false
 			animation_tree["parameters/OneShot/active"] = true
 			animation_tree["parameters/Blend2/blend_amount"] = 1.0
 			return
@@ -120,7 +127,7 @@ func handle_movement(delta):
 	
 	if not animation_tree["parameters/OneShot/active"]:
 		velocity = move_and_slide(velocity, VECTOR_UP)
-	pass
+		pass
 	
 func set_players_container(value):
 	players_container = value
@@ -128,3 +135,11 @@ func set_players_container(value):
 	
 func get_self_2d_position() -> Vector2:
 	return Vector2(global_transform.origin.x, global_transform.origin.z)
+	
+func kill_yourself():
+	print("fucking rip")
+	pass
+
+func recoil_from_explosion(recoil_force : Vector3) -> void:
+	velocity += recoil_force
+	

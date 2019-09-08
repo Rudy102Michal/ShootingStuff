@@ -25,7 +25,7 @@ func _ready():
 		else:
 			player_node.visible = false
 			
-		var mesh = player_node.find_node("Mesh 2", true, false) as MeshInstance
+		var mesh = player_node.find_node("Mesh", true, false) as MeshInstance
 		var material = mesh.get_surface_material(0).duplicate() as SpatialMaterial
 		material.albedo_texture = texture
 		mesh.set_surface_material(0, material)

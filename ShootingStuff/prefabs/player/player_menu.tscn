@@ -66,3 +66,10 @@ material/0 = ExtResource( 1 )
 mesh = SubResource( 3 )
 material/0 = ExtResource( 1 )
 
+[node name="Ready" type="Label" parent="."]
+visible = false
+margin_right = 40.0
+margin_bottom = 14.0
+text = "Ready"
+align = 1
+valign = 1

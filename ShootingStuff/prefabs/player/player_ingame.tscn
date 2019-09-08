@@ -1,22 +1,23 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=39 format=2]
 
-[ext_resource path="res://scripts/player_character.gd" type="Script" id=1]
-[ext_resource path="res://materials/player.material" type="Material" id=2]
-[ext_resource path="res://materials/XCOM_rifle.material" type="Material" id=3]
-[ext_resource path="res://models/player/XCom_rifle.obj" type="ArrayMesh" id=4]
-[ext_resource path="res://animations/player/Crouch_Idle.tres" type="Animation" id=5]
-[ext_resource path="res://animations/player/Crouch_Shoot.tres" type="Animation" id=6]
-[ext_resource path="res://animations/player/Crouch_Walk.tres" type="Animation" id=7]
-[ext_resource path="res://animations/player/Crouch_Walk_Shoot.tres" type="Animation" id=8]
-[ext_resource path="res://animations/player/Dash_Roll.tres" type="Animation" id=9]
-[ext_resource path="res://animations/player/Death_1.tres" type="Animation" id=10]
-[ext_resource path="res://animations/player/Grenade_Throw.tres" type="Animation" id=11]
-[ext_resource path="res://animations/player/Gun_Sprint.tres" type="Animation" id=12]
-[ext_resource path="res://animations/player/Gun_Stand_Idle.tres" type="Animation" id=13]
-[ext_resource path="res://animations/player/Gun_Walk.tres" type="Animation" id=14]
-[ext_resource path="res://animations/player/Gun_Walk_Back.tres" type="Animation" id=15]
-[ext_resource path="res://animations/player/Stand_Shoot.tres" type="Animation" id=16]
-[ext_resource path="res://animations/player/Walk_Shoot.tres" type="Animation" id=17]
+[ext_resource path="res://scripts/PlayerModel_Script.gd" type="Script" id=1]
+[ext_resource path="res://textures/player/tex_diffuse.png" type="Texture" id=2]
+[ext_resource path="res://textures/player/tex_normal.png" type="Texture" id=3]
+[ext_resource path="res://prefabs/player/XCom_rifle.tscn" type="PackedScene" id=4]
+[ext_resource path="res://prefabs/player/shotgun-zx-76.tscn" type="PackedScene" id=5]
+[ext_resource path="res://animations/player/Crouch_Idle.tres" type="Animation" id=6]
+[ext_resource path="res://animations/player/Crouch_Shoot.tres" type="Animation" id=7]
+[ext_resource path="res://animations/player/Crouch_Walk.tres" type="Animation" id=8]
+[ext_resource path="res://animations/player/Crouch_Walk_Shoot.tres" type="Animation" id=9]
+[ext_resource path="res://animations/player/Dash_Roll.tres" type="Animation" id=10]
+[ext_resource path="res://animations/player/Death_1.tres" type="Animation" id=11]
+[ext_resource path="res://animations/player/Grenade_Throw.tres" type="Animation" id=12]
+[ext_resource path="res://animations/player/Gun_Sprint.tres" type="Animation" id=13]
+[ext_resource path="res://animations/player/Gun_Stand_Idle.tres" type="Animation" id=14]
+[ext_resource path="res://animations/player/Gun_Walk.tres" type="Animation" id=15]
+[ext_resource path="res://animations/player/Gun_Walk_Back.tres" type="Animation" id=16]
+[ext_resource path="res://animations/player/Stand_Shoot.tres" type="Animation" id=17]
+[ext_resource path="res://animations/player/Walk_Shoot.tres" type="Animation" id=18]
 
 [sub_resource type="CapsuleShape" id=1]
 height = 1.65655
@@ -37,84 +38,90 @@ surfaces/0 = {
 "vertex_count": 3727
 }
 
-[sub_resource type="AnimationNodeBlend2" id=4]
+[sub_resource type="SpatialMaterial" id=4]
+params_diffuse_mode = 1
+albedo_texture = ExtResource( 2 )
+metallic = 0.5
+roughness = 0.35
+normal_enabled = true
+normal_scale = 1.0
+normal_texture = ExtResource( 3 )
 
 [sub_resource type="AnimationNodeBlend2" id=5]
 
 [sub_resource type="AnimationNodeBlend2" id=6]
 
-[sub_resource type="AnimationNodeBlend3" id=7]
+[sub_resource type="AnimationNodeBlend2" id=7]
 
-[sub_resource type="AnimationNodeAnimation" id=8]
-animation = "Dash_Roll"
+[sub_resource type="AnimationNodeBlend3" id=8]
 
 [sub_resource type="AnimationNodeAnimation" id=9]
-animation = "Death_1"
+animation = "Dash_Roll"
 
 [sub_resource type="AnimationNodeAnimation" id=10]
-animation = "Grenade_Throw"
+animation = "Death_1"
 
 [sub_resource type="AnimationNodeAnimation" id=11]
-animation = "Gun_Sprint"
+animation = "Grenade_Throw"
 
 [sub_resource type="AnimationNodeAnimation" id=12]
-animation = "Gun_Stand_Idle"
+animation = "Gun_Sprint"
 
 [sub_resource type="AnimationNodeAnimation" id=13]
-animation = "Gun_Walk"
+animation = "Gun_Stand_Idle"
 
 [sub_resource type="AnimationNodeAnimation" id=14]
+animation = "Gun_Walk"
+
+[sub_resource type="AnimationNodeAnimation" id=15]
 animation = "Gun_Walk_Back"
 
-[sub_resource type="AnimationNodeOneShot" id=15]
-autorestart_random_delay = 0.376471
-
 [sub_resource type="AnimationNodeOneShot" id=16]
-autorestart_random_delay = -50.0
 
-[sub_resource type="AnimationNodeAnimation" id=17]
-animation = "Stand_Shoot"
+[sub_resource type="AnimationNodeOneShot" id=17]
 
 [sub_resource type="AnimationNodeAnimation" id=18]
+animation = "Stand_Shoot"
+
+[sub_resource type="AnimationNodeAnimation" id=19]
 animation = "Walk_Shoot"
 
-[sub_resource type="AnimationNodeBlendTree" id=19]
-graph_offset = Vector2( 46.7203, 85.25 )
-nodes/Blend2_1/node = SubResource( 4 )
+[sub_resource type="AnimationNodeBlendTree" id=20]
+graph_offset = Vector2( 740, 206.5 )
+nodes/Blend2_1/node = SubResource( 5 )
 nodes/Blend2_1/position = Vector2( 540, 280 )
-nodes/Blend2_2/node = SubResource( 5 )
+nodes/Blend2_2/node = SubResource( 6 )
 nodes/Blend2_2/position = Vector2( 800, 240 )
-nodes/Blend2_3/node = SubResource( 6 )
+nodes/Blend2_3/node = SubResource( 7 )
 nodes/Blend2_3/position = Vector2( 320, 480 )
-nodes/Blend3_1/node = SubResource( 7 )
+nodes/Blend3_1/node = SubResource( 8 )
 nodes/Blend3_1/position = Vector2( 340, 100 )
-nodes/Dash_Roll/node = SubResource( 8 )
+nodes/Dash_Roll/node = SubResource( 9 )
 nodes/Dash_Roll/position = Vector2( 1180, 400 )
-nodes/Death_1/node = SubResource( 9 )
+nodes/Death_1/node = SubResource( 10 )
 nodes/Death_1/position = Vector2( 60, 660 )
-nodes/Grenade_Throw/node = SubResource( 10 )
-nodes/Grenade_Throw/position = Vector2( 980, 440 )
-nodes/Gun_Sprint-loop/node = SubResource( 11 )
+nodes/Grenade_Throw/node = SubResource( 11 )
+nodes/Grenade_Throw/position = Vector2( 860, 440 )
+nodes/Gun_Sprint-loop/node = SubResource( 12 )
 nodes/Gun_Sprint-loop/position = Vector2( 600, 480 )
-nodes/Gun_Stand_Idle-loop/node = SubResource( 12 )
+nodes/Gun_Stand_Idle-loop/node = SubResource( 13 )
 nodes/Gun_Stand_Idle-loop/position = Vector2( 60, 120 )
-nodes/Gun_Walk-loop/node = SubResource( 13 )
+nodes/Gun_Walk-loop/node = SubResource( 14 )
 nodes/Gun_Walk-loop/position = Vector2( 60, 240 )
-nodes/Gun_Walk_Back-loop/node = SubResource( 14 )
+nodes/Gun_Walk_Back-loop/node = SubResource( 15 )
 nodes/Gun_Walk_Back-loop/position = Vector2( 60, -20 )
-nodes/OneShot_Dash/node = SubResource( 15 )
+nodes/OneShot_Dash/node = SubResource( 16 )
 nodes/OneShot_Dash/position = Vector2( 1360, 220 )
-nodes/OneShot_Grenade/node = SubResource( 16 )
+nodes/OneShot_Grenade/node = SubResource( 17 )
 nodes/OneShot_Grenade/position = Vector2( 1080, 220 )
-nodes/Stand_Shoot-loop/node = SubResource( 17 )
+nodes/Stand_Shoot-loop/node = SubResource( 18 )
 nodes/Stand_Shoot-loop/position = Vector2( 60, 380 )
-nodes/Walk_Shoot-loop/node = SubResource( 18 )
+nodes/Walk_Shoot-loop/node = SubResource( 19 )
 nodes/Walk_Shoot-loop/position = Vector2( 60, 520 )
 nodes/output/position = Vector2( 1560, 220 )
-node_connections = [ "output", 0, "OneShot_Dash", "Blend2_3", 0, "Stand_Shoot-loop", "Blend2_3", 1, "Walk_Shoot-loop", "Blend3_1", 0, "Gun_Walk_Back-loop", "Blend3_1", 1, "Gun_Stand_Idle-loop", "Blend3_1", 2, "Gun_Walk-loop", "Blend2_1", 0, "Blend3_1", "Blend2_1", 1, "Blend2_3", "Blend2_2", 0, "Blend2_1", "Blend2_2", 1, "Gun_Sprint-loop", "OneShot_Grenade", 0, "Blend2_2", "OneShot_Grenade", 1, "Grenade_Throw", "OneShot_Dash", 0, "OneShot_Grenade", "OneShot_Dash", 1, "Dash_Roll" ]
+node_connections = [ "output", 0, "OneShot_Dash", "OneShot_Dash", 0, "OneShot_Grenade", "OneShot_Dash", 1, "Dash_Roll", "Blend2_3", 0, "Stand_Shoot-loop", "Blend2_3", 1, "Walk_Shoot-loop", "Blend2_2", 0, "Blend2_1", "Blend2_2", 1, "Gun_Sprint-loop", "Blend2_1", 0, "Blend3_1", "Blend2_1", 1, "Blend2_3", "Blend3_1", 0, "Gun_Walk_Back-loop", "Blend3_1", 1, "Gun_Stand_Idle-loop", "Blend3_1", 2, "Gun_Walk-loop", "OneShot_Grenade", 0, "Blend2_2", "OneShot_Grenade", 1, "Grenade_Throw" ]
 
 [node name="PlayerKB" type="KinematicBody"]
-script = ExtResource( 1 )
 
 [node name="PlayerBody_CS" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-008, 1, 0, -1, -4.37114e-008, 0.191102, 1.83122, 0.136205 )
@@ -128,6 +135,7 @@ shape = SubResource( 2 )
 
 [node name="Model" type="Spatial" parent="Rotation_Helper"]
 transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0 )
+script = ExtResource( 1 )
 
 [node name="Skeleton" type="Skeleton" parent="Rotation_Helper/Model"]
 bones_in_world_transform = true
@@ -305,7 +313,7 @@ bones/34/name = "Bag_Retopo_Bag_Low_Bag_Retopo_RightHand"
 bones/34/parent = 33
 bones/34/rest = Transform( 0.981034, -0.126859, 0.146557, 0.182329, 0.860565, -0.475589, -0.0657895, 0.493291, 0.867373, 2.6226e-006, 2.37448, -5.72205e-006 )
 bones/34/enabled = true
-bones/34/bound_children = [ NodePath("BoneAttachment") ]
+bones/34/bound_children = [  ]
 bones/35/name = "Bag_Retopo_Bag_Low_Bag_Retopo_RightHandThumb1"
 bones/35/parent = 34
 bones/35/rest = Transform( 0.952003, 0.286524, -0.107675, -0.306087, 0.891154, -0.334895, 4.91738e-007, 0.35178, 0.936083, 0.382567, 0.463755, 0.209923 )
@@ -457,37 +465,54 @@ bones/64/rest = Transform( -0.992723, 0.104842, -0.059242, -0.05974, -0.001612, 
 bones/64/enabled = true
 bones/64/bound_children = [  ]
 
-[node name="Mesh 2" type="MeshInstance" parent="Rotation_Helper/Model/Skeleton"]
+[node name="Mesh" type="MeshInstance" parent="Rotation_Helper/Model/Skeleton"]
 mesh = SubResource( 3 )
-material/0 = ExtResource( 2 )
+material/0 = SubResource( 4 )
 
-[node name="BoneAttachment" type="BoneAttachment" parent="Rotation_Helper/Model/Skeleton"]
-transform = Transform( 0.402761, 0.862436, 0.306572, 0.851377, -0.47597, 0.220474, 0.336063, 0.172213, -0.92596, -0.771286, 12.0378, 2.28551 )
+[node name="BA_RightHand" type="BoneAttachment" parent="Rotation_Helper/Model/Skeleton"]
+transform = Transform( 0.398676, 0.857268, 0.325801, 0.852339, -0.477478, 0.213379, 0.338487, 0.192627, -0.921043, -0.729796, 12.0428, 2.34487 )
 bone_name = "Bag_Retopo_Bag_Low_Bag_Retopo_RightHand"
 
-[node name="Weapon" type="MeshInstance" parent="Rotation_Helper/Model/Skeleton/BoneAttachment"]
-transform = Transform( -0.0256519, 0.0960215, -0.0110398, -0.095274, -0.0270435, -0.013838, -0.0162736, 0.00696772, 0.0984213, 0.86228, 2.48126, 0.694805 )
-material_override = ExtResource( 3 )
-mesh = ExtResource( 4 )
-material/0 = null
+[node name="Weapon" type="Spatial" parent="Rotation_Helper/Model/Skeleton/BA_RightHand"]
+transform = Transform( 1, 1.86265e-008, 0, 7.45058e-009, 1, -1.49012e-008, 0, 1.49012e-008, 1, 0, 0, 0 )
+
+[node name="XCom_rifle" parent="Rotation_Helper/Model/Skeleton/BA_RightHand/Weapon" instance=ExtResource( 4 )]
+transform = Transform( -0.012627, 0.0971998, -0.0198184, -0.0991492, -0.0130029, -0.000602571, -0.00316251, 0.0195734, 0.0980158, 0.617697, 1.64744, 0.683533 )
+
+[node name="shotgun-zx-76" parent="Rotation_Helper/Model/Skeleton/BA_RightHand/Weapon" instance=ExtResource( 5 )]
+transform = Transform( 1.10029, 3.83647, -0.266401, -0.0641676, -0.258723, -3.99108, -3.84515, 1.10212, -0.00963855, 0.587789, 3.49523, 0.112236 )
+
+[node name="BA_LeftHand" type="BoneAttachment" parent="Rotation_Helper/Model/Skeleton"]
+transform = Transform( -0.930201, -0.363999, -0.0471975, 0.0992179, -0.37316, 0.922446, -0.353383, 0.853378, 0.38323, 3.26108, 11.2368, 1.73874 )
+bone_name = "Bag_Retopo_Bag_Low_Bag_Retopo_LeftHand"
+
+[node name="WeaponLeftHand" type="Spatial" parent="Rotation_Helper/Model/Skeleton/BA_LeftHand"]
+transform = Transform( -0.400084, -0.915047, 0.051223, -0.181043, 0.0241209, -0.98318, 0.898418, -0.402628, -0.175312, 3.50141, 1.65872, 1.22841 )
+visible = false
+
+[node name="XCom_rifle" parent="Rotation_Helper/Model/Skeleton/BA_LeftHand/WeaponLeftHand" instance=ExtResource( 4 )]
+transform = Transform( -0.012627, 0.0971998, -0.0198184, -0.0991492, -0.0130029, -0.000602571, -0.00316251, 0.0195734, 0.0980158, 0.617697, 1.64744, 0.683533 )
+
+[node name="shotgun-zx-76" parent="Rotation_Helper/Model/Skeleton/BA_LeftHand/WeaponLeftHand" instance=ExtResource( 5 )]
+transform = Transform( 1.10029, 3.83647, -0.266401, -0.0641676, -0.258723, -3.99108, -3.84515, 1.10212, -0.00963855, 0.587789, 3.49523, 0.112236 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Rotation_Helper/Model"]
-anims/Crouch_Idle = ExtResource( 5 )
-anims/Crouch_Shoot = ExtResource( 6 )
-anims/Crouch_Walk = ExtResource( 7 )
-anims/Crouch_Walk_Shoot = ExtResource( 8 )
-anims/Dash_Roll = ExtResource( 9 )
-anims/Death_1 = ExtResource( 10 )
-anims/Grenade_Throw = ExtResource( 11 )
-anims/Gun_Sprint = ExtResource( 12 )
-anims/Gun_Stand_Idle = ExtResource( 13 )
-anims/Gun_Walk = ExtResource( 14 )
-anims/Gun_Walk_Back = ExtResource( 15 )
-anims/Stand_Shoot = ExtResource( 16 )
-anims/Walk_Shoot = ExtResource( 17 )
+anims/Crouch_Idle = ExtResource( 6 )
+anims/Crouch_Shoot = ExtResource( 7 )
+anims/Crouch_Walk = ExtResource( 8 )
+anims/Crouch_Walk_Shoot = ExtResource( 9 )
+anims/Dash_Roll = ExtResource( 10 )
+anims/Death_1 = ExtResource( 11 )
+anims/Grenade_Throw = ExtResource( 12 )
+anims/Gun_Sprint = ExtResource( 13 )
+anims/Gun_Stand_Idle = ExtResource( 14 )
+anims/Gun_Walk = ExtResource( 15 )
+anims/Gun_Walk_Back = ExtResource( 16 )
+anims/Stand_Shoot = ExtResource( 17 )
+anims/Walk_Shoot = ExtResource( 18 )
 
 [node name="AnimationTree" type="AnimationTree" parent="Rotation_Helper/Model"]
-tree_root = SubResource( 19 )
+tree_root = SubResource( 20 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
 parameters/Blend2_1/blend_amount = 0.0
@@ -497,3 +522,8 @@ parameters/Blend3_1/blend_amount = 0.0
 parameters/OneShot_Dash/active = false
 parameters/OneShot_Grenade/active = false
 
+[node name="SpotLight" type="SpotLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-008, 1, 0, -1, -4.37114e-008, 0, 6.60203, 0 )
+spot_range = 7.5181
+spot_attenuation = 0.148651
+spot_angle = 20.382
