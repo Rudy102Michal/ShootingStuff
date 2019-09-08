@@ -1,7 +1,7 @@
 extends "res://scripts/input_devices/device.gd"
 class_name Keyboard
 
-const Character = preload("res://scripts/player_character.gd")
+const Character = preload("res://scripts/player/player_character.gd")
 
 func handleInput(event: InputEvent):
 	if (event is InputEventMouseMotion and player != null
@@ -22,9 +22,4 @@ func handleInput(event: InputEvent):
 		elif (event.is_action_released("ui_left") and player.walk_direction.x == -1
 		  or event.is_action_released("ui_right") and player.walk_direction.x == 1):
 			player.walk_direction.x = 0
-		elif (event.is_action_pressed("move_sprint")):
-			player.sprint = true
-		elif (event.is_action_released("move_sprint")):
-			player.sprint = false
-		
-		.handleInput(event)
+	.handleInput(event)

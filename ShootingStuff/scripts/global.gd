@@ -3,7 +3,7 @@ extends Node
 const Device = preload("res://scripts/input_devices/device.gd")
 const Gamepad = preload("res://scripts/input_devices/gamepad.gd")
 const Keyboard = preload("res://scripts/input_devices/keyboard.gd")
-const Player = preload("res://scripts/player.gd")
+const Player = preload("res://scripts/player/player.gd")
 
 const PLAYER_NAMES = [
 	"PlayerA",

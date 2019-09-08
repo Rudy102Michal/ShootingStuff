@@ -1,14 +1,14 @@
 [gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://scripts/Isometric_Camera.gd" type="Script" id=1]
-[ext_resource path="res://scripts/players_manager.gd" type="Script" id=2]
+[ext_resource path="res://scripts/player/players_manager.gd" type="Script" id=2]
 [ext_resource path="res://textures/player/player_red.png" type="Texture" id=3]
 [ext_resource path="res://prefabs/player/player_ingame.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scripts/player_character.gd" type="Script" id=5]
-[ext_resource path="res://scripts/enemy_manager.gd" type="Script" id=6]
+[ext_resource path="res://scripts/player/player_character.gd" type="Script" id=5]
+[ext_resource path="res://scripts/enemies/enemy_manager.gd" type="Script" id=6]
 [ext_resource path="res://prefabs/enemies/demogorgon.tscn" type="PackedScene" id=7]
-[ext_resource path="res://scripts/shooting_manager.gd" type="Script" id=8]
-[ext_resource path="res://scripts/grenade_manager.gd" type="Script" id=9]
+[ext_resource path="res://scripts/player/weapons/shooting_manager.gd" type="Script" id=8]
+[ext_resource path="res://scripts/player/weapons/grenade_manager.gd" type="Script" id=9]
 [ext_resource path="res://prefabs/environment/tree01.tscn" type="PackedScene" id=10]
 [ext_resource path="res://prefabs/environment/rock01.tscn" type="PackedScene" id=11]
 [ext_resource path="res://prefabs/environment/rock02.tscn" type="PackedScene" id=12]
@@ -20,6 +20,10 @@
 [ext_resource path="res://textures/ground/cave1.png" type="Texture" id=18]
 [ext_resource path="res://textures/ground/cave3.png" type="Texture" id=19]
 [ext_resource path="res://textures/ground/cave2.png" type="Texture" id=20]
+
+
+
+
 
 [sub_resource type="Environment" id=1]
 background_mode = 1
@@ -58,10 +62,12 @@ texture = ExtResource( 3 )
 
 [node name="PlayerA" parent="StuffOnScreen/Players" instance=ExtResource( 4 )]
 script = ExtResource( 5 )
+grenade_manager = NodePath("../../Grenades")
 
 [node name="PlayerB" parent="StuffOnScreen/Players" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.48381, 0, 0 )
 script = ExtResource( 5 )
+grenade_manager = NodePath("../../Grenades")
 
 [node name="Enemies" type="Spatial" parent="StuffOnScreen"]
 script = ExtResource( 6 )

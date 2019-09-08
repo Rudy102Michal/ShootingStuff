@@ -1,6 +1,6 @@
 extends Node
 
-const Character = preload("res://scripts/player_character.gd")
+const Character = preload("res://scripts/player/player_character.gd")
 const Device = preload("res://scripts/input_devices/device.gd")
 
 export(Texture) var texture
