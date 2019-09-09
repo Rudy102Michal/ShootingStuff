@@ -19,6 +19,7 @@ var velocity : Vector3
 
 # Weapons
 var weapons_node : BoneAttachment
+var weapons_node_left : BoneAttachment
 var current_weapon_node : MeshInstance
 var shooting_node : Spatial
 var weapons_count : int
@@ -32,11 +33,9 @@ func _ready():
 	velocity = Vector3(0.0, 0.0, 0.0)
 	animation_tree = $Rotation_Helper/Model/AnimationTree
 	weapons_node = find_node("Weapon")
-	for weapon in weapons_node.get_children():
-		weapon.visible = false
-	current_weapon_node = weapons_node.get_children()[0] # starting weapon is xcom_rifle
-	current_weapon_node.visible = true
-	weapons_count = weapons_node.get_child_count()
+	weapons_node_left = find_node("WeaponLeftHand")
+	current_weapon_node = make_weapon_visible(0) # starting weapon is xcom_rifle
+	weapons_count = min(weapons_node.get_child_count(), weapons_node_left.get_child_count())
 	shooting_node = $"../../Bullets"
 	
 func set_player(p: Player):
@@ -91,14 +90,16 @@ func update_rotation_from_mouse_position():
 func change_weapon():
 	for index in range(weapons_count):
 		if weapons_node.get_children()[index].visible:
-			weapons_node.get_children()[index].visible = false
-			if index + 1 == weapons_count: # Last weapon, cycle back to 1
-				current_weapon_node = weapons_node.get_children()[0] as MeshInstance
-				current_weapon_node.visible = true
-			else: 
-				current_weapon_node = weapons_node.get_children()[index + 1] as MeshInstance
-				current_weapon_node.visible = true
+			var next_w_ind : int = index + 1 if index < (weapons_count - 1) else 0
+			current_weapon_node = make_weapon_visible(next_w_ind)
 			return
+
+func make_weapon_visible(w_ind : int) -> MeshInstance:
+	for weapon in weapons_node.get_children() + weapons_node_left.get_children():
+		weapon.visible = false
+	weapons_node.get_children()[w_ind].visible = true
+	weapons_node_left.get_children()[w_ind].visible = true
+	return weapons_node.get_children()[w_ind]
 
 func get_barrel_position() -> Position3D:
 	return current_weapon_node.get_node("./BarrelPosition") as Position3D
