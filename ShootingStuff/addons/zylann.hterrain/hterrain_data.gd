@@ -331,6 +331,7 @@ func notify_region_change(p_min, p_size, channel, index = 0):
 			printerr("Unrecognized channel\n")
 
 	emit_signal("region_changed", p_min[0], p_min[1], p_size[0], p_size[1], channel)
+	emit_signal("changed")
 
 
 func notify_full_change():
@@ -1166,6 +1167,7 @@ func _edit_import_maps(input):
 	return true
 
 
+# Provided an arbitrary width and height, returns the closest size the terrain actually supports
 static func get_adjusted_map_size(width, height):
 	var width_po2 = Util.next_power_of_two(width - 1) + 1
 	var height_po2 = Util.next_power_of_two(height - 1) + 1

@@ -83,6 +83,9 @@ func check_if_player_seen():
 	var front_vec : Vector3 = -get_global_transform().basis.z
 	front_vec.y = 0;
 	for player in players_container.get_children():
+		if player.visible == false:
+			break
+
 		var vector_to_player = player.translation - self.translation
 		vector_to_player.y = 0;
 		if vector_to_player.length() > VIEW_DISTANCE: # cannot see that player, it's too far
@@ -125,7 +128,8 @@ func handle_movement(delta):
 	velocity.x = hv.x
 	velocity.z = hv.z
 	
-	if not animation_tree["parameters/OneShot/active"]:
+	if not (animation_tree["parameters/OneShot/active"]
+	or (seen_player and seen_player.to_global(Vector3.ZERO).distance_to(to_global(Vector3.ZERO)) < 2)):
 		velocity = move_and_slide(velocity, VECTOR_UP)
 		pass
 	
@@ -137,8 +141,7 @@ func get_self_2d_position() -> Vector2:
 	return Vector2(global_transform.origin.x, global_transform.origin.z)
 	
 func kill_yourself():
-	print("fucking rip")
-	pass
+	queue_free()
 
 func recoil_from_explosion(recoil_force : Vector3) -> void:
 	velocity += recoil_force

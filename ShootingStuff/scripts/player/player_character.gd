@@ -1,22 +1,23 @@
 extends KinematicBody
 
-# Signals
-
+const Player = preload("res://scripts/player/player.gd")
+const Grenade = preload("res://prefabs/Equipment/Grenade.tscn")
+	
 # Constants
-const GRAVITY : Vector3 = Vector3(0.0, -9.8, 0.0)
-var MAX_SPEED : float = 4.0
+const GRAVITY : float = -20.0
 const ACCELERATION : float  = 3.0
 const DE_ACCELERATION : float = 7.0
-#const ANGLE_STEP : int = 90
-const JUMP_SPEED : float = 3.5
-const FLOOR_NORMAL : Vector3 = Vector3(0, 1.0, 0.0)
+const VECTOR_UP : Vector3 = Vector3(0.0, 1.0, 0.0)
+const WALK_SPEED : float = 4.0
+const RUN_SPEED : float = 10.0
 
-# Controls
-var control_node : Node = null
-var can_move : bool = true
+# Variables
+var player: Player setget set_player
 var animation_tree : AnimationTree
 
-# Weapons variables
+var velocity : Vector3
+
+# Weapons
 var weapons_node : BoneAttachment
 var current_weapon_node : MeshInstance
 var shooting_node : Spatial
@@ -24,19 +25,12 @@ var weapons_count : int
 
 # Grenades
 export(NodePath) var grenade_manager
-onready var grenade = preload("res://prefabs/Equipment/Grenade.tscn")
 var current_nade = null
 
-# Movement
-var velocity : Vector3
-var old_velocity : Vector3
-var direction : Vector3
-
 func _ready():
+	set_physics_process(false)
 	velocity = Vector3(0.0, 0.0, 0.0)
-	old_velocity = velocity
 	animation_tree = $Rotation_Helper/Model/AnimationTree
-	#weapons_node = $Rotation_Helper/Model/Skeleton/BoneAttachment
 	weapons_node = find_node("Weapon")
 	for weapon in weapons_node.get_children():
 		weapon.visible = false
@@ -45,83 +39,56 @@ func _ready():
 	weapons_count = weapons_node.get_child_count()
 	shooting_node = $"../../Bullets"
 	
+func set_player(p: Player):
+	player = p
+	set_physics_process(true)
+	player.connect("player_change_weapon", self, "change_weapon")
+	player.connect("player_throw_grenade", self, "throw_grenade")
+
 func _physics_process(delta):
-	handle_player_movement(delta)
-	handle_player_behaviour()
-	
-func handle_player_movement(delta):
-	if control_node == null or not can_move:
-		return
-		
+	var direction = Vector3(player.walk_direction.x, 0.0, player.walk_direction.y).normalized()
 	var front_vec : Vector3 = get_global_transform().basis.z
-	var left_vec : Vector3 = FLOOR_NORMAL.cross(front_vec)
-	direction = Vector3(0.0, 0.0, 0.0)
+	var max_speed = RUN_SPEED if player.sprint else WALK_SPEED
 	
-	if control_node.should_start_sprint():
-		MAX_SPEED = 8.0
-	if control_node.should_stop_sprint():
-		MAX_SPEED = 4.0
-	
-	if control_node.should_move_forward():
-		direction += front_vec
-	if control_node.should_move_backward():
-		direction += -front_vec
-		
-	direction.y = 0.0
-	direction = direction.normalized()
-	
-	velocity += delta * GRAVITY
-	
-	var hv : Vector3 = velocity
-	hv.y = 0
-	
-	var new_pos : Vector3 = direction * MAX_SPEED
-	var acceleration = ACCELERATION if direction.dot(hv) > 0 else DE_ACCELERATION
+	var hv = Vector3(velocity.x, 0, velocity.z)
+	var new_pos : Vector3 = direction * max_speed
+	var acceleration = ACCELERATION if direction.dot(velocity) > 0 else DE_ACCELERATION
 	
 	hv = hv.linear_interpolate(new_pos, acceleration * delta)
-	hv.y = 0.0
-	
 	velocity.x = hv.x
+	velocity.y += GRAVITY * delta
 	velocity.z = hv.z
-	
-	velocity = move_and_slide(velocity, FLOOR_NORMAL)
-
-func handle_player_behaviour() -> void:
-	#	if old_velocity.length() < 0.08 and velocity.length() > 0.08:
-#		var asm : AnimationNodeStateMachinePlayback = animation_tree["parameters/playback"]
-#		asm.travel("Gun_Walk")
-#	elif old_velocity.length() > 0.08 and velocity.length() < 0.08:
-#		var asm : AnimationNodeStateMachinePlayback = animation_tree["parameters/playback"]
-#		asm.travel("Gun_Stand_Idle")
-	
-	if control_node.is_shooting():
+	velocity = move_and_slide(velocity, VECTOR_UP)
+		
+	if player.shoot:
 		animation_tree.set("parameters/Blend2_1/blend_amount", 1.0)
 		shooting_node.shoot(get_barrel_position(), current_weapon_node.name)
 	else:
 		animation_tree.set("parameters/Blend2_1/blend_amount", 0.0)
-		
-	if control_node.should_change_weapon():
-		change_weapon()
 	
 	var walk_blend_value : float = min(velocity.length(), 1.0)
 	walk_blend_value *= walk_blend_value
-	walk_blend_value *= sign(direction.normalized().dot(get_global_transform().basis.z))
+	walk_blend_value *= sign(direction.normalized().dot(front_vec))
 	animation_tree.set("parameters/Blend3_1/blend_amount", walk_blend_value)
 	animation_tree.set("parameters/Blend2_3/blend_amount", walk_blend_value)
 	
-	var sprint_blend_value : float = min(1.0, max(0, velocity.length() - 4.0))
+	var sprint_blend_value : float = range_lerp(velocity.length(), WALK_SPEED, RUN_SPEED, 0.0, 1.0)
 	animation_tree.set("parameters/Blend2_2/blend_amount", sprint_blend_value)
-	
-	if control_node.should_throw_grenade():
-		animation_tree.set("parameters/OneShot_Grenade/active", true)
 
-func attach_control_node(node : Node) -> void:
-	add_child(node)
-	control_node = node
-	control_node.attach_player_node(self)
-	# Other stuff to trigger, maybe
-	
-func change_weapon() -> void:
+func update_rotation_from_mouse_position():
+	if player:
+		var player_pos : Vector3 = get_global_transform().origin
+		var player_front : Vector3 = get_global_transform().basis.z + player_pos
+		var camera : Camera = get_viewport().get_camera()
+		var projected_player_pos : Vector2 = camera.unproject_position(player_pos)
+		var projected_player_front : Vector2 = camera.unproject_position(player_front)
+		var mouse_pos : Vector2 = get_viewport().get_mouse_position()
+		var pm = mouse_pos - projected_player_pos
+		var pf = projected_player_front - projected_player_pos
+		global_rotate(VECTOR_UP, pm.angle_to(pf))
+		player.look_direction = rotation
+
+func change_weapon():
 	for index in range(weapons_count):
 		if weapons_node.get_children()[index].visible:
 			weapons_node.get_children()[index].visible = false
@@ -135,22 +102,16 @@ func change_weapon() -> void:
 
 func get_barrel_position() -> Position3D:
 	return current_weapon_node.get_node("./BarrelPosition") as Position3D
-	
-func lock_movement() -> void:
-	can_move = false
-	
-func unlock_movement() -> void:
-	can_move = true
-	
-func pick_up_grenade() -> void:
-	print("Hakuna granata")
-	var new_grenade : RigidBody = grenade.instance()
+
+func pick_up_grenade():
+	var new_grenade : RigidBody = Grenade.instance()
 	new_grenade.add_collision_exception_with(self)
 	new_grenade.set_mode(RigidBody.MODE_KINEMATIC)
 	$"Rotation_Helper/Model/Skeleton/BA_RightHand".add_child(new_grenade, true)
 	current_nade = new_grenade
 	
-func throw_grenade() -> void:
+func throw_grenade():
+	animation_tree.set("parameters/OneShot_Grenade/active", true)
 	var gm : Node = get_node(grenade_manager)
 	if current_nade != null:
 		current_nade.set_mode(RigidBody.MODE_RIGID)
@@ -159,7 +120,7 @@ func throw_grenade() -> void:
 		gm.add_child(current_nade, true)
 		current_nade.global_transform = gtf
 		var front_vec : Vector3 = get_global_transform().basis.z.normalized()
-		var left_vec : Vector3 = FLOOR_NORMAL.cross(front_vec)
+		var left_vec : Vector3 = VECTOR_UP.cross(front_vec)
 		var nade_vel : Vector3 = front_vec.rotated(-left_vec, PI / 4.0) * 10
 		current_nade.set_velocity(nade_vel)
 		current_nade.set_thrown(true)

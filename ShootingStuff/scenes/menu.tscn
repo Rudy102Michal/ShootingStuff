@@ -1,14 +1,11 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://textures/cavern_background.png" type="Texture" id=1]
-[ext_resource path="res://scripts/players_manager.gd" type="Script" id=2]
-[ext_resource path="res://prefabs/player/player_menu.tscn" type="PackedScene" id=3]
-[ext_resource path="res://textures/player/player_red.png" type="Texture" id=4]
-[ext_resource path="res://textures/player/player_green.png" type="Texture" id=5]
-[ext_resource path="res://textures/player/player_yellow.png" type="Texture" id=6]
-[ext_resource path="res://textures/player/player_blue.png" type="Texture" id=7]
-[ext_resource path="res://scripts/menu.gd" type="Script" id=8]
-[ext_resource path="res://fonts/zorque.ttf" type="DynamicFontData" id=9]
+[ext_resource path="res://scripts/player/players_manager.gd" type="Script" id=2]
+[ext_resource path="res://textures/player/player_red.png" type="Texture" id=3]
+[ext_resource path="res://prefabs/player/player_menu.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scripts/menu.gd" type="Script" id=5]
+[ext_resource path="res://fonts/zorque.ttf" type="DynamicFontData" id=6]
 
 [sub_resource type="ProxyTexture" id=1]
 flags = 4
@@ -53,7 +50,7 @@ albedo_color = Color( 0, 0, 0, 0.862745 )
 
 [sub_resource type="DynamicFont" id=6]
 size = 32
-font_data = ExtResource( 9 )
+font_data = ExtResource( 6 )
 
 [node name="GameLobby" type="Spatial"]
 
@@ -88,26 +85,23 @@ transform = Transform( 100, 0, 0, 0, -4.37114e-008, -50, 0, 1, -2.18557e-006, -8
 mesh = SubResource( 4 )
 material/0 = SubResource( 5 )
 
-[node name="PlayersManager" type="Node" parent="."]
+[node name="Players" type="Spatial" parent="."]
 script = ExtResource( 2 )
+texture = ExtResource( 3 )
 
-[node name="PlayerA" parent="." instance=ExtResource( 3 )]
+[node name="PlayerA" parent="Players" instance=ExtResource( 4 )]
 transform = Transform( 0.0491829, 0, -0.00900226, 0, 0.05, 0, 0.00900226, 0, 0.0491829, -0.314488, 0, 1.34248 )
-texture = ExtResource( 4 )
 
-[node name="PlayerB" parent="." instance=ExtResource( 3 )]
+[node name="PlayerB" parent="Players" instance=ExtResource( 4 )]
 transform = Transform( 0.0492492, 0, -0.00863255, 0, 0.05, 0, 0.00863255, 0, 0.0492492, 3.36879, 0, -2.68156 )
-texture = ExtResource( 5 )
 
-[node name="PlayerC" parent="." instance=ExtResource( 3 )]
+[node name="PlayerC" parent="Players" instance=ExtResource( 4 )]
 transform = Transform( 0.0336941, 0, -0.0369419, 0, 0.05, 0, 0.0369419, 0, 0.0336941, -3.65849, 0, -3.03969 )
 visible = false
-texture = ExtResource( 6 )
 
-[node name="PlayerD" parent="." instance=ExtResource( 3 )]
+[node name="PlayerD" parent="Players" instance=ExtResource( 4 )]
 transform = Transform( 0.0324072, 0, -0.0380759, 0, 0.05, 0, 0.0380759, 0, 0.0324072, 4.94792, 0, 0.299967 )
 visible = false
-texture = ExtResource( 7 )
 
 [node name="GameLobbyHUD" type="MarginContainer" parent="."]
 margin_left = 16.0
@@ -120,9 +114,10 @@ custom_constants/margin_right = 10
 custom_constants/margin_top = 10
 custom_constants/margin_left = 10
 custom_constants/margin_bottom = 10
-script = ExtResource( 8 )
+script = ExtResource( 5 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="GameLobbyHUD"]
+editor/display_folded = true
 margin_left = 10.0
 margin_top = 10.0
 margin_right = 982.0
@@ -139,7 +134,25 @@ text = "Loading..."
 align = 1
 valign = 1
 
+[node name="HBoxContainer2" type="HBoxContainer" parent="GameLobbyHUD"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 982.0
+margin_bottom = 554.0
+alignment = 1
+
+[node name="Ready" type="Label" parent="GameLobbyHUD/HBoxContainer2"]
+margin_right = 972.0
+margin_bottom = 544.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 6 )
+text = "ALL READY?"
+align = 1
+valign = 1
+
 [node name="VSplitContainer" type="VSplitContainer" parent="GameLobbyHUD"]
+editor/display_folded = true
 margin_left = 10.0
 margin_top = 10.0
 margin_right = 982.0
@@ -154,17 +167,34 @@ margin_top = 12.0
 margin_right = 972.0
 margin_bottom = 544.0
 
-[node name="Menu" type="MarginContainer" parent="GameLobbyHUD/VSplitContainer/HBoxContainer3"]
+[node name="MarginContainer" type="MarginContainer" parent="GameLobbyHUD/VSplitContainer/HBoxContainer3"]
 editor/display_folded = true
 margin_right = 278.0
 margin_bottom = 532.0
 
-[node name="Start New Game" type="Label" parent="GameLobbyHUD/VSplitContainer/HBoxContainer3/Menu"]
+[node name="Menu" type="VBoxContainer" parent="GameLobbyHUD/VSplitContainer/HBoxContainer3/MarginContainer"]
+margin_right = 278.0
+margin_bottom = 532.0
+alignment = 2
+
+[node name="Start New Game" type="Label" parent="GameLobbyHUD/VSplitContainer/HBoxContainer3/MarginContainer/Menu"]
+margin_top = 408.0
+margin_right = 278.0
+margin_bottom = 447.0
+size_flags_vertical = 1
+custom_fonts/font = SubResource( 6 )
+text = "START NEW GAME"
+align = 1
+valign = 1
+
+[node name="Quit" type="Label" parent="GameLobbyHUD/VSplitContainer/HBoxContainer3/MarginContainer/Menu"]
+margin_top = 451.0
 margin_right = 278.0
 margin_bottom = 532.0
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 6 )
-text = "START NEW GAME"
+text = "QUIT
+"
 align = 1
 valign = 1
 

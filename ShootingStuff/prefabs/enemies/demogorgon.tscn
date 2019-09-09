@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=2]
 
-[ext_resource path="res://scripts/demogorgon_logic.gd" type="Script" id=1]
+[ext_resource path="res://scripts/enemies/demogorgon_logic.gd" type="Script" id=1]
 [ext_resource path="res://materials/demogorgon.material" type="Material" id=2]
 [ext_resource path="res://animations/demogorgon/Crawling.tres" type="Animation" id=3]
 [ext_resource path="res://animations/demogorgon/Notice.tres" type="Animation" id=4]

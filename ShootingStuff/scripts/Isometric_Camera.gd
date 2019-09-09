@@ -26,15 +26,16 @@ func _ready():
 #	at_target = players[1].global_transform.origin + players_shift * 0.5
 #	cam_position = at_target + distance_translation
 
-
-
 func _physics_process(delta):
 	if players_container == null:
 		_set_players_container()
 		return
 	
 	var players : Array = players_container.get_children()
-	
+	for i in range(players.size()):
+		if players[i].visible == false:
+			players.resize(i)
+			break
 			
 	if players.size() == 1:
 		at_target = players[0].global_transform.origin
@@ -94,7 +95,6 @@ func _physics_process(delta):
 #		#fov = min(max(70, rad2deg(fov_change)), 90)
 #		cam_position = at_target + distance_translation.normalized() * camera_distance
 	look_at_from_position(cam_position, at_target, VECTOR_UP)
-		
 			
 func _get_player_dependant_fov(player_origin : Vector3) -> float:
 	var ret : float = 0.0
