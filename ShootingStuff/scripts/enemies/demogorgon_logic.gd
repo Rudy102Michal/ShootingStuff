@@ -1,7 +1,7 @@
 extends KinematicBody
 
 # constants
-const GRAVITY : Vector3 = Vector3(0.0, -9.8, 0.0)
+const GRAVITY : Vector3 = Vector3(0.0, -20.0, 0.0)
 const MAX_SPEED : float = 2.0
 const ACCELERATION : float  = 3.0
 const DE_ACCELERATION : float = 7.0
@@ -128,14 +128,18 @@ func handle_movement(delta):
 	velocity.x = hv.x
 	velocity.z = hv.z
 	
-	if not (animation_tree["parameters/OneShot/active"]
-	or (seen_player and seen_player.to_global(Vector3.ZERO).distance_to(to_global(Vector3.ZERO)) < 2)):
+	var distance_from_player = 0
+	
+	if (seen_player):
+		var v1 = seen_player.to_global(Vector3.ZERO)
+		var v2 = to_global(Vector3.ZERO)
+		distance_from_player = Vector2(v1.x, v1.z).distance_to(Vector2(v2.x, v2.z))
+	
+	if not (animation_tree["parameters/OneShot/active"] or (seen_player and distance_from_player < 2)):
 		velocity = move_and_slide(velocity, VECTOR_UP)
-		pass
 	
 func set_players_container(value):
 	players_container = value
-	pass
 	
 func get_self_2d_position() -> Vector2:
 	return Vector2(global_transform.origin.x, global_transform.origin.z)

@@ -3,7 +3,7 @@ extends Spatial
 const VECTOR_UP : Vector3 = Vector3(0.0, 1.0, 0.0)
 
 var XCOM_BULLET = preload("res://prefabs/bullets/BulletXCOM.tscn")
-const XCOM_BULLET_FIRERATE : float = 5.0
+const XCOM_BULLET_FIRERATE : float = 3.0
 var xcom_can_shoot : bool = true;
 
 const SHOTGUN_FIRERATE : float = 1.0

@@ -31,8 +31,8 @@ ambient_light_energy = 1.1
 
 [node name="SpotLight" type="SpotLight" parent="."]
 transform = Transform( 0.129255, -0.170128, -0.976908, -0.159173, -0.975957, 0.148902, -0.978753, 0.136251, -0.153227, -30.3186, 7.79039, 1.71385 )
-light_color = Color( 1, 0.301961, 0.164706, 1 )
-light_energy = 5.98
+light_color = Color( 0.341176, 0.596078, 0.796078, 1 )
+light_energy = 4.47
 light_indirect_energy = 7.77
 light_specular = 0.81
 shadow_enabled = true
@@ -116,13 +116,11 @@ __meta__ = {
 map_scale = Vector3( 0.2, 0.2, 0.2 )
 _terrain_data = ExtResource( 16 )
 chunk_size = 16
-shader_type = "Classic4"
+shader_type = "Classic4Lite"
 custom_shader = null
 shader_params/u_ground_uv_scale = 20
 shader_params/u_depth_blending = true
 shader_params/u_triplanar = false
-shader_params/u_globalmap_blend_start = null
-shader_params/u_globalmap_blend_distance = null
 ground/albedo_bump_0 = ExtResource( 17 )
 ground/normal_roughness_0 = null
 ground/albedo_bump_1 = ExtResource( 18 )

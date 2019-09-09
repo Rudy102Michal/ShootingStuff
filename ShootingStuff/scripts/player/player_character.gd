@@ -62,6 +62,7 @@ func _physics_process(delta):
 		
 	if player.shoot:
 		animation_tree.set("parameters/Blend2_1/blend_amount", 1.0)
+		yield(get_tree().create_timer(0.1), "timeout")
 		shooting_node.shoot(get_barrel_position(), current_weapon_node.name)
 	else:
 		animation_tree.set("parameters/Blend2_1/blend_amount", 0.0)

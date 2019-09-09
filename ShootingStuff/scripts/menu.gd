@@ -57,7 +57,7 @@ func _input(event):
 		find_node("Loading").visible = true
 		find_node("Ready").visible = false
 		
-		yield(get_tree().create_timer(0.01), "timeout")
+		yield(get_tree().create_timer(0.1), "timeout")
 		start_game()
 		pass
 
