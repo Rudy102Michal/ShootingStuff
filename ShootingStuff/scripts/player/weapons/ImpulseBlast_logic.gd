@@ -4,7 +4,7 @@ var blast_progress : float
 var elapsed_time : float
 var finished : bool
 
-export var max_radius = 15.0
+export var max_radius = 8.0
 export var radius : float = 1.0
 export var duration : float = 1.0
 var manager : Node

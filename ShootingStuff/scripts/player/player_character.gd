@@ -139,6 +139,8 @@ func throw_grenade():
 		current_nade.set_thrown(true)
 		current_nade = null
 		
+func recoil_from_explosion(recoil_force : Vector3) -> void:
+	velocity += recoil_force
 		
 # UI specific
 

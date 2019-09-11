@@ -19,13 +19,14 @@ func grenade_hit(grenade) -> void:
 	blast.global_transform.origin = nade_pos
 	$Blasts.add_child(blast)
 	blast.set_manager(self)
-	var enemies = get_tree().get_nodes_in_group("enemies")
-	for enemy in enemies:
+#	var enemies = get_tree().get_nodes_in_group("enemies")
+	var moving_entities = get_tree().get_nodes_in_group("enemies") + get_tree().get_nodes_in_group("players")
+	for enemy in moving_entities:
 		var ray : Vector3 = enemy.get_global_transform().origin - nade_pos
-		var dist_sqr : float = ray.length_squared()
-		if dist_sqr < blast.max_radius * blast.max_radius:
+		var dist : float = ray.length()
+		if dist < blast.max_radius:
 			var force_vec : Vector3 = ray.normalized() * blast.recoil_force # / dist_sqr
-			force_vec = force_vec.rotated(force_vec.cross(Vector3(0, 1, 0)).normalized(), PI / 4.0) * 10
+			force_vec = force_vec.rotated(force_vec.cross(Vector3(0, 1, 0)).normalized(), PI / 4.0) * 10 * (blast.max_radius - dist)
 			enemy.recoil_from_explosion(force_vec)
 	
 func blast_finished(blast : Node) -> void:

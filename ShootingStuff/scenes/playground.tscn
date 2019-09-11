@@ -59,11 +59,15 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.3398, -6.82957, -0.691459 )
 script = ExtResource( 3 )
 texture = ExtResource( 4 )
 
-[node name="PlayerA" parent="StuffOnScreen/Players" instance=ExtResource( 5 )]
+[node name="PlayerA" parent="StuffOnScreen/Players" groups=[
+"players",
+] instance=ExtResource( 5 )]
 script = ExtResource( 6 )
 grenade_manager = NodePath("../../Grenades")
 
-[node name="PlayerB" parent="StuffOnScreen/Players" instance=ExtResource( 5 )]
+[node name="PlayerB" parent="StuffOnScreen/Players" groups=[
+"players",
+] instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.48381, 0, 0 )
 script = ExtResource( 6 )
 grenade_manager = NodePath("../../Grenades")
