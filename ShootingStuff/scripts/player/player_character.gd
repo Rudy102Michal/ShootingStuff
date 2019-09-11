@@ -1,5 +1,10 @@
 extends KinematicBody
 
+class_name PlayerCharacter
+
+signal player_health_changed(player_node, health_value)
+signal player_weapon_changed(player_node, weapon_name)
+
 const Player = preload("res://scripts/player/player.gd")
 const Grenade = preload("res://prefabs/Equipment/Grenade.tscn")
 	
@@ -10,6 +15,11 @@ const DE_ACCELERATION : float = 7.0
 const VECTOR_UP : Vector3 = Vector3(0.0, 1.0, 0.0)
 const WALK_SPEED : float = 4.0
 const RUN_SPEED : float = 10.0
+
+# Game-wise traits
+var player_name : String = ""
+var health_points : float = 1.0		# as a percentage, i.e. [0.0, 1.0]
+
 
 # Variables
 var player: Player setget set_player
@@ -93,6 +103,7 @@ func change_weapon():
 		if weapons_node.get_children()[index].visible:
 			var next_w_ind : int = index + 1 if index < (weapons_count - 1) else 0
 			current_weapon_node = make_weapon_visible(next_w_ind)
+			emit_signal("player_weapon_changed", self, get_current_weapon_name())
 			return
 
 func make_weapon_visible(w_ind : int) -> MeshInstance:
@@ -127,3 +138,15 @@ func throw_grenade():
 		current_nade.set_velocity(nade_vel)
 		current_nade.set_thrown(true)
 		current_nade = null
+		
+		
+# UI specific
+
+func get_player_name() -> String:
+	return player_name
+	
+func set_player_name(p_name : String) -> void:
+	player_name = p_name
+	
+func get_current_weapon_name() -> String:
+	return current_weapon_node.name

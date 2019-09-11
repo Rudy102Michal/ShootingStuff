@@ -1,0 +1,129 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scripts/UI/interface_control.gd" type="Script" id=1]
+[ext_resource path="res://sprites/4179.jpg" type="Texture" id=2]
+[ext_resource path="res://sprites/tough_guy_1.png" type="Texture" id=3]
+[ext_resource path="res://fonts/main_font.tres" type="DynamicFont" id=4]
+[ext_resource path="res://scenes/UI/bar.tscn" type="PackedScene" id=5]
+
+[node name="Interface" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+
+[node name="PlayerTopLeft" type="NinePatchRect" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_scale = Vector2( 5.86798, 3.81039 )
+texture = ExtResource( 2 )
+
+[node name="Avatar" type="TextureRect" parent="PlayerTopLeft"]
+margin_left = 3.16675
+margin_top = 5.0
+margin_right = 203.167
+margin_bottom = 205.0
+rect_scale = Vector2( 0.0589118, 0.0833509 )
+texture = ExtResource( 3 )
+
+[node name="WeaponLabel" type="Label" parent="PlayerTopLeft"]
+margin_left = 17.2695
+margin_top = 6.31504
+margin_right = 165.27
+margin_bottom = 45.315
+rect_scale = Vector2( 0.0941778, 0.0941778 )
+size_flags_horizontal = 0
+custom_fonts/font = ExtResource( 4 )
+text = "Weapon:"
+align = 1
+valign = 1
+
+[node name="PlayerNameLabel" type="Label" parent="PlayerTopLeft"]
+margin_left = 2.34733
+margin_top = 22.5626
+margin_right = 215.347
+margin_bottom = 61.5626
+rect_scale = Vector2( 0.0941778, 0.0941778 )
+size_flags_horizontal = 0
+custom_fonts/font = ExtResource( 4 )
+text = "Playername"
+align = 1
+valign = 1
+
+[node name="WeaponName" type="Label" parent="PlayerTopLeft"]
+margin_left = 16.7575
+margin_top = 12.7489
+margin_right = 164.758
+margin_bottom = 51.7489
+rect_scale = Vector2( 0.0941778, 0.0941778 )
+size_flags_horizontal = 0
+custom_fonts/font = ExtResource( 4 )
+text = "Weapon label"
+valign = 1
+
+[node name="HealthBar" parent="PlayerTopLeft" instance=ExtResource( 5 )]
+margin_left = 2.0
+margin_top = 29.4149
+margin_right = 208.0
+margin_bottom = 57.4149
+rect_scale = Vector2( 0.179202, 0.15544 )
+
+[node name="PlayerTopRight" type="NinePatchRect" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -235.099
+margin_top = 0.568802
+margin_right = -195.099
+margin_bottom = 40.5688
+rect_scale = Vector2( 5.86798, 3.81039 )
+texture = ExtResource( 2 )
+
+[node name="Avatar" type="TextureRect" parent="PlayerTopRight"]
+margin_left = 3.16675
+margin_top = 5.0
+margin_right = 203.167
+margin_bottom = 205.0
+rect_scale = Vector2( 0.0589118, 0.0833509 )
+texture = ExtResource( 3 )
+
+[node name="WeaponLabel" type="Label" parent="PlayerTopRight"]
+margin_left = 17.2695
+margin_top = 6.31504
+margin_right = 165.27
+margin_bottom = 45.315
+rect_scale = Vector2( 0.0941778, 0.0941778 )
+size_flags_horizontal = 0
+custom_fonts/font = ExtResource( 4 )
+text = "Weapon:"
+align = 1
+valign = 1
+
+[node name="PlayerNameLabel" type="Label" parent="PlayerTopRight"]
+margin_left = 2.34733
+margin_top = 22.5626
+margin_right = 215.347
+margin_bottom = 61.5626
+rect_scale = Vector2( 0.0941778, 0.0941778 )
+size_flags_horizontal = 0
+custom_fonts/font = ExtResource( 4 )
+text = "Playername"
+align = 1
+valign = 1
+
+[node name="WeaponName" type="Label" parent="PlayerTopRight"]
+margin_left = 16.7575
+margin_top = 12.7489
+margin_right = 164.758
+margin_bottom = 51.7489
+rect_scale = Vector2( 0.0941778, 0.0941778 )
+size_flags_horizontal = 0
+custom_fonts/font = ExtResource( 4 )
+text = "Weapon label"
+align = 1
+valign = 1
+
+[node name="HealthBar" parent="PlayerTopRight" instance=ExtResource( 5 )]
+margin_left = 2.0
+margin_top = 29.4149
+margin_right = 208.0
+margin_bottom = 57.4149
+rect_scale = Vector2( 0.179202, 0.15544 )

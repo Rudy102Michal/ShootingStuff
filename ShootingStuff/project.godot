@@ -28,12 +28,18 @@ _global_script_classes=[ {
 "class": "Keyboard",
 "language": "GDScript",
 "path": "res://scripts/input_devices/keyboard.gd"
+}, {
+"base": "KinematicBody",
+"class": "PlayerCharacter",
+"language": "GDScript",
+"path": "res://scripts/player/player_character.gd"
 } ]
 _global_script_class_icons={
 "Gamepad": "",
 "HTerrainDataLoader": "",
 "HTerrainDataSaver": "",
-"Keyboard": ""
+"Keyboard": "",
+"PlayerCharacter": ""
 }
 
 [application]

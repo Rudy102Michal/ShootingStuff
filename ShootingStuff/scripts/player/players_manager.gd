@@ -6,8 +6,8 @@ const Device = preload("res://scripts/input_devices/device.gd")
 export(Texture) var texture
 
 func _on_player_joined():
-	var player_name = global.PLAYER_NAMES[global.players.size() - 1]
-	var player_node = get_tree().get_root().find_node(player_name, true, false) as Spatial
+	var player_node_name = global.PLAYER_NAMES[global.players.size() - 1]
+	var player_node = get_tree().get_root().find_node(player_node_name, true, false) as Spatial
 	player_node.visible = true
 	global.players[global.players.size() - 1].player_node = player_node
 
@@ -20,8 +20,16 @@ func _on_player_left(device: Device):
 func _ready():
 	for i in global.PLAYER_NAMES.size():
 		var player_node = get_tree().get_root().find_node(global.PLAYER_NAMES[i], true, false) as Spatial
+		var ui = get_tree().get_root().find_node("Interface", true, false)
 		if global.players.size() > i:
 			global.players[i].player_node = player_node
+			var ingame_player = player_node as PlayerCharacter
+			if ingame_player != null:
+				player_node.set_player_name(global.PLAYER_NAMES[i])			# something nicer, maybe?
+				if ui != null:
+					var result : bool = ui.register_player(player_node)
+					if result == false:
+						print("Game UI interface couldn't register a player")
 		else:
 			player_node.visible = false
 			
