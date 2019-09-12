@@ -33,6 +33,8 @@ onready var col_shape_running : CollisionShape = $Demog_Body_Run_CS
 # Players data
 var players_container : Spatial setget set_players_container
 var seen_player : KinematicBody = null
+var alive : bool
+var can_move : bool
 
 func _ready():
 	velocity = Vector3(0.0, 0.0, 0.0)
@@ -41,9 +43,12 @@ func _ready():
 		set_players_container(get_node("../../Players"))
 	animation_tree = $RotationHelper/Model/AnimationTree
 	col_shape_running.disabled = true
-	pass
+	alive = true
+	can_move = true
 
 func _physics_process(delta):
+	if not alive or not can_move:
+		return
 	if patrolling:
 		patrol_and_rotate(delta)
 		check_if_player_seen()
@@ -146,8 +151,15 @@ func get_self_2d_position() -> Vector2:
 	return Vector2(global_transform.origin.x, global_transform.origin.z)
 	
 func kill_yourself():
-	queue_free()
+	can_move = false
+	animation_tree.set("parameters/OneShot_Death/active", true)
+#	queue_free()
 
 func recoil_from_explosion(recoil_force : Vector3) -> void:
 	velocity += recoil_force
 	
+func gorgon_dies() -> void:
+	alive = false
+	animation_tree.active = false
+	animation_tree
+		
