@@ -62,11 +62,13 @@ script = ExtResource( 2 )
 [node name="StuffOnScreen" type="Spatial" parent="."]
 
 [node name="Grenades" type="Spatial" parent="StuffOnScreen"]
+editor/display_folded = true
 script = ExtResource( 3 )
 
 [node name="Blasts" type="Spatial" parent="StuffOnScreen/Grenades"]
 
 [node name="Players" type="Spatial" parent="StuffOnScreen"]
+editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.3398, -6.82957, -0.691459 )
 script = ExtResource( 4 )
 textures = [ ExtResource( 5 ), ExtResource( 6 ) ]
@@ -84,6 +86,7 @@ grenade_manager = NodePath("../Grenades")
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.48381, 0, 0 )
 
 [node name="Enemies" type="Spatial" parent="StuffOnScreen"]
+editor/display_folded = true
 script = ExtResource( 10 )
 
 [node name="DemogorgonKB" parent="StuffOnScreen/Enemies" instance=ExtResource( 11 )]
@@ -134,6 +137,9 @@ __meta__ = {
 "_edit_lock_": true,
 "_editor_icon": ExtResource( 20 )
 }
+collision_enabled = true
+ambient_wind = 0.0
+lod_scale = 2.0
 map_scale = Vector3( 0.2, 0.2, 0.2 )
 _terrain_data = ExtResource( 21 )
 chunk_size = 16

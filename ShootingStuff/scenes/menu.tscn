@@ -91,7 +91,6 @@ mesh = SubResource( 4 )
 material/0 = SubResource( 5 )
 
 [node name="Players" type="Spatial" parent="."]
-editor/display_folded = true
 script = ExtResource( 2 )
 textures = [ ExtResource( 3 ), ExtResource( 4 ) ]
 join_sounds = [ ExtResource( 5 ), ExtResource( 6 ) ]
