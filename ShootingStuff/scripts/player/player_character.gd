@@ -170,6 +170,10 @@ func throw_grenade():
 func recoil_from_explosion(recoil_force : Vector3) -> void:
 	velocity += recoil_force
 	
+func get_hit(damage : float) -> void:
+	health_points -= damage
+	emit_signal("player_health_changed", self, health_points)
+	
 func lock_movement() -> void:
 	can_move = false
 	

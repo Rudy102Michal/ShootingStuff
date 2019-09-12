@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://scripts/enemies/demogorgon_logic.gd" type="Script" id=1]
 [ext_resource path="res://materials/demogorgon.material" type="Material" id=2]
@@ -8,7 +8,7 @@
 [ext_resource path="res://animations/demogorgon/Notice.tres" type="Animation" id=6]
 [ext_resource path="res://animations/demogorgon/Running.tres" type="Animation" id=7]
 [ext_resource path="res://sounds/demogorgon_idle.ogg" type="AudioStream" id=8]
-[ext_resource path="res://sounds/footstep1.wav" type="AudioStream" id=9]
+[ext_resource path="res://sounds/footstep3.wav" type="AudioStream" id=9]
 [ext_resource path="res://sounds/demogorgon_roar.ogg" type="AudioStream" id=10]
 
 [sub_resource type="CapsuleShape" id=1]
@@ -35,54 +35,61 @@ surfaces/0 = {
 "vertex_count": 8508
 }
 
-[sub_resource type="AnimationNodeAnimation" id=5]
-animation = "Notice"
+[sub_resource type="CapsuleShape" id=5]
+radius = 0.08
+height = 0.2
 
 [sub_resource type="AnimationNodeAnimation" id=6]
-animation = "Running"
+animation = "Notice"
 
 [sub_resource type="AnimationNodeAnimation" id=7]
-animation = "Death"
+animation = "Running"
 
 [sub_resource type="AnimationNodeAnimation" id=8]
-animation = "Attack"
+animation = "Death"
 
 [sub_resource type="AnimationNodeAnimation" id=9]
-animation = "Crawling"
+animation = "Attack"
 
-[sub_resource type="AnimationNodeBlend2" id=10]
+[sub_resource type="AnimationNodeAnimation" id=10]
+animation = "Crawling"
 
 [sub_resource type="AnimationNodeBlend2" id=11]
 
+[sub_resource type="AnimationNodeBlend2" id=12]
+
 [sub_resource type="AnimationNodeOneShot" id=13]
+
+[sub_resource type="AnimationNodeOneShot" id=14]
 fadein_time = 0.7
 fadeout_time = 0.5
 autorestart_random_delay = -4.88673e+031
 
-[sub_resource type="AnimationNodeOneShot" id=12]
-
-[sub_resource type="AnimationNodeBlendTree" id=14]
-graph_offset = Vector2( -8, 95.5397 )
-nodes/Animation/node = SubResource( 9 )
+[sub_resource type="AnimationNodeBlendTree" id=15]
+graph_offset = Vector2( 0, -63.5 )
+nodes/Animation/node = SubResource( 10 )
 nodes/Animation/position = Vector2( 80, 80 )
-"nodes/Animation 2/node" = SubResource( 5 )
+"nodes/Animation 2/node" = SubResource( 6 )
 "nodes/Animation 2/position" = Vector2( 520, 240 )
-"nodes/Animation 3/node" = SubResource( 6 )
+"nodes/Animation 3/node" = SubResource( 7 )
 "nodes/Animation 3/position" = Vector2( 80, 200 )
-"nodes/Animation 4/node" = SubResource( 7 )
+"nodes/Animation 4/node" = SubResource( 8 )
 "nodes/Animation 4/position" = Vector2( 760, 300 )
-"nodes/Animation 5/node" = SubResource( 8 )
+"nodes/Animation 5/node" = SubResource( 9 )
 "nodes/Animation 5/position" = Vector2( 220, -60 )
 nodes/Blend2/node = SubResource( 11 )
 nodes/Blend2/position = Vector2( 260, 100 )
-"nodes/Blend2 2/node" = SubResource( 10 )
-"nodes/Blend2 2/position" = Vector2( 480, 20 )
-nodes/OneShot/node = SubResource( 13 )
-nodes/OneShot/position = Vector2( 720, 100 )
-nodes/OneShot_Death/node = SubResource( 12 )
+nodes/Blend2_Attack/node = SubResource( 12 )
+nodes/Blend2_Attack/position = Vector2( 480, 20 )
+nodes/OneShot_Death/node = SubResource( 13 )
 nodes/OneShot_Death/position = Vector2( 980, 120 )
+nodes/OneShot_Roar/node = SubResource( 14 )
+nodes/OneShot_Roar/position = Vector2( 720, 100 )
 nodes/output/position = Vector2( 1160, 120 )
-node_connections = [ "output", 0, "OneShot_Death", "OneShot_Death", 0, "OneShot", "OneShot_Death", 1, "Animation 4", "Blend2 2", 0, "Animation 5", "Blend2 2", 1, "Blend2", "Blend2", 0, "Animation", "Blend2", 1, "Animation 3", "OneShot", 0, "Blend2 2", "OneShot", 1, "Animation 2" ]
+node_connections = [ "output", 0, "OneShot_Death", "Blend2", 0, "Animation", "Blend2", 1, "Animation 3", "OneShot_Roar", 0, "Blend2_Attack", "OneShot_Roar", 1, "Animation 2", "OneShot_Death", 0, "OneShot_Roar", "OneShot_Death", 1, "Animation 4", "Blend2_Attack", 0, "Animation 5", "Blend2_Attack", 1, "Blend2" ]
+
+[sub_resource type="SphereShape" id=16]
+radius = 1.72004
 
 [node name="DemogorgonKB" type="KinematicBody" groups=[
 "enemies",
@@ -209,7 +216,7 @@ bones/19/name = "mixamorig_LeftHandMiddle1"
 bones/19/parent = 10
 bones/19/rest = Transform( 0.999481, -0.0203069, -0.0249837, 0.0321953, 0.630405, 0.775599, -3.57628e-007, -0.776, 0.630732, -0.0117683, 0.107535, 0.0182989 )
 bones/19/enabled = true
-bones/19/bound_children = [  ]
+bones/19/bound_children = [ NodePath("BA_LeftHand") ]
 bones/20/name = "mixamorig_LeftHandMiddle2"
 bones/20/parent = 19
 bones/20/rest = Transform( 1, 8.9407e-008, 2.98023e-008, 1.78814e-007, 0.947569, -0.319552, -1.93715e-007, 0.319551, 0.947569, 0.00206107, 0.0854371, -1.19209e-007 )
@@ -440,6 +447,16 @@ bones/64/bound_children = [  ]
 mesh = SubResource( 4 )
 material/0 = ExtResource( 2 )
 
+[node name="BA_LeftHand" type="BoneAttachment" parent="RotationHelper/Model/Skeleton"]
+transform = Transform( 0.946077, 0.32191, -0.0361956, -0.230176, 0.589401, -0.774351, -0.227938, 0.740929, 0.631717, 0.305028, -0.173393, 0.895923 )
+bone_name = "mixamorig_LeftHandMiddle1"
+
+[node name="PawArea" type="Area" parent="RotationHelper/Model/Skeleton/BA_LeftHand"]
+
+[node name="CollisionShape" type="CollisionShape" parent="RotationHelper/Model/Skeleton/BA_LeftHand/PawArea"]
+transform = Transform( 0.879972, 0.454558, 0.137922, 0.14437, 0.0206977, -0.989304, -0.452552, 0.890481, -0.0474029, 0.0107659, 0.0398269, 0.0616716 )
+shape = SubResource( 5 )
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="RotationHelper/Model"]
 anims/Attack = ExtResource( 3 )
 anims/Crawling = ExtResource( 4 )
@@ -448,13 +465,13 @@ anims/Notice = ExtResource( 6 )
 anims/Running = ExtResource( 7 )
 
 [node name="AnimationTree" type="AnimationTree" parent="RotationHelper/Model"]
-tree_root = SubResource( 14 )
+tree_root = SubResource( 15 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
 parameters/Blend2/blend_amount = 0.0
-"parameters/Blend2 2/blend_amount" = 1.0
-parameters/OneShot/active = false
+parameters/Blend2_Attack/blend_amount = 1.0
 parameters/OneShot_Death/active = false
+parameters/OneShot_Roar/active = false
 
 [node name="IdleSoundPlayer" type="AudioStreamPlayer3D" parent="RotationHelper/Model"]
 stream = ExtResource( 8 )
@@ -469,3 +486,13 @@ autoplay = true
 [node name="RoarSoundPlayer" type="AudioStreamPlayer3D" parent="RotationHelper/Model"]
 stream = ExtResource( 10 )
 unit_size = 20.0
+
+[node name="AttackRange" type="Area" parent="RotationHelper"]
+transform = Transform( 1, 0, -2.98023e-008, 0, 1, 0, 2.98023e-008, 0, 1, 0, 1.80211, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="RotationHelper/AttackRange"]
+transform = Transform( 1, 0, -2.98023e-008, 0, 1, 0, 2.98023e-008, 0, 1, -0.911274, 0.306159, 1.50289 )
+shape = SubResource( 16 )
+[connection signal="body_entered" from="RotationHelper/Model/Skeleton/BA_LeftHand/PawArea" to="." method="_on_PawArea_hit_player"]
+[connection signal="body_entered" from="RotationHelper/AttackRange" to="." method="_on_AttackRange_body_entered"]
+[connection signal="body_exited" from="RotationHelper/AttackRange" to="." method="_on_AttackRange_body_exited"]

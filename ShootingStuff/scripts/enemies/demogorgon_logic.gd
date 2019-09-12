@@ -26,6 +26,12 @@ var rotating_on_patrol : bool = false
 var angle_to_rotate_to : float
 var angle_already_rotated : float = 0.0
 
+# Attacking
+var attacking : bool = false
+var attacking_time : float = 0.0
+const attacking_anim_time_blend : float = 0.3
+var players_in_range : int = 0
+
 # Collision shapes
 onready var col_shape_patrolling : CollisionShape = $Demog_Body_CS
 onready var col_shape_running : CollisionShape = $Demog_Body_Run_CS
@@ -54,8 +60,14 @@ func _physics_process(delta):
 		check_if_player_seen()
 	else:
 		rotate_towards_seen_player(delta)
+	if players_in_range > 0:
+		patrolling = false
+		attacking_time = min(attacking_anim_time_blend, attacking_time + delta)
+		attack()
+	else:
+		attacking_time = max(0.0, attacking_time - delta)
+		attacking = false
 	handle_movement(delta)
-	pass
 	
 func rotate_towards_seen_player(delta):
 	
@@ -63,6 +75,12 @@ func rotate_towards_seen_player(delta):
 	if seen_player != null:
 		var player_position = seen_player.global_transform.origin
 		look_at(player_position, VECTOR_UP)
+
+func attack() -> void:
+	attacking = true
+	var blend_am = 1.0 - smoothstep(0.0, attacking_anim_time_blend, attacking_time)
+	animation_tree.set("parameters/Blend2_Attack/blend_amount", blend_am)
+	attacking_time = min(attacking_time, attacking_anim_time_blend)
 		
 func patrol_and_rotate(delta):
 	if not rotating_on_patrol:
@@ -103,18 +121,20 @@ func check_if_player_seen():
 			patrolling = false
 			col_shape_patrolling.disabled = true
 			col_shape_running.disabled = false
-			animation_tree["parameters/OneShot/active"] = true
+			animation_tree["parameters/OneShot_Roar/active"] = true
 			animation_tree["parameters/Blend2/blend_amount"] = 1.0
 			$RotationHelper/Model/RoarSoundPlayer.play()
 			return
-	pass
 	
 func handle_movement(delta):
 		
 	var front_vec : Vector3 = -get_global_transform().basis.z
 	var left_vec : Vector3 = VECTOR_UP.cross(front_vec)
 	var direction : Vector3 = Vector3(0.0, 0.0, 0.0)
-		
+	
+	if attacking_time > 0.0 and not attacking:
+		animation_tree.set("parameters/Blend2_Attack/blend_amount", smoothstep(attacking_anim_time_blend, 0.0, attacking_time))
+	
 	direction += front_vec
 	direction.y = 0.0
 	direction = direction.normalized()
@@ -127,7 +147,7 @@ func handle_movement(delta):
 	var new_pos : Vector3 = direction * (MAX_SPEED * AGGRO_MOD if (not patrolling) else MAX_SPEED)
 	var acceleration = ACCELERATION if direction.dot(hv) > 0 else DE_ACCELERATION
 	acceleration = acceleration * AGGRO_MOD if (not patrolling) else acceleration
-	
+	acceleration = acceleration if not attacking else 0.0
 	hv = hv.linear_interpolate(new_pos, acceleration * delta)
 	hv.y = 0.0
 	
@@ -141,7 +161,7 @@ func handle_movement(delta):
 		var v2 = to_global(Vector3.ZERO)
 		distance_from_player = Vector2(v1.x, v1.z).distance_to(Vector2(v2.x, v2.z))
 	
-	if not (animation_tree["parameters/OneShot/active"] or (seen_player and distance_from_player < 2)):
+	if not (animation_tree["parameters/OneShot_Roar/active"] or (seen_player and distance_from_player < 2)):
 		velocity = move_and_slide(velocity, VECTOR_UP)
 	
 func set_players_container(value):
@@ -163,3 +183,24 @@ func gorgon_dies() -> void:
 	animation_tree.active = false
 	animation_tree
 		
+
+func _on_AttackRange_body_entered(body):
+	var player : PlayerCharacter = body as PlayerCharacter
+	if player != null:
+		print("Player in range!")
+		players_in_range += 1
+
+
+func _on_AttackRange_body_exited(body):
+	var player : PlayerCharacter = body as PlayerCharacter
+	if player != null:
+		print("Farewell player!")
+		players_in_range = max(0, players_in_range - 1)			# In theory < 0 shouldn't happen, but if does,
+																# then may fuck up a lot
+
+
+func _on_PawArea_hit_player(body):
+	var player : PlayerCharacter = body as PlayerCharacter
+	if player != null:
+		print("Hit dat player!")
+		player.get_hit(0.1) 		# Should be better, but oh, well..

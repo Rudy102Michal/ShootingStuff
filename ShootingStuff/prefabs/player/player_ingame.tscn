@@ -475,7 +475,7 @@ mesh = SubResource( 3 )
 material/0 = SubResource( 4 )
 
 [node name="BA_RightHand" type="BoneAttachment" parent="Rotation_Helper/Model/Skeleton"]
-transform = Transform( 0.354356, 0.834782, 0.42139, 0.863973, -0.46467, 0.193986, 0.357744, 0.295333, -0.885888, -0.88171, 12.0369, 2.50635 )
+transform = Transform( 0.336214, 0.848668, 0.408313, 0.872984, -0.443505, 0.202979, 0.353351, 0.28821, -0.889987, -0.889462, 12.056, 2.55763 )
 bone_name = "Bag_Retopo_Bag_Low_Bag_Retopo_RightHand"
 
 [node name="Weapon" type="Spatial" parent="Rotation_Helper/Model/Skeleton/BA_RightHand"]
@@ -488,7 +488,7 @@ transform = Transform( -0.012627, 0.0971998, -0.0198184, -0.0991492, -0.0130029,
 transform = Transform( 1.10029, 3.83647, -0.266401, -0.0641676, -0.258723, -3.99108, -3.84515, 1.10212, -0.00963855, 0.587789, 3.49523, 0.112236 )
 
 [node name="BA_LeftHand" type="BoneAttachment" parent="Rotation_Helper/Model/Skeleton"]
-transform = Transform( -0.882271, -0.46201, -0.0902193, 0.0893914, -0.352602, 0.931494, -0.462173, 0.813767, 0.352391, 3.07431, 11.2292, 2.30879 )
+transform = Transform( -0.889798, -0.442637, -0.111028, 0.0669833, -0.36734, 0.927671, -0.451409, 0.818004, 0.356508, 3.09434, 11.2995, 2.3381 )
 bone_name = "Bag_Retopo_Bag_Low_Bag_Retopo_LeftHand"
 
 [node name="WeaponLeftHand" type="Spatial" parent="Rotation_Helper/Model/Skeleton/BA_LeftHand"]
