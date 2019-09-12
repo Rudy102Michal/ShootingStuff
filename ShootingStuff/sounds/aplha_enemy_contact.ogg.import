@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/aplha_enemy_contact.ogg-32d370aac82f396eda72e2dc925a5157.oggstr"
+
+[deps]
+
+source_file="res://sounds/aplha_enemy_contact.ogg"
+dest_files=[ "res://.import/aplha_enemy_contact.ogg-32d370aac82f396eda72e2dc925a5157.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0
