@@ -24,7 +24,7 @@ var health_points : float = 1.0		# as a percentage, i.e. [0.0, 1.0]
 # Variables
 var player: Player setget set_player
 var animation_tree : AnimationTree
-
+var can_move : bool = true
 var velocity : Vector3
 
 # Weapons
@@ -34,8 +34,11 @@ var current_weapon_node : MeshInstance
 var shooting_node : Spatial
 var weapons_count : int
 
+var shooting_time : float = 0.0		# helper for smooth shooting transition
+const shooting_anim_blend_time = 0.25
+
 # Grenades
-export(NodePath) var grenade_manager
+var grenade_manager : Node
 var current_nade = null
 
 func _ready():
@@ -52,11 +55,50 @@ func set_player(p: Player):
 	player = p
 	set_physics_process(true)
 	player.connect("player_change_weapon", self, "change_weapon")
-	player.connect("player_throw_grenade", self, "throw_grenade")
+	player.connect("player_throw_grenade", self, "control_throw_grenade")
+	
+func set_grenade_manager(gm : Node) -> void:
+	grenade_manager = gm
 
 func _physics_process(delta):
-	var direction = Vector3(player.walk_direction.x, 0.0, player.walk_direction.y).normalized()
+#	var direction = Vector3(player.walk_direction.x, 0.0, player.walk_direction.y).normalized()
+#	var front_vec : Vector3 = get_global_transform().basis.z
+#	var max_speed = RUN_SPEED if player.sprint else WALK_SPEED
+#
+#	var hv = Vector3(velocity.x, 0, velocity.z)
+#	var new_pos : Vector3 = direction * max_speed
+#	var acceleration = ACCELERATION if direction.dot(velocity) > 0 else DE_ACCELERATION
+#
+#	hv = hv.linear_interpolate(new_pos, acceleration * delta)
+#	velocity.x = hv.x
+#	velocity.y += GRAVITY * delta
+#	velocity.z = hv.z
+#	velocity = move_and_slide(velocity, VECTOR_UP)
 	var front_vec : Vector3 = get_global_transform().basis.z
+	var direction : Vector3 = Vector3.ZERO
+	if can_move:
+		direction = handle_movement(front_vec, delta)
+	
+	if player.shoot:
+		shooting_time += delta
+		animation_tree.set("parameters/Blend2_1/blend_amount", smoothstep(0.0, shooting_anim_blend_time, shooting_time))
+		shooting_node.shoot(get_barrel_position(), current_weapon_node.name)
+	else:
+		shooting_time = 0.0
+		animation_tree.set("parameters/Blend2_1/blend_amount", 0.0)
+	
+	var walk_blend_value : float = min(velocity.length(), 1.0)
+	walk_blend_value *= walk_blend_value
+	walk_blend_value *= sign(direction.normalized().dot(front_vec))
+	animation_tree.set("parameters/Blend3_1/blend_amount", walk_blend_value)
+	animation_tree.set("parameters/Blend2_3/blend_amount", walk_blend_value)
+	
+	var sprint_blend_value : float = range_lerp(velocity.length(), WALK_SPEED, RUN_SPEED, 0.0, 1.0)
+	animation_tree.set("parameters/Blend2_2/blend_amount", sprint_blend_value)
+
+func handle_movement(front_vec : Vector3, delta : float) -> Vector3:
+	var direction = Vector3(player.walk_direction.x, 0.0, player.walk_direction.y).normalized()
+#	var front_vec : Vector3 = get_global_transform().basis.z
 	var max_speed = RUN_SPEED if player.sprint else WALK_SPEED
 	
 	var hv = Vector3(velocity.x, 0, velocity.z)
@@ -68,21 +110,7 @@ func _physics_process(delta):
 	velocity.y += GRAVITY * delta
 	velocity.z = hv.z
 	velocity = move_and_slide(velocity, VECTOR_UP)
-		
-	if player.shoot:
-		animation_tree.set("parameters/Blend2_1/blend_amount", 1.0)
-		shooting_node.shoot(get_barrel_position(), current_weapon_node.name)
-	else:
-		animation_tree.set("parameters/Blend2_1/blend_amount", 0.0)
-	
-	var walk_blend_value : float = min(velocity.length(), 1.0)
-	walk_blend_value *= walk_blend_value
-	walk_blend_value *= sign(direction.normalized().dot(front_vec))
-	animation_tree.set("parameters/Blend3_1/blend_amount", walk_blend_value)
-	animation_tree.set("parameters/Blend2_3/blend_amount", walk_blend_value)
-	
-	var sprint_blend_value : float = range_lerp(velocity.length(), WALK_SPEED, RUN_SPEED, 0.0, 1.0)
-	animation_tree.set("parameters/Blend2_2/blend_amount", sprint_blend_value)
+	return direction
 
 func update_rotation_from_mouse_position():
 	if player:
@@ -122,9 +150,12 @@ func pick_up_grenade():
 	$"Rotation_Helper/Model/Skeleton/BA_RightHand".add_child(new_grenade, true)
 	current_nade = new_grenade
 	
-func throw_grenade():
+func control_throw_grenade() -> void:
 	animation_tree.set("parameters/OneShot_Grenade/active", true)
-	var gm : Node = get_node(grenade_manager)
+	
+func throw_grenade():
+#	var gm : Node = get_node(grenade_manager)
+	var gm = grenade_manager
 	if current_nade != null:
 		current_nade.set_mode(RigidBody.MODE_RIGID)
 		var gtf : Transform = current_nade.get_global_transform()
@@ -140,6 +171,12 @@ func throw_grenade():
 		
 func recoil_from_explosion(recoil_force : Vector3) -> void:
 	velocity += recoil_force
+	
+func lock_movement() -> void:
+	can_move = false
+	
+func unlock_movement() -> void:
+	can_move = true
 		
 # UI specific
 

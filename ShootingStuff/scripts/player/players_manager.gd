@@ -6,6 +6,7 @@ const Device = preload("res://scripts/input_devices/device.gd")
 export(Array, Texture) var textures
 export(Array, AudioStream) var join_sounds
 export(NodePath) var sound_player
+export(NodePath) var grenade_manager
 
 func _on_player_joined():
 	var index = global.players.size() - 1
@@ -32,6 +33,7 @@ func _ready():
 			global.players[i].player_node = player_node
 			var ingame_player = player_node as PlayerCharacter
 			if ingame_player != null:
+				ingame_player.set_grenade_manager(get_node(grenade_manager))
 				player_node.set_player_name(global.PLAYER_NAMES[i])			# something nicer, maybe?
 				if ui != null:
 					var result : bool = ui.register_player(player_node)
