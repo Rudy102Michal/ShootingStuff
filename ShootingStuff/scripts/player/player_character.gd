@@ -67,19 +67,6 @@ func set_grenade_manager(gm : Node) -> void:
 	grenade_manager = gm
 
 func _physics_process(delta):
-#	var direction = Vector3(player.walk_direction.x, 0.0, player.walk_direction.y).normalized()
-#	var front_vec : Vector3 = get_global_transform().basis.z
-#	var max_speed = RUN_SPEED if player.sprint else WALK_SPEED
-#
-#	var hv = Vector3(velocity.x, 0, velocity.z)
-#	var new_pos : Vector3 = direction * max_speed
-#	var acceleration = ACCELERATION if direction.dot(velocity) > 0 else DE_ACCELERATION
-#
-#	hv = hv.linear_interpolate(new_pos, acceleration * delta)
-#	velocity.x = hv.x
-#	velocity.y += GRAVITY * delta
-#	velocity.z = hv.z
-#	velocity = move_and_slide(velocity, VECTOR_UP)
 	var front_vec : Vector3 = get_global_transform().basis.z
 	var direction : Vector3 = Vector3.ZERO
 	if can_move:
@@ -88,7 +75,7 @@ func _physics_process(delta):
 	if player.shoot:
 		shooting_time += delta
 		animation_tree.set("parameters/Blend2_1/blend_amount", smoothstep(0.0, shooting_anim_blend_time, shooting_time))
-		shooting_node.shoot(get_barrel_position(), current_weapon_node.name)
+#		shooting_node.shoot(get_barrel_position(), current_weapon_node.name)
 	else:
 		shooting_time = 0.0
 		animation_tree.set("parameters/Blend2_1/blend_amount", 0.0)
@@ -148,6 +135,10 @@ func make_weapon_visible(w_ind : int) -> MeshInstance:
 
 func get_barrel_position() -> Position3D:
 	return current_weapon_node.get_node("./BarrelPosition") as Position3D
+
+func trigger_shot() -> void:
+	if shooting_time >= shooting_anim_blend_time:
+		shooting_node.shoot(get_barrel_position(), current_weapon_node.name)
 
 func pick_up_grenade():
 	var new_grenade : RigidBody = Grenade.instance()
