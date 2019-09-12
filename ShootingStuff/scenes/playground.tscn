@@ -69,11 +69,15 @@ textures = [ ExtResource( 4 ), ExtResource( 5 ) ]
 join_sounds = [ ExtResource( 6 ), ExtResource( 7 ) ]
 sound_player = NodePath("../../JoinSoundPlayer")
 
-[node name="PlayerA" parent="StuffOnScreen/Players" instance=ExtResource( 8 )]
+[node name="PlayerA" parent="StuffOnScreen/Players" groups=[
+"players",
+] instance=ExtResource( 8 )]
 script = ExtResource( 9 )
 grenade_manager = NodePath("../../Grenades")
 
-[node name="PlayerB" parent="StuffOnScreen/Players" instance=ExtResource( 8 )]
+[node name="PlayerB" parent="StuffOnScreen/Players" groups=[
+"players",
+] instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.48381, 0, 0 )
 script = ExtResource( 9 )
 grenade_manager = NodePath("../../Grenades")
@@ -134,9 +138,6 @@ __meta__ = {
 "_edit_lock_": true,
 "_editor_icon": ExtResource( 21 )
 }
-collision_enabled = true
-ambient_wind = 0.0
-lod_scale = 2.0
 map_scale = Vector3( 0.2, 0.2, 0.2 )
 _terrain_data = ExtResource( 22 )
 chunk_size = 16

@@ -84,7 +84,7 @@ uniform sampler2D tex_frg_7;uniform float DissolveProgress;
 
 
 void vertex() {
-// Wejście:2
+// Input:2
 	vec3 n_out2p0;
 	n_out2p0 = VERTEX;
 
@@ -116,7 +116,7 @@ void vertex() {
 	vec3 n_out7p0;
 	n_out7p0 = vec3( n_out4p0 , n_out5p0 , n_out6p0 );
 
-// Konsola:0
+// Output:0
 	VERTEX = n_out7p0;
 
 }
@@ -128,7 +128,7 @@ void fragment() {
 	n_out15p0 = vec3(0.122070,0.000000,0.976563);
 	n_out15p1 = 1.000000;
 
-// Wejście:2
+// Input:2
 	vec3 n_out2p0;
 	n_out2p0 = vec3(UV,0.0);
 
@@ -180,7 +180,7 @@ void fragment() {
 	vec3 n_out13p0;
 	n_out13p0 = vec3(n_out12p0) * n_out14p0;
 
-// Konsola:0
+// Output:0
 	ALBEDO = n_out15p0;
 	ALPHA = n_out9p0;
 	EMISSION = n_out13p0;
@@ -188,7 +188,7 @@ void fragment() {
 }
 
 void light() {
-// Konsola:0
+// Output:0
 
 }
 "
