@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/demogorgon_idle.ogg-074fd7bb0da8c39bc6cdc36e4315f5bd.oggstr"
+
+[deps]
+
+source_file="res://sounds/demogorgon_idle.ogg"
+dest_files=[ "res://.import/demogorgon_idle.ogg-074fd7bb0da8c39bc6cdc36e4315f5bd.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

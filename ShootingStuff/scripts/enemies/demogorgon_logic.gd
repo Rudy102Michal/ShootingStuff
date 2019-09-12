@@ -100,6 +100,7 @@ func check_if_player_seen():
 			col_shape_running.disabled = false
 			animation_tree["parameters/OneShot/active"] = true
 			animation_tree["parameters/Blend2/blend_amount"] = 1.0
+			$RotationHelper/Model/RoarSoundPlayer.play()
 			return
 	pass
 	
