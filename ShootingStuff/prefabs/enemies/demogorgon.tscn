@@ -61,7 +61,7 @@ fadeout_time = 0.5
 autorestart_random_delay = -4.88673e+031
 
 [sub_resource type="AnimationNodeBlendTree" id=14]
-graph_offset = Vector2( -8, -118.21 )
+graph_offset = Vector2( -8, -15.2103 )
 nodes/Animation/node = SubResource( 9 )
 nodes/Animation/position = Vector2( 80, 80 )
 "nodes/Animation 2/node" = SubResource( 5 )
@@ -450,7 +450,7 @@ anims/Running = ExtResource( 7 )
 tree_root = SubResource( 14 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
-parameters/Blend2/blend_amount = 1.0
+parameters/Blend2/blend_amount = 0.0
 "parameters/Blend2 2/blend_amount" = 1.0
 parameters/OneShot/active = false
 "parameters/OneShot 2/active" = false
