@@ -162,7 +162,6 @@ func control_throw_grenade() -> void:
 	$RadioSoundPlayer.play()
 	
 func throw_grenade():
-#	var gm : Node = get_node(grenade_manager)
 	var gm = grenade_manager
 	if current_nade != null:
 		current_nade.set_mode(RigidBody.MODE_RIGID)
