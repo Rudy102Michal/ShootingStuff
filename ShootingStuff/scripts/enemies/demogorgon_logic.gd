@@ -58,7 +58,7 @@ func rotate_towards_seen_player(delta):
 	if seen_player != null:
 		var player_position = seen_player.global_transform.origin
 		look_at(player_position, VECTOR_UP)
-			
+		
 func patrol_and_rotate(delta):
 	if not rotating_on_patrol:
 		# roll to check if rotate, if yes - get rotation angle
