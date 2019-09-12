@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/demogorgon_roar.ogg-b814794efe5c921fc4f423369787b09c.oggstr"
+
+[deps]
+
+source_file="res://sounds/demogorgon_roar.ogg"
+dest_files=[ "res://.import/demogorgon_roar.ogg-b814794efe5c921fc4f423369787b09c.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

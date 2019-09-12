@@ -3,13 +3,20 @@ extends Node
 const Character = preload("res://scripts/player/player_character.gd")
 const Device = preload("res://scripts/input_devices/device.gd")
 
-export(Texture) var texture
+export(Array, Texture) var textures
+export(Array, AudioStream) var join_sounds
+export(NodePath) var sound_player
 
 func _on_player_joined():
-	var player_node_name = global.PLAYER_NAMES[global.players.size() - 1]
+	var index = global.players.size() - 1
+	var player_node_name = global.PLAYER_NAMES[index]
 	var player_node = get_tree().get_root().find_node(player_node_name, true, false) as Spatial
 	player_node.visible = true
-	global.players[global.players.size() - 1].player_node = player_node
+	global.players[index].player_node = player_node
+
+	var sp = get_node(sound_player)
+	sp.stream = join_sounds[index]
+	sp.play()
 
 func _on_player_left(device: Device):
 	if not device.player.player_node is Character:
@@ -35,7 +42,7 @@ func _ready():
 			
 		var mesh = player_node.find_node("Mesh", true, false) as MeshInstance
 		var material = mesh.get_surface_material(0).duplicate() as SpatialMaterial
-		material.albedo_texture = texture
+		material.albedo_texture = textures[i]
 		mesh.set_surface_material(0, material)
 	global.connect("player_joined", self, "_on_player_joined")
 	global.connect("controller_disconnected", self, "_on_player_left")

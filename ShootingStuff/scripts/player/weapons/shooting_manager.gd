@@ -3,7 +3,7 @@ extends Spatial
 const VECTOR_UP : Vector3 = Vector3(0.0, 1.0, 0.0)
 
 var XCOM_BULLET = preload("res://prefabs/bullets/BulletXCOM.tscn")
-const XCOM_BULLET_FIRERATE : float = 3.0
+const XCOM_BULLET_FIRERATE : float = 5.0
 var xcom_can_shoot : bool = true;
 
 const SHOTGUN_FIRERATE : float = 1.0
@@ -49,6 +49,7 @@ func shoot_xcom(barrel_node : Position3D):
 	b.global_transform = muzzle_transform
 	b.shot_direction = muzzle_front_vec.normalized()
 	add_child(b)
+	$"XCom-ShootingSound".play()
 	pass
 	
 func shoot_shotgun(barrel_node : Position3D):
@@ -72,7 +73,7 @@ func shoot_shotgun(barrel_node : Position3D):
 	var particles_emitters = barrel_node.get_node("../ParticlesEmitters").get_children()
 	for emitter in particles_emitters:
 		emitter.emitting = true
-	
+	$"shotgun-zx-76-ShootingSound2".play()
 	pass
 	
 func handle_hit(enemy : Object):
