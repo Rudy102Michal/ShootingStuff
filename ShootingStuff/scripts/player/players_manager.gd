@@ -13,6 +13,8 @@ func _on_player_joined():
 	var player_node_name = global.PLAYER_NAMES[index]
 	var player_node = get_tree().get_root().find_node(player_node_name, true, false) as Spatial
 	player_node.visible = true
+	if player_node is Character:
+		player_node.player_name = player_node_name
 	global.players[index].player_node = player_node
 
 	var sp = get_node(sound_player)

@@ -7,6 +7,11 @@ signal player_weapon_changed(player_node, weapon_name)
 
 const Player = preload("res://scripts/player/player.gd")
 const Grenade = preload("res://prefabs/Equipment/Grenade.tscn")
+
+const ThrowGrenadeSound = {
+	"PlayerA": preload("res://sounds/alpha_throw_grenade.ogg"),
+	"PlayerB": preload("res://sounds/bravo_throw_grenade.ogg"),
+}
 	
 # Constants
 const GRAVITY : float = -20.0
@@ -19,7 +24,6 @@ const RUN_SPEED : float = 10.0
 # Game-wise traits
 var player_name : String = ""
 var health_points : float = 1.0		# as a percentage, i.e. [0.0, 1.0]
-
 
 # Variables
 var player: Player setget set_player
@@ -54,6 +58,8 @@ func _ready():
 func set_player(p: Player):
 	player = p
 	set_physics_process(true)
+	$PlayerBody_CS.disabled = false
+	$PlayerFeet_CS.disabled = false
 	player.connect("player_change_weapon", self, "change_weapon")
 	player.connect("player_throw_grenade", self, "control_throw_grenade")
 	
@@ -152,6 +158,8 @@ func pick_up_grenade():
 	
 func control_throw_grenade() -> void:
 	animation_tree.set("parameters/OneShot_Grenade/active", true)
+	$RadioSoundPlayer.stream = ThrowGrenadeSound[player_name]
+	$RadioSoundPlayer.play()
 	
 func throw_grenade():
 #	var gm : Node = get_node(grenade_manager)

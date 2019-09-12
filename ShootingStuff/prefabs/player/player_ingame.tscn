@@ -129,10 +129,12 @@ script = ExtResource( 1 )
 [node name="PlayerBody_CS" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-008, 1, 0, -1, -4.37114e-008, 0.191102, 1.83122, 0.136205 )
 shape = SubResource( 1 )
+disabled = true
 
 [node name="PlayerFeet_CS" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.10936, 0 )
 shape = SubResource( 2 )
+disabled = true
 
 [node name="Rotation_Helper" type="Spatial" parent="."]
 
@@ -473,7 +475,7 @@ mesh = SubResource( 3 )
 material/0 = SubResource( 4 )
 
 [node name="BA_RightHand" type="BoneAttachment" parent="Rotation_Helper/Model/Skeleton"]
-transform = Transform( 0.355326, 0.833807, 0.422501, 0.863081, -0.466222, 0.194234, 0.358934, 0.295639, -0.885305, -0.889417, 12.0408, 2.52327 )
+transform = Transform( 0.389409, 0.869901, 0.302705, 0.857372, -0.462435, 0.225977, 0.33656, 0.171537, -0.925906, -1.03848, 12.0264, 2.19401 )
 bone_name = "Bag_Retopo_Bag_Low_Bag_Retopo_RightHand"
 
 [node name="Weapon" type="Spatial" parent="Rotation_Helper/Model/Skeleton/BA_RightHand"]
@@ -486,7 +488,7 @@ transform = Transform( -0.012627, 0.0971998, -0.0198184, -0.0991492, -0.0130029,
 transform = Transform( 1.10029, 3.83647, -0.266401, -0.0641676, -0.258723, -3.99108, -3.84515, 1.10212, -0.00963855, 0.587789, 3.49523, 0.112236 )
 
 [node name="BA_LeftHand" type="BoneAttachment" parent="Rotation_Helper/Model/Skeleton"]
-transform = Transform( -0.881647, -0.463336, -0.0895199, 0.0908919, -0.352873, 0.931246, -0.463071, 0.812895, 0.353224, 3.06495, 11.228, 2.3277 )
+transform = Transform( -0.936154, -0.347398, -0.0541058, 0.0895802, -0.384491, 0.918772, -0.339985, 0.855265, 0.391063, 2.9562, 11.2548, 1.58555 )
 bone_name = "Bag_Retopo_Bag_Low_Bag_Retopo_LeftHand"
 
 [node name="WeaponLeftHand" type="Spatial" parent="Rotation_Helper/Model/Skeleton/BA_LeftHand"]
@@ -531,5 +533,10 @@ spot_range = 7.5181
 spot_attenuation = 0.148651
 spot_angle = 20.382
 
+[node name="Listener" type="Listener" parent="."]
+
 [node name="FootstepsSoundPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 20 )
+volume_db = -1.01
+
+[node name="RadioSoundPlayer" type="AudioStreamPlayer" parent="."]
