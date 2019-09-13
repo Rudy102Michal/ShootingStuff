@@ -58,13 +58,13 @@ animation = "Hit"
 [sub_resource type="AnimationNodeAnimation" id=18]
 animation = "Crawling"
 
-[sub_resource type="AnimationNodeBlend2" id=19]
-
 [sub_resource type="AnimationNodeBlend2" id=20]
 
 [sub_resource type="AnimationNodeBlend2" id=21]
 
 [sub_resource type="AnimationNodeOneShot" id=22]
+
+[sub_resource type="AnimationNodeOneShot" id=26]
 
 [sub_resource type="AnimationNodeOneShot" id=23]
 fadein_time = 0.7
@@ -84,19 +84,19 @@ nodes/Animation/position = Vector2( 80, 80 )
 "nodes/Animation 5/node" = SubResource( 9 )
 "nodes/Animation 5/position" = Vector2( 220, -60 )
 "nodes/Animation 6/node" = SubResource( 25 )
-"nodes/Animation 6/position" = Vector2( 720, -40 )
+"nodes/Animation 6/position" = Vector2( 740, 160 )
 nodes/Blend2/node = SubResource( 20 )
 nodes/Blend2/position = Vector2( 260, 100 )
-"nodes/Blend2 2/node" = SubResource( 19 )
-"nodes/Blend2 2/position" = Vector2( 920, 0 )
 nodes/Blend2_Attack/node = SubResource( 21 )
 nodes/Blend2_Attack/position = Vector2( 480, 20 )
 nodes/OneShot_Death/node = SubResource( 22 )
 nodes/OneShot_Death/position = Vector2( 1100, 140 )
+nodes/OneShot_Hit/node = SubResource( 26 )
+nodes/OneShot_Hit/position = Vector2( 920, -20 )
 nodes/OneShot_Roar/node = SubResource( 23 )
-nodes/OneShot_Roar/position = Vector2( 720, 100 )
+nodes/OneShot_Roar/position = Vector2( 720, -60 )
 nodes/output/position = Vector2( 1340, 140 )
-node_connections = [ "output", 0, "OneShot_Death", "Blend2 2", 0, "OneShot_Roar", "Blend2 2", 1, "Animation 6", "OneShot_Death", 0, "Blend2 2", "OneShot_Death", 1, "Animation 4", "OneShot_Roar", 0, "Blend2_Attack", "OneShot_Roar", 1, "Animation 2", "Blend2_Attack", 0, "Animation 5", "Blend2_Attack", 1, "Blend2", "Blend2", 0, "Animation", "Blend2", 1, "Animation 3" ]
+node_connections = [ "output", 0, "OneShot_Death", "OneShot_Death", 0, "OneShot_Hit", "OneShot_Death", 1, "Animation 4", "OneShot_Roar", 0, "Blend2_Attack", "OneShot_Roar", 1, "Animation 2", "Blend2_Attack", 0, "Animation 5", "Blend2_Attack", 1, "Blend2", "Blend2", 0, "Animation", "Blend2", 1, "Animation 3", "OneShot_Hit", 0, "OneShot_Roar", "OneShot_Hit", 1, "Animation 6" ]
 
 [sub_resource type="SphereShape" id=17]
 radius = 1.72004
@@ -458,7 +458,7 @@ mesh = SubResource( 4 )
 material/0 = ExtResource( 2 )
 
 [node name="BA_LeftHand" type="BoneAttachment" parent="RotationHelper/Model/Skeleton"]
-transform = Transform( 0.938952, -0.00142456, -0.344041, -0.342728, -0.0912523, -0.934991, -0.0300621, 0.995827, -0.0861684, 0.463331, -0.309797, -0.00123924 )
+transform = Transform( 0.75454, 0.344938, -0.558288, -0.559777, -0.10572, -0.82187, -0.342518, 0.93265, 0.11332, 0.55309, -0.00117274, 0.543689 )
 bone_name = "mixamorig_LeftHandMiddle1"
 
 [node name="PawArea" type="Area" parent="RotationHelper/Model/Skeleton/BA_LeftHand"]
@@ -480,9 +480,9 @@ tree_root = SubResource( 24 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
 parameters/Blend2/blend_amount = 0.0
-"parameters/Blend2 2/blend_amount" = 0.0
 parameters/Blend2_Attack/blend_amount = 1.0
 parameters/OneShot_Death/active = false
+parameters/OneShot_Hit/active = false
 parameters/OneShot_Roar/active = false
 
 [node name="IdleSoundPlayer" type="AudioStreamPlayer3D" parent="RotationHelper/Model"]
