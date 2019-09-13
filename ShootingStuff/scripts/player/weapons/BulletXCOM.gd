@@ -5,6 +5,7 @@ var shot_direction : Vector3
 var velocity : Vector3
 var active = true
 const SPEED = 25.0
+const DMG = 35.0
 
 onready var shooting_manager : Spatial = get_parent()
 
@@ -28,7 +29,7 @@ func _physics_process(delta):
 		if collision != null:
 			if collision.collider != null:
 				if collision.collider.is_in_group("enemies"):
-					shooting_manager.handle_hit(collision.collider)
+					shooting_manager.handle_hit(collision.collider, DMG)
 			# TODO: maybe add some animation of bullet splashing
 			active = false
 			timeout = 0

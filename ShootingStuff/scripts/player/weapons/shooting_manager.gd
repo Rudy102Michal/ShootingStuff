@@ -11,6 +11,7 @@ var shotgun_can_shoot : bool = true;
 const SHOTGUN_RANGE : float  = 30.0
 const SHOTGUN_SPREAD : float = PI / 6.0
 const SHOTGUN_PELLET_COUNT : int = 5
+const SHOTGUN_DMG : float = 20.0
 
 var shoot_timer : Timer
 var shotgun_timer : Timer
@@ -68,7 +69,7 @@ func shoot_shotgun(barrel_node : Position3D):
 			if result.collider != null:
 				#print(result.collider.name)
 				if result.collider.is_in_group("enemies"):
-					handle_hit(result.collider)
+					handle_hit(result.collider, SHOTGUN_DMG)
 	
 	var particles_emitters = barrel_node.get_node("../ParticlesEmitters").get_children()
 	for emitter in particles_emitters:
@@ -76,8 +77,8 @@ func shoot_shotgun(barrel_node : Position3D):
 	$"shotgun-zx-76-ShootingSound2".play()
 	pass
 	
-func handle_hit(enemy : Object):
-	enemy.kill_yourself()
+func handle_hit(enemy : Object, dmg : float):
+	enemy.get_hit(dmg)
 	pass
 	
 func _on_shoot_timer_timeout():

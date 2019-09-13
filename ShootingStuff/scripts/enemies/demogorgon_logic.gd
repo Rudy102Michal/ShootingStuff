@@ -42,7 +42,11 @@ var seen_player : KinematicBody = null
 var alive : bool
 var can_move : bool
 
+# Health
+var hp : float
+
 func _ready():
+	hp = 100.0;
 	velocity = Vector3(0.0, 0.0, 0.0)
 	old_velocity = velocity
 	if players_container == null: # This is for test purposes only
@@ -53,6 +57,8 @@ func _ready():
 	can_move = true
 
 func _physics_process(delta):
+	if hp < 0.0:
+		kill_yourself()
 	if not alive or not can_move:
 		return
 	if patrolling:
@@ -169,6 +175,10 @@ func set_players_container(value):
 	
 func get_self_2d_position() -> Vector2:
 	return Vector2(global_transform.origin.x, global_transform.origin.z)
+	
+func get_hit(damage : float):
+	#print("ow")
+	hp -= damage;
 	
 func kill_yourself():
 	can_move = false
