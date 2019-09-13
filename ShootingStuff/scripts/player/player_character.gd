@@ -79,7 +79,7 @@ func _physics_process(delta):
 	if can_move:
 		direction = handle_movement(front_vec, delta)
 	
-	if player.shoot:
+	if player.shoot and ((front_vec.dot(-direction) < 0) or (direction.length_squared() < 0.05)):
 		shooting_time += delta
 		animation_tree.set("parameters/Blend2_1/blend_amount", smoothstep(0.0, shooting_anim_blend_time, shooting_time))
 #		shooting_node.shoot(get_barrel_position(), current_weapon_node.name)
@@ -98,7 +98,7 @@ func _physics_process(delta):
 
 func handle_movement(front_vec : Vector3, delta : float) -> Vector3:
 	var direction = Vector3(player.walk_direction.x, 0.0, player.walk_direction.y).normalized()
-	var max_speed = RUN_SPEED if (player.sprint and (front_vec and abs(front_vec.dot(direction) - 1.0) < 0.2)) else WALK_SPEED
+	var max_speed = RUN_SPEED if (player.sprint and (abs(front_vec.dot(direction) - 1.0) < 0.2)) else WALK_SPEED
 	
 	var hv = Vector3(velocity.x, 0, velocity.z)
 	var new_pos : Vector3 = direction * max_speed
