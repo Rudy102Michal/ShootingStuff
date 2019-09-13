@@ -178,6 +178,7 @@ func get_self_2d_position() -> Vector2:
 	
 func get_hit(damage : float):
 	#print("ow")
+	animation_tree["parameters/OneShot_Hit/active"] = true
 	hp -= damage;
 	
 func kill_yourself():
