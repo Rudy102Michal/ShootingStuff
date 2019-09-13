@@ -67,7 +67,7 @@ func set_grenade_manager(gm : Node) -> void:
 	grenade_manager = gm
 
 func _physics_process(delta):
-	var front_vec : Vector3 = get_global_transform().basis.z
+	var front_vec : Vector3 = get_global_transform().basis.z.normalized()
 	var direction : Vector3 = Vector3.ZERO
 	if can_move:
 		direction = handle_movement(front_vec, delta)
@@ -91,8 +91,7 @@ func _physics_process(delta):
 
 func handle_movement(front_vec : Vector3, delta : float) -> Vector3:
 	var direction = Vector3(player.walk_direction.x, 0.0, player.walk_direction.y).normalized()
-#	var front_vec : Vector3 = get_global_transform().basis.z
-	var max_speed = RUN_SPEED if player.sprint else WALK_SPEED
+	var max_speed = RUN_SPEED if (player.sprint and (front_vec and abs(front_vec.dot(direction) - 1.0) < 0.2)) else WALK_SPEED
 	
 	var hv = Vector3(velocity.x, 0, velocity.z)
 	var new_pos : Vector3 = direction * max_speed
