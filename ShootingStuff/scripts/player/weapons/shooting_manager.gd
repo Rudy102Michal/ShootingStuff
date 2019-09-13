@@ -11,7 +11,7 @@ var shotgun_can_shoot : bool = true;
 const SHOTGUN_RANGE : float  = 30.0
 const SHOTGUN_SPREAD : float = PI / 6.0
 const SHOTGUN_PELLET_COUNT : int = 5
-const SHOTGUN_DMG : float = 20.0
+const SHOTGUN_DMG : float = 0.2
 
 var shoot_timer : Timer
 var shotgun_timer : Timer
@@ -29,7 +29,6 @@ func _ready():
 	shotgun_timer.wait_time = 1.0 / SHOTGUN_FIRERATE
 	shotgun_timer.connect("timeout", self, "_on_shotgun_timer_timeout")
 	add_child(shotgun_timer)
-	pass
 
 func shoot(barrel_node : Position3D, weapon_name : String):
 	match weapon_name:
@@ -38,7 +37,6 @@ func shoot(barrel_node : Position3D, weapon_name : String):
 		"shotgun-zx-76":
 			shoot_shotgun(barrel_node)
 			
-	
 func shoot_xcom(barrel_node : Position3D):
 	if not xcom_can_shoot:
 		return
@@ -51,7 +49,6 @@ func shoot_xcom(barrel_node : Position3D):
 	b.shot_direction = muzzle_front_vec.normalized()
 	add_child(b)
 	$"XCom-ShootingSound".play()
-	pass
 	
 func shoot_shotgun(barrel_node : Position3D):
 	if not shotgun_can_shoot:
@@ -75,18 +72,14 @@ func shoot_shotgun(barrel_node : Position3D):
 	for emitter in particles_emitters:
 		emitter.emitting = true
 	$"shotgun-zx-76-ShootingSound2".play()
-	pass
 	
-func handle_hit(enemy : Object, dmg : float):
-	enemy.get_hit(dmg)
-	pass
+func handle_hit(target : Object, dmg : float):
+	target.get_hit(dmg)
 	
 func _on_shoot_timer_timeout():
 	xcom_can_shoot = true
 	shoot_timer.stop()
-	pass
 	
 func _on_shotgun_timer_timeout():
 	shotgun_can_shoot = true
 	shotgun_timer.stop()
-	pass

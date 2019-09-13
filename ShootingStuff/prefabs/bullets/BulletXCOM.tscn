@@ -6,13 +6,13 @@
 margin = 0.001
 radius = 10.0
 
-[sub_resource type="Curve" id=4]
+[sub_resource type="Curve" id=2]
 _data = [ Vector2( 0, 0.1678 ), 0.0, 6.17794, 0, 0, Vector2( 1, 0.0171 ), -8.18419, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=5]
-curve = SubResource( 4 )
+[sub_resource type="CurveTexture" id=3]
+curve = SubResource( 2 )
 
-[sub_resource type="ParticlesMaterial" id=6]
+[sub_resource type="ParticlesMaterial" id=4]
 emission_shape = 1
 emission_sphere_radius = 5.0
 spread = 10.0
@@ -31,15 +31,15 @@ angle = 720.0
 angle_random = 1.0
 scale = 72.0
 scale_random = 0.5
-scale_curve = SubResource( 5 )
+scale_curve = SubResource( 3 )
 
-[sub_resource type="SpatialMaterial" id=7]
+[sub_resource type="SpatialMaterial" id=5]
 flags_transparent = true
 flags_unshaded = true
 albedo_color = Color( 0, 1, 1, 0.0941176 )
 
-[sub_resource type="SphereMesh" id=8]
-material = SubResource( 7 )
+[sub_resource type="SphereMesh" id=6]
+material = SubResource( 5 )
 radius = 0.2
 height = 0.3
 radial_segments = 16
@@ -55,8 +55,8 @@ shape = SubResource( 1 )
 [node name="Particles2" type="Particles" parent="."]
 amount = 10
 speed_scale = 1.4
-process_material = SubResource( 6 )
-draw_pass_1 = SubResource( 8 )
+process_material = SubResource( 4 )
+draw_pass_1 = SubResource( 6 )
 
 [node name="OmniLight" type="OmniLight" parent="."]
 light_color = Color( 0.0235294, 0.960784, 0.984314, 1 )

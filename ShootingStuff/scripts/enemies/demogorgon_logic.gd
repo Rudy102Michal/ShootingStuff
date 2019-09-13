@@ -46,7 +46,7 @@ var can_move : bool
 var hp : float
 
 func _ready():
-	hp = 100.0;
+	hp = 1.0;
 	velocity = Vector3(0.0, 0.0, 0.0)
 	old_velocity = velocity
 	if players_container == null: # This is for test purposes only

@@ -5,7 +5,7 @@ var shot_direction : Vector3
 var velocity : Vector3
 var active = true
 const SPEED = 25.0
-const DMG = 35.0
+const DMG = 0.35
 
 onready var shooting_manager : Spatial = get_parent()
 
@@ -22,13 +22,14 @@ func _physics_process(delta):
 		velocity *= 0.8
 		$Particles2.emitting = false
 		$OmniLight.light_energy *= 0.8
+		$CollisionShape.disabled = true
 		if $OmniLight.light_energy < 0.01:
 			self.queue_free()
 	if active:
 		var collision : KinematicCollision = move_and_collide(velocity * delta)
 		if collision != null:
 			if collision.collider != null:
-				if collision.collider.is_in_group("enemies"):
+				if collision.collider.is_in_group("enemies") or collision.collider.is_in_group("players"):
 					shooting_manager.handle_hit(collision.collider, DMG)
 			# TODO: maybe add some animation of bullet splashing
 			active = false

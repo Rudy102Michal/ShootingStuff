@@ -137,9 +137,6 @@ __meta__ = {
 "_edit_lock_": true,
 "_editor_icon": ExtResource( 20 )
 }
-collision_enabled = true
-ambient_wind = 0.0
-lod_scale = 2.0
 map_scale = Vector3( 0.2, 0.2, 0.2 )
 _terrain_data = ExtResource( 21 )
 chunk_size = 16
