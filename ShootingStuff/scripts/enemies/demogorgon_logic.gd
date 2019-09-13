@@ -41,6 +41,7 @@ var players_container : Spatial setget set_players_container
 var seen_player : KinematicBody = null
 var alive : bool
 var can_move : bool
+var dying : bool
 
 # Health
 var hp : float
@@ -55,9 +56,10 @@ func _ready():
 	col_shape_running.disabled = true
 	alive = true
 	can_move = true
+	dying = false
 
 func _physics_process(delta):
-	if hp < 0.0:
+	if hp < 0.0 and not dying:
 		kill_yourself()
 	if not alive or not can_move:
 		return
@@ -112,11 +114,11 @@ func check_if_player_seen():
 	var front_vec : Vector3 = -get_global_transform().basis.z
 	front_vec.y = 0;
 	for player in players_container.get_children():
-		if player.visible == false:
-			break
+		if player.visible == false or not player.alive:
+			continue
 
 		var vector_to_player = player.translation - self.translation
-		vector_to_player.y = 0;
+		vector_to_player.y = 0
 		if vector_to_player.length() > VIEW_DISTANCE: # cannot see that player, it's too far
 			continue
 		var vector_dot = front_vec.dot(vector_to_player)
@@ -182,19 +184,22 @@ func get_hit(damage : float):
 	hp -= damage;
 	
 func kill_yourself():
+	dying = true
+	$Demog_Body_CS.disabled = true
+	$Demog_Feet_CS2.disabled = true
+	$Demog_Body_Run_CS.disabled = true
 	can_move = false
 	animation_tree.set("parameters/OneShot_Death/active", true)
-#	queue_free()
-
+	
 func recoil_from_explosion(recoil_force : Vector3) -> void:
 	velocity += recoil_force
 	
 func gorgon_dies() -> void:
-	alive = false
-	animation_tree.set("parameters/TimeScale/scale", 0.0)
 	$Demog_Body_CS.queue_free()
 	$Demog_Feet_CS2.queue_free()
 	$Demog_Body_Run_CS.queue_free()
+	alive = false
+	animation_tree.set("parameters/TimeScale/scale", 0.0)
 
 func _on_AttackRange_body_entered(body):
 	var player : PlayerCharacter = body as PlayerCharacter
