@@ -86,7 +86,6 @@ grenade_manager = NodePath("../Grenades")
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.48381, 0, 0 )
 
 [node name="Enemies" type="Spatial" parent="StuffOnScreen"]
-editor/display_folded = true
 script = ExtResource( 10 )
 
 [node name="DemogorgonKB" parent="StuffOnScreen/Enemies" instance=ExtResource( 11 )]

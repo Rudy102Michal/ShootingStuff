@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://scripts/player/player_character.gd" type="Script" id=1]
 [ext_resource path="res://scripts/player/PlayerModel_Script.gd" type="Script" id=2]
@@ -80,16 +80,20 @@ animation = "Gun_Walk_Back"
 
 [sub_resource type="AnimationNodeOneShot" id=16]
 
+[sub_resource type="AnimationNodeOneShot" id=21]
+
 [sub_resource type="AnimationNodeOneShot" id=17]
 
 [sub_resource type="AnimationNodeAnimation" id=18]
 animation = "Stand_Shoot"
 
+[sub_resource type="AnimationNodeTimeScale" id=22]
+
 [sub_resource type="AnimationNodeAnimation" id=19]
 animation = "Walk_Shoot"
 
 [sub_resource type="AnimationNodeBlendTree" id=20]
-graph_offset = Vector2( 45.5243, 207.167 )
+graph_offset = Vector2( 1084, 277 )
 nodes/Blend2_1/node = SubResource( 5 )
 nodes/Blend2_1/position = Vector2( 540, 280 )
 nodes/Blend2_2/node = SubResource( 6 )
@@ -101,7 +105,7 @@ nodes/Blend3_1/position = Vector2( 340, 100 )
 nodes/Dash_Roll/node = SubResource( 9 )
 nodes/Dash_Roll/position = Vector2( 1180, 400 )
 nodes/Death_1/node = SubResource( 10 )
-nodes/Death_1/position = Vector2( 60, 660 )
+nodes/Death_1/position = Vector2( 1360, 420 )
 nodes/Grenade_Throw/node = SubResource( 11 )
 nodes/Grenade_Throw/position = Vector2( 860, 440 )
 nodes/Gun_Sprint-loop/node = SubResource( 12 )
@@ -113,15 +117,19 @@ nodes/Gun_Walk-loop/position = Vector2( 60, 240 )
 nodes/Gun_Walk_Back-loop/node = SubResource( 15 )
 nodes/Gun_Walk_Back-loop/position = Vector2( 60, -20 )
 nodes/OneShot_Dash/node = SubResource( 16 )
-nodes/OneShot_Dash/position = Vector2( 1360, 220 )
+nodes/OneShot_Dash/position = Vector2( 1360, 240 )
+nodes/OneShot_Death/node = SubResource( 21 )
+nodes/OneShot_Death/position = Vector2( 1660, 260 )
 nodes/OneShot_Grenade/node = SubResource( 17 )
 nodes/OneShot_Grenade/position = Vector2( 1080, 220 )
 nodes/Stand_Shoot-loop/node = SubResource( 18 )
 nodes/Stand_Shoot-loop/position = Vector2( 60, 380 )
+nodes/TimeScale/node = SubResource( 22 )
+nodes/TimeScale/position = Vector2( 1520, 420 )
 nodes/Walk_Shoot-loop/node = SubResource( 19 )
 nodes/Walk_Shoot-loop/position = Vector2( 60, 520 )
-nodes/output/position = Vector2( 1560, 220 )
-node_connections = [ "output", 0, "OneShot_Dash", "Blend2_2", 0, "Blend2_1", "Blend2_2", 1, "Gun_Sprint-loop", "Blend2_1", 0, "Blend3_1", "Blend2_1", 1, "Blend2_3", "Blend2_3", 0, "Stand_Shoot-loop", "Blend2_3", 1, "Walk_Shoot-loop", "Blend3_1", 0, "Gun_Walk_Back-loop", "Blend3_1", 1, "Gun_Stand_Idle-loop", "Blend3_1", 2, "Gun_Walk-loop", "OneShot_Grenade", 0, "Blend2_2", "OneShot_Grenade", 1, "Grenade_Throw", "OneShot_Dash", 0, "OneShot_Grenade", "OneShot_Dash", 1, "Dash_Roll" ]
+nodes/output/position = Vector2( 1840, 260 )
+node_connections = [ "output", 0, "OneShot_Death", "OneShot_Death", 0, "OneShot_Dash", "OneShot_Death", 1, "TimeScale", "TimeScale", 0, "Death_1", "Blend2_2", 0, "Blend2_1", "Blend2_2", 1, "Gun_Sprint-loop", "Blend2_1", 0, "Blend3_1", "Blend2_1", 1, "Blend2_3", "Blend2_3", 0, "Stand_Shoot-loop", "Blend2_3", 1, "Walk_Shoot-loop", "Blend3_1", 0, "Gun_Walk_Back-loop", "Blend3_1", 1, "Gun_Stand_Idle-loop", "Blend3_1", 2, "Gun_Walk-loop", "OneShot_Grenade", 0, "Blend2_2", "OneShot_Grenade", 1, "Grenade_Throw", "OneShot_Dash", 0, "OneShot_Grenade", "OneShot_Dash", 1, "Dash_Roll" ]
 
 [node name="PlayerKB" type="KinematicBody"]
 script = ExtResource( 1 )
@@ -475,7 +483,7 @@ mesh = SubResource( 3 )
 material/0 = SubResource( 4 )
 
 [node name="BA_RightHand" type="BoneAttachment" parent="Rotation_Helper/Model/Skeleton"]
-transform = Transform( 0.403273, 0.8589, 0.315689, 0.851099, -0.478782, 0.2154, 0.336153, 0.181821, -0.924089, -0.72904, 12.043, 2.32218 )
+transform = Transform( 0.36631, 0.872569, 0.323169, 0.873553, -0.442115, 0.203559, 0.320498, 0.207743, -0.924187, -1.3661, 12.0273, 2.13498 )
 bone_name = "Bag_Retopo_Bag_Low_Bag_Retopo_RightHand"
 
 [node name="Weapon" type="Spatial" parent="Rotation_Helper/Model/Skeleton/BA_RightHand"]
@@ -488,7 +496,7 @@ transform = Transform( -0.012627, 0.0971998, -0.0198184, -0.0991492, -0.0130029,
 transform = Transform( 1.10029, 3.83647, -0.266401, -0.0641676, -0.258723, -3.99108, -3.84515, 1.10212, -0.00963855, 0.587789, 3.49523, 0.112236 )
 
 [node name="BA_LeftHand" type="BoneAttachment" parent="Rotation_Helper/Model/Skeleton"]
-transform = Transform( -0.934067, -0.354617, -0.0419775, 0.100978, -0.375055, 0.921487, -0.34252, 0.856492, 0.386135, 3.26261, 11.2338, 1.68151 )
+transform = Transform( -0.927111, -0.366608, -0.0778423, 0.0655909, -0.36321, 0.929395, -0.368999, 0.856549, 0.360782, 2.61956, 11.3062, 1.62501 )
 bone_name = "Bag_Retopo_Bag_Low_Bag_Retopo_LeftHand"
 
 [node name="WeaponLeftHand" type="Spatial" parent="Rotation_Helper/Model/Skeleton/BA_LeftHand"]
@@ -525,7 +533,9 @@ parameters/Blend2_2/blend_amount = 0.0
 parameters/Blend2_3/blend_amount = 0.0
 parameters/Blend3_1/blend_amount = 0.0
 parameters/OneShot_Dash/active = false
+parameters/OneShot_Death/active = false
 parameters/OneShot_Grenade/active = false
+parameters/TimeScale/scale = 1.0
 
 [node name="SpotLight" type="SpotLight" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-008, 1, 0, -1, -4.37114e-008, 0, 6.60203, 0 )

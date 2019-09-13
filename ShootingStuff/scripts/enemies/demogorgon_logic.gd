@@ -191,9 +191,10 @@ func recoil_from_explosion(recoil_force : Vector3) -> void:
 	
 func gorgon_dies() -> void:
 	alive = false
-	animation_tree.active = false
-	animation_tree
-		
+	animation_tree.set("parameters/TimeScale/scale", 0.0)
+	$Demog_Body_CS.queue_free()
+	$Demog_Feet_CS2.queue_free()
+	$Demog_Body_Run_CS.queue_free()
 
 func _on_AttackRange_body_entered(body):
 	var player : PlayerCharacter = body as PlayerCharacter

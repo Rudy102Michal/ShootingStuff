@@ -29,6 +29,7 @@ var health_points : float = 1.0		# as a percentage, i.e. [0.0, 1.0]
 var player: Player setget set_player
 var animation_tree : AnimationTree
 var can_move : bool = true
+var alive : bool = true
 var velocity : Vector3
 
 # Weapons
@@ -67,6 +68,12 @@ func set_grenade_manager(gm : Node) -> void:
 	grenade_manager = gm
 
 func _physics_process(delta):
+	if health_points <= 0.0:
+		health_points = 0.0
+		alive = false
+		animation_tree.set("parameters/OneShot_Death/active", true)
+	if not alive:
+		return
 	var front_vec : Vector3 = get_global_transform().basis.z.normalized()
 	var direction : Vector3 = Vector3.ZERO
 	if can_move:
@@ -105,7 +112,7 @@ func handle_movement(front_vec : Vector3, delta : float) -> Vector3:
 	return direction
 
 func update_rotation_from_mouse_position():
-	if player:
+	if player and alive:
 		var player_pos : Vector3 = get_global_transform().origin
 		var player_front : Vector3 = get_global_transform().basis.z + player_pos
 		var camera : Camera = get_viewport().get_camera()
@@ -179,6 +186,16 @@ func lock_movement() -> void:
 func unlock_movement() -> void:
 	can_move = true
 		
+func stop_processing() -> void:
+	$Rotation_Helper/Model/AnimationTree.set("parameters/TimeScale/scale", 0.0)
+	$PlayerBody_CS.disabled = true
+	$PlayerFeet_CS.disabled = true
+	
+func start_processing() -> void:
+	$Rotation_Helper/Model/AnimationTree.set("parameters/TimeScale/scale", 1.0)
+	$PlayerBody_CS.disabled = false
+	$PlayerFeet_CS.disabled = false
+	
 # UI specific
 
 func get_player_name() -> String:

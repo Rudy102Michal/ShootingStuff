@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://scripts/enemies/demogorgon_logic.gd" type="Script" id=1]
 [ext_resource path="res://materials/demogorgon.material" type="Material" id=2]
@@ -9,7 +9,7 @@
 [ext_resource path="res://animations/demogorgon/Notice.tres" type="Animation" id=7]
 [ext_resource path="res://animations/demogorgon/Running.tres" type="Animation" id=8]
 [ext_resource path="res://sounds/demogorgon_idle.ogg" type="AudioStream" id=9]
-[ext_resource path="res://sounds/footstep4.wav" type="AudioStream" id=10]
+[ext_resource path="res://sounds/footstep3.wav" type="AudioStream" id=10]
 [ext_resource path="res://sounds/demogorgon_roar.ogg" type="AudioStream" id=11]
 
 [sub_resource type="CapsuleShape" id=1]
@@ -52,53 +52,59 @@ animation = "Death"
 [sub_resource type="AnimationNodeAnimation" id=9]
 animation = "Attack"
 
-[sub_resource type="AnimationNodeAnimation" id=25]
+[sub_resource type="AnimationNodeAnimation" id=10]
 animation = "Hit"
 
-[sub_resource type="AnimationNodeAnimation" id=18]
+[sub_resource type="AnimationNodeAnimation" id=11]
 animation = "Crawling"
 
-[sub_resource type="AnimationNodeBlend2" id=20]
+[sub_resource type="AnimationNodeBlend2" id=12]
 
-[sub_resource type="AnimationNodeBlend2" id=21]
+[sub_resource type="AnimationNodeBlend2" id=13]
 
-[sub_resource type="AnimationNodeOneShot" id=22]
+[sub_resource type="AnimationNodeOneShot" id=14]
 
-[sub_resource type="AnimationNodeOneShot" id=26]
+[sub_resource type="AnimationNodeOneShot" id=15]
+fadein_time = 0.2
+fadeout_time = 0.4
 
-[sub_resource type="AnimationNodeOneShot" id=23]
+[sub_resource type="AnimationNodeOneShot" id=16]
 fadein_time = 0.7
 fadeout_time = 0.5
 autorestart_random_delay = -4.88673e+031
 
-[sub_resource type="AnimationNodeBlendTree" id=24]
-graph_offset = Vector2( 127.315, -149 )
-nodes/Animation/node = SubResource( 18 )
+[sub_resource type="AnimationNodeTimeScale" id=17]
+
+[sub_resource type="AnimationNodeBlendTree" id=18]
+graph_offset = Vector2( 669.293, 105 )
+nodes/Animation/node = SubResource( 11 )
 nodes/Animation/position = Vector2( 80, 80 )
 "nodes/Animation 2/node" = SubResource( 6 )
 "nodes/Animation 2/position" = Vector2( 520, 240 )
 "nodes/Animation 3/node" = SubResource( 7 )
 "nodes/Animation 3/position" = Vector2( 80, 200 )
 "nodes/Animation 4/node" = SubResource( 8 )
-"nodes/Animation 4/position" = Vector2( 860, 300 )
+"nodes/Animation 4/position" = Vector2( 760, 300 )
 "nodes/Animation 5/node" = SubResource( 9 )
 "nodes/Animation 5/position" = Vector2( 220, -60 )
-"nodes/Animation 6/node" = SubResource( 25 )
+"nodes/Animation 6/node" = SubResource( 10 )
 "nodes/Animation 6/position" = Vector2( 740, 160 )
-nodes/Blend2/node = SubResource( 20 )
+nodes/Blend2/node = SubResource( 12 )
 nodes/Blend2/position = Vector2( 260, 100 )
-nodes/Blend2_Attack/node = SubResource( 21 )
+nodes/Blend2_Attack/node = SubResource( 13 )
 nodes/Blend2_Attack/position = Vector2( 480, 20 )
-nodes/OneShot_Death/node = SubResource( 22 )
+nodes/OneShot_Death/node = SubResource( 14 )
 nodes/OneShot_Death/position = Vector2( 1100, 140 )
-nodes/OneShot_Hit/node = SubResource( 26 )
+nodes/OneShot_Hit/node = SubResource( 15 )
 nodes/OneShot_Hit/position = Vector2( 920, -20 )
-nodes/OneShot_Roar/node = SubResource( 23 )
+nodes/OneShot_Roar/node = SubResource( 16 )
 nodes/OneShot_Roar/position = Vector2( 720, -60 )
+nodes/TimeScale/node = SubResource( 17 )
+nodes/TimeScale/position = Vector2( 940, 260 )
 nodes/output/position = Vector2( 1340, 140 )
-node_connections = [ "output", 0, "OneShot_Death", "OneShot_Death", 0, "OneShot_Hit", "OneShot_Death", 1, "Animation 4", "OneShot_Roar", 0, "Blend2_Attack", "OneShot_Roar", 1, "Animation 2", "Blend2_Attack", 0, "Animation 5", "Blend2_Attack", 1, "Blend2", "Blend2", 0, "Animation", "Blend2", 1, "Animation 3", "OneShot_Hit", 0, "OneShot_Roar", "OneShot_Hit", 1, "Animation 6" ]
+node_connections = [ "output", 0, "OneShot_Death", "Blend2_Attack", 0, "Animation 5", "Blend2_Attack", 1, "Blend2", "OneShot_Hit", 0, "OneShot_Roar", "OneShot_Hit", 1, "Animation 6", "OneShot_Death", 0, "OneShot_Hit", "OneShot_Death", 1, "TimeScale", "Blend2", 0, "Animation", "Blend2", 1, "Animation 3", "OneShot_Roar", 0, "Blend2_Attack", "OneShot_Roar", 1, "Animation 2", "TimeScale", 0, "Animation 4" ]
 
-[sub_resource type="SphereShape" id=17]
+[sub_resource type="SphereShape" id=19]
 radius = 1.72004
 
 [node name="DemogorgonKB" type="KinematicBody" groups=[
@@ -458,7 +464,7 @@ mesh = SubResource( 4 )
 material/0 = ExtResource( 2 )
 
 [node name="BA_LeftHand" type="BoneAttachment" parent="RotationHelper/Model/Skeleton"]
-transform = Transform( 0.75454, 0.344938, -0.558288, -0.559777, -0.10572, -0.82187, -0.342518, 0.93265, 0.11332, 0.55309, -0.00117274, 0.543689 )
+transform = Transform( 0.97863, 0.0648003, -0.195154, -0.205632, 0.310122, -0.92819, 0.000374317, 0.948485, 0.31682, 0.362703, -0.288464, 0.418605 )
 bone_name = "mixamorig_LeftHandMiddle1"
 
 [node name="PawArea" type="Area" parent="RotationHelper/Model/Skeleton/BA_LeftHand"]
@@ -476,7 +482,7 @@ anims/Notice = ExtResource( 7 )
 anims/Running = ExtResource( 8 )
 
 [node name="AnimationTree" type="AnimationTree" parent="RotationHelper/Model"]
-tree_root = SubResource( 24 )
+tree_root = SubResource( 18 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
 parameters/Blend2/blend_amount = 0.0
@@ -484,6 +490,7 @@ parameters/Blend2_Attack/blend_amount = 1.0
 parameters/OneShot_Death/active = false
 parameters/OneShot_Hit/active = false
 parameters/OneShot_Roar/active = false
+parameters/TimeScale/scale = 1.0
 
 [node name="IdleSoundPlayer" type="AudioStreamPlayer3D" parent="RotationHelper/Model"]
 stream = ExtResource( 9 )
@@ -504,7 +511,7 @@ transform = Transform( 1, 0, -2.98023e-008, 0, 1, 0, 2.98023e-008, 0, 1, 0, 1.80
 
 [node name="CollisionShape" type="CollisionShape" parent="RotationHelper/AttackRange"]
 transform = Transform( 1, 0, -2.98023e-008, 0, 1, 0, 2.98023e-008, 0, 1, -0.911274, 0.306159, 1.50289 )
-shape = SubResource( 17 )
+shape = SubResource( 19 )
 [connection signal="body_entered" from="RotationHelper/Model/Skeleton/BA_LeftHand/PawArea" to="." method="_on_PawArea_hit_player"]
 [connection signal="body_entered" from="RotationHelper/AttackRange" to="." method="_on_AttackRange_body_entered"]
 [connection signal="body_exited" from="RotationHelper/AttackRange" to="." method="_on_AttackRange_body_exited"]
