@@ -125,15 +125,18 @@ func check_if_player_seen():
 		var angle_between_vectors = front_vec.angle_to(vector_to_player)
 		if abs(angle_between_vectors) <= DEMOGORGON_FOV / 2.0:
 			# player spotted, the hunt begins
-			seen_player = player
-			patrolling = false
-			col_shape_patrolling.disabled = true
-			col_shape_running.disabled = false
-			animation_tree["parameters/OneShot_Roar/active"] = true
-			animation_tree["parameters/Blend2/blend_amount"] = 1.0
-			$RotationHelper/Model/RoarSoundPlayer.play()
+			start_hunting(player)
 			return
-	
+
+func start_hunting(player) -> void:
+	seen_player = player
+	patrolling = false
+	col_shape_patrolling.disabled = true
+	col_shape_running.disabled = false
+	animation_tree["parameters/OneShot_Roar/active"] = true
+	animation_tree["parameters/Blend2/blend_amount"] = 1.0
+	$RotationHelper/Model/RoarSoundPlayer.play()
+
 func handle_movement(delta):
 		
 	var front_vec : Vector3 = -get_global_transform().basis.z
@@ -206,7 +209,8 @@ func _on_AttackRange_body_entered(body):
 	if player != null:
 		print("Player in range!")
 		players_in_range += 1
-
+		if seen_player == null:
+			start_hunting(player)
 
 func _on_AttackRange_body_exited(body):
 	var player : PlayerCharacter = body as PlayerCharacter
@@ -214,7 +218,6 @@ func _on_AttackRange_body_exited(body):
 		print("Farewell player!")
 		players_in_range = max(0, players_in_range - 1)			# In theory < 0 shouldn't happen, but if does,
 																# then may fuck up a lot
-
 
 func _on_PawArea_hit_player(body):
 	var player : PlayerCharacter = body as PlayerCharacter
