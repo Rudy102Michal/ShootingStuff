@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=2]
+[gd_scene load_steps=50 format=2]
 
 [ext_resource path="res://scripts/player/player_character.gd" type="Script" id=1]
 [ext_resource path="res://scripts/player/PlayerModel_Script.gd" type="Script" id=2]
@@ -22,6 +22,7 @@
 [ext_resource path="res://sounds/footstep2.wav" type="AudioStream" id=20]
 [ext_resource path="res://animations/player/Walk_Shoot.tres" type="Animation" id=21]
 [ext_resource path="res://sounds/ouch.wav" type="AudioStream" id=22]
+[ext_resource path="res://sounds/death.wav" type="AudioStream" id=23]
 
 [sub_resource type="CapsuleShape" id=1]
 height = 1.65655
@@ -640,7 +641,7 @@ bones/10/name = "Bag_Retopo_Bag_Low_Bag_Retopo_LeftHand"
 bones/10/parent = 9
 bones/10/rest = Transform( 0.976371, 0.210148, -0.0503695, -0.2135, 0.902013, -0.37522, -0.0334173, 0.377106, 0.925567, 2.38419e-006, 2.29598, 4.76837e-006 )
 bones/10/enabled = true
-bones/10/bound_children = [  ]
+bones/10/bound_children = [ NodePath("BA_LeftHand") ]
 bones/11/name = "Bag_Retopo_Bag_Low_Bag_Retopo_LeftHandThumb1"
 bones/11/parent = 10
 bones/11/rest = Transform( 0.983034, -0.177185, 0.0474401, 0.183426, 0.949587, -0.254245, -3.61353e-007, 0.258633, 0.965975, -0.325546, 0.389999, 0.118636 )
@@ -760,7 +761,7 @@ bones/34/name = "Bag_Retopo_Bag_Low_Bag_Retopo_RightHand"
 bones/34/parent = 33
 bones/34/rest = Transform( 0.981034, -0.126859, 0.146557, 0.182329, 0.860565, -0.475589, -0.0657895, 0.493291, 0.867373, 2.6226e-006, 2.37448, -5.72205e-006 )
 bones/34/enabled = true
-bones/34/bound_children = [  ]
+bones/34/bound_children = [ NodePath("BA_RightHand") ]
 bones/35/name = "Bag_Retopo_Bag_Low_Bag_Retopo_RightHandThumb1"
 bones/35/parent = 34
 bones/35/rest = Transform( 0.952003, 0.286524, -0.107675, -0.306087, 0.891154, -0.334895, 4.91738e-007, 0.35178, 0.936083, 0.382567, 0.463755, 0.209923 )
@@ -917,7 +918,7 @@ mesh = SubResource( 3 )
 material/0 = SubResource( 4 )
 
 [node name="BA_RightHand" type="BoneAttachment" parent="Rotation_Helper/Model/Skeleton"]
-transform = Transform( 0.364642, 0.872808, 0.324407, 0.874945, -0.440372, 0.201349, 0.318599, 0.210421, -0.924238, -1.38513, 12.0284, 2.13413 )
+transform = Transform( 0.347893, 0.873678, 0.34008, 0.886264, -0.424781, 0.184652, 0.305786, 0.237165, -0.922089, -1.45536, 12.0525, 2.1211 )
 bone_name = "Bag_Retopo_Bag_Low_Bag_Retopo_RightHand"
 
 [node name="Weapon" type="Spatial" parent="Rotation_Helper/Model/Skeleton/BA_RightHand"]
@@ -930,7 +931,7 @@ transform = Transform( -0.012627, 0.0971998, -0.0198184, -0.0991492, -0.0130029,
 transform = Transform( 1.10029, 3.83647, -0.266401, -0.0641676, -0.258723, -3.99108, -3.84515, 1.10212, -0.00963855, 0.587789, 3.49523, 0.112236 )
 
 [node name="BA_LeftHand" type="BoneAttachment" parent="Rotation_Helper/Model/Skeleton"]
-transform = Transform( -0.926472, -0.367802, -0.0797961, 0.0631604, -0.360959, 0.930441, -0.371022, 0.856989, 0.357649, 2.60007, 11.3125, 1.62913 )
+transform = Transform( -0.919593, -0.380364, -0.0983336, 0.0432332, -0.346751, 0.93696, -0.390485, 0.857372, 0.335315, 2.53053, 11.3768, 1.6821 )
 bone_name = "Bag_Retopo_Bag_Low_Bag_Retopo_LeftHand"
 
 [node name="WeaponLeftHand" type="Spatial" parent="Rotation_Helper/Model/Skeleton/BA_LeftHand"]
@@ -988,5 +989,9 @@ volume_db = -48.4966
 [node name="HurtSoundPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 22 )
 volume_db = -6.658
+
+[node name="DeathSoundPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 23 )
+volume_db = -7.564
 
 [node name="RadioSoundPlayer" type="AudioStreamPlayer" parent="."]

@@ -137,7 +137,7 @@ func check_if_player_seen():
 			start_hunting(player)
 			return
 
-func start_hunting(player) -> void:
+func start_hunting(player):
 	seen_player = player
 	patrolling = false
 	col_shape_patrolling.disabled = true
@@ -145,6 +145,19 @@ func start_hunting(player) -> void:
 	animation_tree.set("parameters/OneShot_Roar/active", true)
 	animation_tree.set("parameters/Blend2/blend_amount", 1.0)
 	$RoarSoundPlayer.play()
+	
+func stop_hunting():
+	seen_player = null
+	patrolling = true
+	attacking = false
+	velocity = Vector3(0.0, 0.0, 0.0)
+	old_velocity = velocity
+	col_shape_patrolling.disabled = false
+	col_shape_running.disabled = true
+	animation_tree.set("parameters/OneShot_Roar/active", true)
+	animation_tree.set("parameters/Blend2/blend_amount", 0.0)
+	$RoarSoundPlayer.play()
+	animation_tree.set("parameters/Blend2_Attack/blend_amount", 1.0)
 
 func handle_movement(delta):
 		
@@ -177,6 +190,9 @@ func handle_movement(delta):
 	var distance_from_player = 0
 	
 	if (seen_player):
+		if (seen_player.health_points <= 0):
+			stop_hunting()
+			return
 		var v1 = seen_player.to_global(Vector3.ZERO)
 		var v2 = to_global(Vector3.ZERO)
 		distance_from_player = Vector2(v1.x, v1.z).distance_to(Vector2(v2.x, v2.z))
