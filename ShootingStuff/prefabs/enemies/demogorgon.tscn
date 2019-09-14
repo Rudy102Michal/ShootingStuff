@@ -9,7 +9,7 @@
 [ext_resource path="res://animations/demogorgon/Notice.tres" type="Animation" id=7]
 [ext_resource path="res://animations/demogorgon/Running.tres" type="Animation" id=8]
 [ext_resource path="res://sounds/demogorgon_idle.ogg" type="AudioStream" id=9]
-[ext_resource path="res://sounds/footstep4.wav" type="AudioStream" id=10]
+[ext_resource path="res://sounds/footstep1.wav" type="AudioStream" id=10]
 [ext_resource path="res://sounds/demogorgon_hurt.wav" type="AudioStream" id=11]
 [ext_resource path="res://sounds/demogorgon_die.ogg" type="AudioStream" id=12]
 [ext_resource path="res://sounds/demogorgon_roar.ogg" type="AudioStream" id=13]
@@ -466,7 +466,7 @@ mesh = SubResource( 4 )
 material/0 = ExtResource( 2 )
 
 [node name="BA_LeftHand" type="BoneAttachment" parent="RotationHelper/Model/Skeleton"]
-transform = Transform( 0.919375, -0.0173007, -0.393003, -0.29337, -0.695721, -0.655672, -0.262078, 0.718104, -0.644703, 0.490121, -0.182423, 0.200413 )
+transform = Transform( 0.756236, 0.641338, 0.129576, -0.502235, 0.695913, -0.513281, -0.419363, 0.323084, 0.84838, 0.423767, -0.0768493, 0.954452 )
 bone_name = "mixamorig_LeftHandMiddle1"
 
 [node name="PawArea" type="Area" parent="RotationHelper/Model/Skeleton/BA_LeftHand"]

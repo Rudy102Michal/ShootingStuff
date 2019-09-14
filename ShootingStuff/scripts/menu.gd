@@ -1,4 +1,4 @@
-extends MarginContainer
+extends Control
 
 export(bool) var menu_visible setget set_menu_visible
 export(bool) var invitation_visible = true setget set_invitation_visible
@@ -29,6 +29,8 @@ func _on_player_left():
 	set_invitation_visible(true)
 	
 func _ready():
+	var window_size = OS.get_window_size()
+	rect_size = Vector2(window_size.x - 32, window_size.y - 32)
 	menu_container = find_node("Menu")
 	set_selected_option(0)
 	menu_container.visible = menu_visible
