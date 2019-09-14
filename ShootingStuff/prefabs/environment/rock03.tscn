@@ -10,7 +10,7 @@ radius = 1.6
 transform = Transform( 2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1.00169, 0, -0.417533, 0, 0.7, 0, 0.564898, 0, 0.740382, 0.230699, 0.486238, 0.0248746 )
+transform = Transform( 0.874636, 0, -0.364573, 0, 0.381679, 0, 0.496378, 0, 0.650577, 0.230699, 0.725298, -0.0753926 )
 shape = SubResource( 1 )
 
 [node name="model" type="MeshInstance" parent="."]
@@ -18,4 +18,3 @@ transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0.95842, 3.53574, 3.4300
 material_override = ExtResource( 1 )
 mesh = ExtResource( 2 )
 material/0 = null
-

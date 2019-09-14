@@ -8,11 +8,6 @@ signal player_weapon_changed(player_node, weapon_name)
 const Player = preload("res://scripts/player/player.gd")
 const Grenade = preload("res://prefabs/Equipment/Grenade.tscn")
 
-const ThrowGrenadeSound = {
-	"PlayerA": preload("res://sounds/alpha_throw_grenade.ogg"),
-	"PlayerB": preload("res://sounds/bravo_throw_grenade.ogg"),
-}
-	
 # Constants
 const GRAVITY : float = -20.0
 const ACCELERATION : float  = 3.0
@@ -31,6 +26,7 @@ var animation_tree : AnimationTree
 var can_move : bool = false
 var alive : bool = false
 var velocity : Vector3
+var throw_grenade_sound: AudioStream
 
 # Weapons
 var weapons_node : BoneAttachment
@@ -162,7 +158,7 @@ func pick_up_grenade():
 	
 func control_throw_grenade() -> void:
 	animation_tree.set("parameters/OneShot_Grenade/active", true)
-	$RadioSoundPlayer.stream = ThrowGrenadeSound[player_name]
+	$RadioSoundPlayer.stream = throw_grenade_sound
 	$RadioSoundPlayer.play()
 	
 func throw_grenade():

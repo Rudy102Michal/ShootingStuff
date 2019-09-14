@@ -6,10 +6,10 @@ const Keyboard = preload("res://scripts/input_devices/keyboard.gd")
 const Player = preload("res://scripts/player/player.gd")
 
 const PLAYER_NAMES = [
-	"PlayerA",
-	"PlayerB",
-	#"PlayerC",
-	#"PlayerD",
+	"Alpha",
+	"Bravo",
+	#"Charlie",
+	#"Delta",
 ]
 
 enum DEVICE_TYPE {

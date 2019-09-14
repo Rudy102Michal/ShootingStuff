@@ -5,6 +5,7 @@ const Device = preload("res://scripts/input_devices/device.gd")
 
 export(Array, Texture) var textures
 export(Array, AudioStream) var join_sounds
+export(Array, AudioStream) var throw_grenade_sounds
 export(NodePath) var sound_player
 export(NodePath) var grenade_manager
 
@@ -16,7 +17,7 @@ func _on_player_joined():
 	var player_node = get_tree().get_root().find_node(player_node_name, true, false) as Spatial
 	player_node.visible = true
 	if player_node is Character:
-		set_player_ingame_node_data(player_node, player_node_name)
+		set_player_ingame_node_data(player_node, index)
 	global.players[index].player_node = player_node
 
 	var sp = get_node(sound_player)
@@ -36,7 +37,7 @@ func _ready():
 			global.players[i].player_node = player_node
 			var ingame_player = player_node as Character
 			if ingame_player != null:
-				set_player_ingame_node_data(ingame_player, global.PLAYER_NAMES[i])
+				set_player_ingame_node_data(ingame_player, i)
 		else:
 			player_node.visible = false
 			
@@ -47,9 +48,10 @@ func _ready():
 	global.connect("player_joined", self, "_on_player_joined")
 	global.connect("controller_disconnected", self, "_on_player_left")
 	
-func set_player_ingame_node_data(ingame_player: Character, name: String):
+func set_player_ingame_node_data(ingame_player: Character, index: int):
 	ingame_player.set_grenade_manager(get_node(grenade_manager))
-	ingame_player.set_player_name(name)
+	ingame_player.set_player_name(global.PLAYER_NAMES[index])
+	ingame_player.throw_grenade_sound = throw_grenade_sounds[index]
 	if ui_node != null:
 		var result : bool = ui_node.register_player(ingame_player)
 		if result == false:
