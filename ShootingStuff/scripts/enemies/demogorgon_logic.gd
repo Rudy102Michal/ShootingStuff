@@ -125,10 +125,10 @@ func check_if_player_seen():
 		var angle_between_vectors = front_vec.angle_to(vector_to_player)
 		if abs(angle_between_vectors) <= DEMOGORGON_FOV / 2.0:
 			# player spotted, the hunt begins
-			player_noticed(player)
+			start_hunting(player)
 			return
-			
-func player_noticed(player):
+
+func start_hunting(player) -> void:
 	seen_player = player
 	patrolling = false
 	col_shape_patrolling.disabled = true
@@ -136,7 +136,7 @@ func player_noticed(player):
 	animation_tree.set("parameters/OneShot_Roar/active", true)
 	animation_tree.set("parameters/Blend2/blend_amount", 1.0)
 	$RoarSoundPlayer.play()
-	
+
 func handle_movement(delta):
 		
 	var front_vec : Vector3 = -get_global_transform().basis.z
@@ -212,15 +212,14 @@ func _on_AttackRange_body_entered(body):
 	var player : PlayerCharacter = body as PlayerCharacter
 	if player != null:
 		players_in_range += 1
-		if patrolling:
-			player_noticed(player)
+		if seen_player == null:
+			start_hunting(player)
 
 func _on_AttackRange_body_exited(body):
 	var player : PlayerCharacter = body as PlayerCharacter
 	if player != null:
 		players_in_range = max(0, players_in_range - 1)			# In theory < 0 shouldn't happen, but if does,
-		seen_player	= player									# then may fuck up a lot
-
+																# then may fuck up a lot
 
 func _on_PawArea_hit_player(body):
 	var player : PlayerCharacter = body as PlayerCharacter
