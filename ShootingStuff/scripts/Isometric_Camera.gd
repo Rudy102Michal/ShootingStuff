@@ -1,6 +1,7 @@
 extends Camera
 
 const VECTOR_UP : Vector3 = Vector3(0.0, 1.0, 0.0)
+const CAMERA_SPEED : float = 4.0
 const edge_border : float = 20.0
 const camera_distance: float = 12 * sqrt(2.0)
 
@@ -18,7 +19,7 @@ func _ready():
 	fov_tangent = 2.0 * tan(deg2rad(fov / 2.0))
 	distance_translation = Vector3(0.0, 1.0, 1.0)
 	distance_translation = distance_translation.normalized()
-	cam_position = translation
+	cam_position = get_global_transform().origin
 	at_target = $"../StuffOnScreen/Portal".translation
 
 func _physics_process(delta):
@@ -26,13 +27,12 @@ func _physics_process(delta):
 		_set_players_container()
 		return
 		
-	var old_cam_pos = cam_position
+	var old_cam_pos = get_global_transform().origin
 	
-	var players : Array = players_container.get_children()
-	for i in range(players.size()):
-		if players[i].visible == false:
-			players.resize(i)
-			break
+	var players : Array = []
+	for p in players_container.get_children():
+		if p.visible and p.alive:
+			players.push_back(p)
 			
 	if players.size() == 1:
 		at_target = players[0].global_transform.origin
@@ -65,7 +65,7 @@ func _physics_process(delta):
 		
 		cam_position = at_target + distance_translation.normalized() * d
 	$"../Listener".translation = at_target
-	look_at_from_position((old_cam_pos * 3 + cam_position) / 4, at_target, VECTOR_UP)
+	look_at_from_position(old_cam_pos.linear_interpolate(cam_position, delta * CAMERA_SPEED), at_target, VECTOR_UP)
 			
 func _get_player_dependant_fov(player_origin : Vector3) -> float:
 	var ret : float = 0.0

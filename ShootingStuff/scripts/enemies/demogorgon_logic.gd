@@ -210,7 +210,7 @@ func gorgon_dies() -> void:
 
 func _on_AttackRange_body_entered(body):
 	var player : PlayerCharacter = body as PlayerCharacter
-	if player != null:
+	if player != null and player.alive:
 		players_in_range += 1
 		if seen_player == null:
 			start_hunting(player)
