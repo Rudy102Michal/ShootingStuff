@@ -65,7 +65,7 @@ func shoot_shotgun(barrel_node : Position3D):
 		if result.size() > 0:
 			if result.collider != null:
 				#print(result.collider.name)
-				if result.collider.is_in_group("enemies"):
+				if result.collider.is_in_group("enemies") or result.collider.is_in_group("players"):
 					handle_hit(result.collider, SHOTGUN_DMG)
 	
 	var particles_emitters = barrel_node.get_node("../ParticlesEmitters").get_children()
