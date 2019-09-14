@@ -9,7 +9,8 @@ const DE_ACCELERATION : float = 7.0
 const JUMP_SPEED : float = 3.5
 const VECTOR_UP : Vector3 = Vector3(0.0, 1.0, 0.0)
 const MAX_ROTATION_ANGLE : float = PI * 0.75;
-const VIEW_DISTANCE : float = 50.0
+const VIEW_DISTANCE : float = 40.0
+const HEAR_DISTANCE : float = 25.0
 const DEMOGORGON_FOV : float = PI * 0.9 # about 160 degrees
 const AGGRO_MOD : float = 3.0
 
@@ -93,11 +94,16 @@ func attack() -> void:
 func patrol_and_rotate(delta):
 	if not rotating_on_patrol:
 		# roll to check if rotate, if yes - get rotation angle
-		var roll_to_rotate_enemy = rand_range(0, 90)
-		if roll_to_rotate_enemy <= 1: # chance hardcoded above
+		if is_on_wall():
 			rotating_on_patrol = true
 			angle_already_rotated = 0.0
 			angle_to_rotate_to = rand_range(-MAX_ROTATION_ANGLE, MAX_ROTATION_ANGLE)
+		else:
+			var roll_to_rotate_enemy = rand_range(0, 90)
+			if roll_to_rotate_enemy <= 1: # chance hardcoded above
+				rotating_on_patrol = true
+				angle_already_rotated = 0.0
+				angle_to_rotate_to = rand_range(-MAX_ROTATION_ANGLE, MAX_ROTATION_ANGLE)
 	else:
 		# rotation logic
 		var lerped_rotation_value = lerp(angle_already_rotated, angle_to_rotate_to, delta)
@@ -119,12 +125,15 @@ func check_if_player_seen():
 
 		var vector_to_player = player.translation - self.translation
 		vector_to_player.y = 0
-		if vector_to_player.length() > VIEW_DISTANCE: # cannot see that player, it's too far
+		if vector_to_player.length() < HEAR_DISTANCE:
+			start_hunting(player)
+			return
+		var view_distance = VIEW_DISTANCE * min(0.5 + player.velocity.length() / 4, 1.0) + (1.0 if player.player.shoot else 0.0)
+		if vector_to_player.length() > view_distance: # cannot see that player, it's too far
 			continue
 		var vector_dot = front_vec.dot(vector_to_player)
 		var angle_between_vectors = front_vec.angle_to(vector_to_player)
 		if abs(angle_between_vectors) <= DEMOGORGON_FOV / 2.0:
-			# player spotted, the hunt begins
 			start_hunting(player)
 			return
 

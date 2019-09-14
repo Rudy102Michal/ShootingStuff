@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://models/player/shotgun-zx-76.dae.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://materials/shotgun.material" type="Material" id=2]
-[ext_resource path="res://textures/player/shotgun-smoke-png-178727.png" type="Texture" id=3]
+[ext_resource path="res://scripts/player/weapons/shotgun.gd" type="Script" id=3]
+[ext_resource path="res://textures/player/shotgun-smoke-png-178727.png" type="Texture" id=4]
 
 [sub_resource type="SpatialMaterial" id=1]
 flags_unshaded = true
@@ -12,7 +13,7 @@ params_billboard_mode = 3
 particles_anim_h_frames = 1
 particles_anim_v_frames = 1
 particles_anim_loop = false
-albedo_texture = ExtResource( 3 )
+albedo_texture = ExtResource( 4 )
 
 [sub_resource type="Gradient" id=2]
 offsets = PoolRealArray( 0, 0.725926, 0.903704, 1 )
@@ -59,6 +60,7 @@ material/9 = ExtResource( 2 )
 material/10 = ExtResource( 2 )
 material/11 = ExtResource( 2 )
 material/12 = ExtResource( 2 )
+script = ExtResource( 3 )
 
 [node name="BarrelPosition" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.158579, -1.01437 )
@@ -84,3 +86,12 @@ one_shot = true
 speed_scale = 10.0
 process_material = SubResource( 6 )
 draw_pass_1 = SubResource( 7 )
+
+[node name="SpotLight" type="SpotLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0351839, 0.18196, -1.05329 )
+light_color = Color( 0.960784, 0.580392, 0.0392157, 1 )
+light_energy = 4.0
+light_indirect_energy = 3.0
+light_specular = 0.8
+spot_range = 19.8125
+spot_angle = 30.2663

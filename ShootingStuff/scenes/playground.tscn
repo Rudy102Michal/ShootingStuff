@@ -78,7 +78,6 @@ script = ExtResource( 4 )
 [node name="Blasts" type="Spatial" parent="StuffOnScreen/Grenades"]
 
 [node name="Players" type="Spatial" parent="StuffOnScreen"]
-editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.3398, -6.82957, -0.691459 )
 script = ExtResource( 5 )
 textures = [ ExtResource( 6 ), ExtResource( 7 ) ]
@@ -111,6 +110,9 @@ transform = Transform( 0.921188, 0, -0.389118, 0, 1, 0, 0.389118, 0, 0.921188, 5
 
 [node name="DemogorgonKB4" parent="StuffOnScreen/Enemies" instance=ExtResource( 14 )]
 transform = Transform( 0.777961, -0.011468, -0.628207, 0.0139298, 0.999902, -0.00100291, 0.628158, -0.0079706, 0.778045, 51.4111, -5.99171, -2.16993 )
+
+[node name="DemogorgonKB5" parent="StuffOnScreen/Enemies" instance=ExtResource( 14 )]
+transform = Transform( 0.999589, -0.0139003, 0.0250939, 0.0139298, 0.999902, -0.00100291, -0.0250775, 0.00135205, 0.999685, 45.2397, -5.99171, -8.12165 )
 
 [node name="Bullets" type="Spatial" parent="StuffOnScreen"]
 editor/display_folded = true

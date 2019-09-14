@@ -29,6 +29,7 @@ func _on_player_left():
 	set_invitation_visible(true)
 	
 func _ready():
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	var window_size = OS.get_window_size()
 	rect_size = Vector2(window_size.x - 32, window_size.y - 32)
 	menu_container = find_node("Menu")

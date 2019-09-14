@@ -68,9 +68,7 @@ func shoot_shotgun(barrel_node : Position3D):
 				if result.collider.is_in_group("enemies"):
 					handle_hit(result.collider, SHOTGUN_DMG)
 	
-	var particles_emitters = barrel_node.get_node("../ParticlesEmitters").get_children()
-	for emitter in particles_emitters:
-		emitter.emitting = true
+	barrel_node.get_node("..").shoot()
 	$"shotgun-zx-76-ShootingSound2".play()
 	
 func handle_hit(target : Object, dmg : float):
