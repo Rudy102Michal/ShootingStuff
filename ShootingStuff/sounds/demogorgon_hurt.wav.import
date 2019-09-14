@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/demogorgon_hurt.wav-e679d4482d505f4ab5e96c2ae59f03d2.sample"
+
+[deps]
+
+source_file="res://sounds/demogorgon_hurt.wav"
+dest_files=[ "res://.import/demogorgon_hurt.wav-e679d4482d505f4ab5e96c2ae59f03d2.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

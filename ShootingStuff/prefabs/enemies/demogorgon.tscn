@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://scripts/enemies/demogorgon_logic.gd" type="Script" id=1]
 [ext_resource path="res://materials/demogorgon.material" type="Material" id=2]
@@ -9,8 +9,10 @@
 [ext_resource path="res://animations/demogorgon/Notice.tres" type="Animation" id=7]
 [ext_resource path="res://animations/demogorgon/Running.tres" type="Animation" id=8]
 [ext_resource path="res://sounds/demogorgon_idle.ogg" type="AudioStream" id=9]
-[ext_resource path="res://sounds/footstep3.wav" type="AudioStream" id=10]
-[ext_resource path="res://sounds/demogorgon_roar.ogg" type="AudioStream" id=11]
+[ext_resource path="res://sounds/footstep4.wav" type="AudioStream" id=10]
+[ext_resource path="res://sounds/demogorgon_hurt.wav" type="AudioStream" id=11]
+[ext_resource path="res://sounds/demogorgon_die.ogg" type="AudioStream" id=12]
+[ext_resource path="res://sounds/demogorgon_roar.ogg" type="AudioStream" id=13]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.893739
@@ -102,7 +104,7 @@ nodes/OneShot_Roar/position = Vector2( 720, -60 )
 nodes/TimeScale/node = SubResource( 17 )
 nodes/TimeScale/position = Vector2( 940, 260 )
 nodes/output/position = Vector2( 1340, 140 )
-node_connections = [ "output", 0, "OneShot_Death", "Blend2_Attack", 0, "Animation 5", "Blend2_Attack", 1, "Blend2", "OneShot_Hit", 0, "OneShot_Roar", "OneShot_Hit", 1, "Animation 6", "OneShot_Death", 0, "OneShot_Hit", "OneShot_Death", 1, "TimeScale", "Blend2", 0, "Animation", "Blend2", 1, "Animation 3", "OneShot_Roar", 0, "Blend2_Attack", "OneShot_Roar", 1, "Animation 2", "TimeScale", 0, "Animation 4" ]
+node_connections = [ "output", 0, "OneShot_Death", "OneShot_Hit", 0, "OneShot_Roar", "OneShot_Hit", 1, "Animation 6", "TimeScale", 0, "Animation 4", "Blend2_Attack", 0, "Animation 5", "Blend2_Attack", 1, "Blend2", "Blend2", 0, "Animation", "Blend2", 1, "Animation 3", "OneShot_Death", 0, "OneShot_Hit", "OneShot_Death", 1, "TimeScale", "OneShot_Roar", 0, "Blend2_Attack", "OneShot_Roar", 1, "Animation 2" ]
 
 [sub_resource type="SphereShape" id=19]
 radius = 1.72004
@@ -232,7 +234,7 @@ bones/19/name = "mixamorig_LeftHandMiddle1"
 bones/19/parent = 10
 bones/19/rest = Transform( 0.999481, -0.0203069, -0.0249837, 0.0321953, 0.630405, 0.775599, -3.57628e-007, -0.776, 0.630732, -0.0117683, 0.107535, 0.0182989 )
 bones/19/enabled = true
-bones/19/bound_children = [ NodePath("BA_LeftHand") ]
+bones/19/bound_children = [  ]
 bones/20/name = "mixamorig_LeftHandMiddle2"
 bones/20/parent = 19
 bones/20/rest = Transform( 1, 8.9407e-008, 2.98023e-008, 1.78814e-007, 0.947569, -0.319552, -1.93715e-007, 0.319551, 0.947569, 0.00206107, 0.0854371, -1.19209e-007 )
@@ -464,7 +466,7 @@ mesh = SubResource( 4 )
 material/0 = ExtResource( 2 )
 
 [node name="BA_LeftHand" type="BoneAttachment" parent="RotationHelper/Model/Skeleton"]
-transform = Transform( 0.97863, 0.0648003, -0.195154, -0.205632, 0.310122, -0.92819, 0.000374317, 0.948485, 0.31682, 0.362703, -0.288464, 0.418605 )
+transform = Transform( 0.919375, -0.0173007, -0.393003, -0.29337, -0.695721, -0.655672, -0.262078, 0.718104, -0.644703, 0.490121, -0.182423, 0.200413 )
 bone_name = "mixamorig_LeftHandMiddle1"
 
 [node name="PawArea" type="Area" parent="RotationHelper/Model/Skeleton/BA_LeftHand"]
@@ -492,26 +494,40 @@ parameters/OneShot_Hit/active = false
 parameters/OneShot_Roar/active = false
 parameters/TimeScale/scale = 1.0
 
-[node name="IdleSoundPlayer" type="AudioStreamPlayer3D" parent="RotationHelper/Model"]
-stream = ExtResource( 9 )
-unit_size = 5.0
-autoplay = true
-
-[node name="FootstepSoundPlayer" type="AudioStreamPlayer3D" parent="RotationHelper/Model"]
-stream = ExtResource( 10 )
-unit_size = 10.8
-autoplay = true
-
-[node name="RoarSoundPlayer" type="AudioStreamPlayer3D" parent="RotationHelper/Model"]
-stream = ExtResource( 11 )
-unit_size = 20.0
-
 [node name="AttackRange" type="Area" parent="RotationHelper"]
+editor/display_folded = true
 transform = Transform( 1, 0, -2.98023e-008, 0, 1, 0, 2.98023e-008, 0, 1, 0, 1.80211, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="RotationHelper/AttackRange"]
 transform = Transform( 1, 0, -2.98023e-008, 0, 1, 0, 2.98023e-008, 0, 1, -0.911274, 0.306159, 1.50289 )
 shape = SubResource( 19 )
+
+[node name="IdleSoundPlayer" type="AudioStreamPlayer3D" parent="."]
+transform = Transform( -0.98998, 1.38843e-007, -0.141205, -0.0397551, 0.959549, 0.278721, 0.135493, 0.281542, -0.949934, 0.389721, 0.401126, -0.086756 )
+stream = ExtResource( 9 )
+unit_size = 5.0
+autoplay = true
+
+[node name="FootstepSoundPlayer" type="AudioStreamPlayer3D" parent="."]
+transform = Transform( -0.98998, 1.38843e-007, -0.141205, -0.0397551, 0.959549, 0.278721, 0.135493, 0.281542, -0.949934, 0.389721, 0.401126, -0.086756 )
+stream = ExtResource( 10 )
+unit_size = 10.8
+autoplay = true
+
+[node name="HurtSoundPlayer" type="AudioStreamPlayer3D" parent="."]
+transform = Transform( -0.98998, 1.38843e-007, -0.141205, -0.0397551, 0.959549, 0.278721, 0.135493, 0.281542, -0.949934, 0.389721, 0.401126, -0.086756 )
+stream = ExtResource( 11 )
+unit_size = 24.6
+
+[node name="DeathSoundPlayer" type="AudioStreamPlayer3D" parent="."]
+transform = Transform( -0.98998, 1.38843e-007, -0.141205, -0.0397551, 0.959549, 0.278721, 0.135493, 0.281542, -0.949934, 0.389721, 0.401126, -0.086756 )
+stream = ExtResource( 12 )
+unit_size = 27.5
+
+[node name="RoarSoundPlayer" type="AudioStreamPlayer3D" parent="."]
+transform = Transform( -0.98998, 1.38843e-007, -0.141205, -0.0397551, 0.959549, 0.278721, 0.135493, 0.281542, -0.949934, 0.389721, 0.401126, -0.086756 )
+stream = ExtResource( 13 )
+unit_size = 20.0
 [connection signal="body_entered" from="RotationHelper/Model/Skeleton/BA_LeftHand/PawArea" to="." method="_on_PawArea_hit_player"]
 [connection signal="body_entered" from="RotationHelper/AttackRange" to="." method="_on_AttackRange_body_entered"]
 [connection signal="body_exited" from="RotationHelper/AttackRange" to="." method="_on_AttackRange_body_exited"]

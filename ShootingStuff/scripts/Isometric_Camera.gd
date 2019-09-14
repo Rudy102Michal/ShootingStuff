@@ -24,12 +24,15 @@ func _ready():
 #	var players_shift : Vector3 = players[0].global_transform.origin - players[1].global_transform.origin
 #	# Point camera at exactly middle between players
 #	at_target = players[1].global_transform.origin + players_shift * 0.5
-#	cam_position = at_target + distance_translation
+	cam_position = translation
+	at_target = $"../StuffOnScreen/Portal".translation
 
 func _physics_process(delta):
 	if players_container == null:
 		_set_players_container()
 		return
+		
+	var old_cam_pos = cam_position
 	
 	var players : Array = players_container.get_children()
 	for i in range(players.size()):
@@ -94,7 +97,8 @@ func _physics_process(delta):
 #		#var fov_change : float = atan((abs(projected_player1_pos.y - projected_player2_pos.y) + edge_border) / (2 * global_transform.origin.distance_to((distances[0] + distances[1]) * 0.5)));
 #		#fov = min(max(70, rad2deg(fov_change)), 90)
 #		cam_position = at_target + distance_translation.normalized() * camera_distance
-	look_at_from_position(cam_position, at_target, VECTOR_UP)
+	$"../Listener".translation = at_target
+	look_at_from_position((old_cam_pos * 3 + cam_position) / 4, at_target, VECTOR_UP)
 			
 func _get_player_dependant_fov(player_origin : Vector3) -> float:
 	var ret : float = 0.0

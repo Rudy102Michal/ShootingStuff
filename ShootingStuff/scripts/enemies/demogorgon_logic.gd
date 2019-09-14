@@ -125,14 +125,17 @@ func check_if_player_seen():
 		var angle_between_vectors = front_vec.angle_to(vector_to_player)
 		if abs(angle_between_vectors) <= DEMOGORGON_FOV / 2.0:
 			# player spotted, the hunt begins
-			seen_player = player
-			patrolling = false
-			col_shape_patrolling.disabled = true
-			col_shape_running.disabled = false
-			animation_tree["parameters/OneShot_Roar/active"] = true
-			animation_tree["parameters/Blend2/blend_amount"] = 1.0
-			$RotationHelper/Model/RoarSoundPlayer.play()
+			player_noticed(player)
 			return
+			
+func player_noticed(player):
+	seen_player = player
+	patrolling = false
+	col_shape_patrolling.disabled = true
+	col_shape_running.disabled = false
+	animation_tree.set("parameters/OneShot_Roar/active", true)
+	animation_tree.set("parameters/Blend2/blend_amount", 1.0)
+	$RoarSoundPlayer.play()
 	
 func handle_movement(delta):
 		
@@ -169,7 +172,7 @@ func handle_movement(delta):
 		var v2 = to_global(Vector3.ZERO)
 		distance_from_player = Vector2(v1.x, v1.z).distance_to(Vector2(v2.x, v2.z))
 	
-	if not (animation_tree["parameters/OneShot_Roar/active"] or (seen_player and distance_from_player < 2)):
+	if not (animation_tree.get("parameters/OneShot_Roar/active") or (seen_player and distance_from_player < 2)):
 		velocity = move_and_slide(velocity, VECTOR_UP)
 	
 func set_players_container(value):
@@ -179,9 +182,13 @@ func get_self_2d_position() -> Vector2:
 	return Vector2(global_transform.origin.x, global_transform.origin.z)
 	
 func get_hit(damage : float):
-	#print("ow")
-	animation_tree["parameters/OneShot_Hit/active"] = true
+	animation_tree.set("parameters/OneShot_Hit/active", true)
 	hp -= damage;
+	if not dying:
+		if hp > 0:
+			$HurtSoundPlayer.play()
+		else:
+			$DeathSoundPlayer.play()
 	
 func kill_yourself():
 	dying = true
@@ -204,20 +211,18 @@ func gorgon_dies() -> void:
 func _on_AttackRange_body_entered(body):
 	var player : PlayerCharacter = body as PlayerCharacter
 	if player != null:
-		print("Player in range!")
 		players_in_range += 1
-
+		if patrolling:
+			player_noticed(player)
 
 func _on_AttackRange_body_exited(body):
 	var player : PlayerCharacter = body as PlayerCharacter
 	if player != null:
-		print("Farewell player!")
 		players_in_range = max(0, players_in_range - 1)			# In theory < 0 shouldn't happen, but if does,
-																# then may fuck up a lot
+		seen_player	= player									# then may fuck up a lot
 
 
 func _on_PawArea_hit_player(body):
 	var player : PlayerCharacter = body as PlayerCharacter
-	if player != null:
-		print("Hit dat player!")
+	if player != null and not dying and not animation_tree.get("parameters/OneShot_Roar/active"):
 		player.get_hit(0.1) 		# Should be better, but oh, well..

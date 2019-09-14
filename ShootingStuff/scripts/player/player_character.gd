@@ -28,8 +28,8 @@ var health_points : float = 1.0		# as a percentage, i.e. [0.0, 1.0]
 # Variables
 var player: Player setget set_player
 var animation_tree : AnimationTree
-var can_move : bool = true
-var alive : bool = true
+var can_move : bool = false
+var alive : bool = false
 var velocity : Vector3
 
 # Weapons
@@ -57,12 +57,19 @@ func _ready():
 	shooting_node = $"../../Bullets"
 	
 func set_player(p: Player):
+	if (player != null):
+		return
 	player = p
+	animation_tree.set("parameters/OneShot_Spawn/active", true)
+	
+func player_spawned():
+	print("player_spawned")
 	set_physics_process(true)
-	$PlayerBody_CS.disabled = false
-	$PlayerFeet_CS.disabled = false
+	start_processing()
 	player.connect("player_change_weapon", self, "change_weapon")
 	player.connect("player_throw_grenade", self, "control_throw_grenade")
+	alive = true
+	can_move = true
 	
 func set_grenade_manager(gm : Node) -> void:
 	grenade_manager = gm
@@ -178,6 +185,8 @@ func recoil_from_explosion(recoil_force : Vector3) -> void:
 	
 func get_hit(damage : float) -> void:
 	health_points -= damage
+	if alive:
+		$HurtSoundPlayer.play()
 	emit_signal("player_health_changed", self, health_points)
 	
 func lock_movement() -> void:

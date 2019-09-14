@@ -382,3 +382,15 @@ tracks/52/keys = {
 "method": "stop_processing"
 } ]
 }
+tracks/53/type = "value"
+tracks/53/path = NodePath("../../SpotLight:light_energy")
+tracks/53/interp = 1
+tracks/53/loop_wrap = true
+tracks/53/imported = false
+tracks/53/enabled = true
+tracks/53/keys = {
+"times": PoolRealArray( 0, 0.1, 0.15, 0.2, 0.25, 0.31, 0.37, 0.64, 1.48 ),
+"transitions": PoolRealArray( 1, 0.00248938, 0.00012207, 0.00148019, 0.00012207, 0.00148019, 0.00012207, 0.00012207, 1 ),
+"update": 0,
+"values": [ 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0 ]
+}

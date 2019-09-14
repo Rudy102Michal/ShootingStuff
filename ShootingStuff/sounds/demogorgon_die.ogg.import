@@ -11,5 +11,5 @@ dest_files=[ "res://.import/demogorgon_die.ogg-4db4cfb3957c6e83001472e66d032b42.
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

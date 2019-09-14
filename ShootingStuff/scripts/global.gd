@@ -55,9 +55,9 @@ func _input(event):
 			and not event is InputEventMouseMotion # but not with mouse movement
 			and not event is InputEventJoypadMotion # or with joypad movement
 			and players.size() < PLAYER_NAMES.size()):
-			device.player = Player.new()
-			players.push_back(device.player)
-			emit_signal("player_joined")
+				device.player = Player.new()
+				players.push_back(device.player)
+				emit_signal("player_joined")
 
 		# 4. Otherwise pass the input to the correct device.
 		else:

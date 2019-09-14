@@ -39,4 +39,5 @@ func handleInput(event: InputEvent):
 	.handleInput(event)
 	
 func updateRotation():
-	player.player_node.rotation = VECTOR_UP * (player.look_direction.angle() + PI/2)
+	if player.player_node.alive:
+		player.player_node.rotation = VECTOR_UP * (player.look_direction.angle() + PI/2)
