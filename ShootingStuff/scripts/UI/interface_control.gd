@@ -77,6 +77,9 @@ func player_hp_changed(player : PlayerCharacter, current_health : float) -> void
 	var ui_node = get_player_UI_node(player)
 	if ui_node != null:
 		set_health_points(ui_node, current_health)
+		if current_health <= 0.0:
+			var pl = ui_node.find_node("PlayerNameLabel") as Label
+			pl.text = pl.text + " (DEAD)"
 	
 func player_switched_weapon(player : PlayerCharacter, weapon_name : String) -> void:
 	var ui_node = get_player_UI_node(player)

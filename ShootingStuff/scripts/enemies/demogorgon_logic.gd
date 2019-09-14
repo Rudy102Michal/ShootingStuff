@@ -230,6 +230,8 @@ func gorgon_dies() -> void:
 	$Demog_Body_CS.queue_free()
 	$Demog_Feet_CS2.queue_free()
 	$Demog_Body_Run_CS.queue_free()
+	$RotationHelper/AttackRange.queue_free()
+	remove_from_group("enemies")
 	alive = false
 	animation_tree.set("parameters/TimeScale/scale", 0.0)
 
