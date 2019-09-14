@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://scenes/UI/game_interface.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/Isometric_Camera.gd" type="Script" id=2]
@@ -19,18 +19,19 @@
 [ext_resource path="res://sounds/shotgun-mossberg.wav" type="AudioStream" id=17]
 [ext_resource path="res://prefabs/environment/tree01.tscn" type="PackedScene" id=18]
 [ext_resource path="res://prefabs/environment/rock01.tscn" type="PackedScene" id=19]
-[ext_resource path="res://prefabs/environment/rock02.tscn" type="PackedScene" id=20]
-[ext_resource path="res://prefabs/environment/rock03.tscn" type="PackedScene" id=21]
-[ext_resource path="res://addons/zylann.hterrain/hterrain.gd" type="Script" id=22]
-[ext_resource path="res://addons/zylann.hterrain/tools/icons/icon_heightmap_node.svg" type="Texture" id=23]
-[ext_resource path="res://playground_terrain/data.hterrain" type="Resource" id=24]
-[ext_resource path="res://textures/ground/burned_ground.png" type="Texture" id=25]
-[ext_resource path="res://textures/ground/cave1.png" type="Texture" id=26]
-[ext_resource path="res://textures/ground/cave3.png" type="Texture" id=27]
-[ext_resource path="res://textures/ground/cave2.png" type="Texture" id=28]
-[ext_resource path="res://sounds/breathing.ogg" type="AudioStream" id=29]
-[ext_resource path="res://sounds/cave_ambient.ogg" type="AudioStream" id=30]
-[ext_resource path="res://sounds/music_ingame.ogg" type="AudioStream" id=31]
+[ext_resource path="res://prefabs/environment/rock03-darker.tscn" type="PackedScene" id=20]
+[ext_resource path="res://prefabs/environment/rock02.tscn" type="PackedScene" id=21]
+[ext_resource path="res://prefabs/environment/rock03.tscn" type="PackedScene" id=22]
+[ext_resource path="res://addons/zylann.hterrain/hterrain.gd" type="Script" id=23]
+[ext_resource path="res://addons/zylann.hterrain/tools/icons/icon_heightmap_node.svg" type="Texture" id=24]
+[ext_resource path="res://playground_terrain/data.hterrain" type="Resource" id=25]
+[ext_resource path="res://textures/ground/burned_ground.png" type="Texture" id=26]
+[ext_resource path="res://textures/ground/cave1.png" type="Texture" id=27]
+[ext_resource path="res://textures/ground/cave3.png" type="Texture" id=28]
+[ext_resource path="res://textures/ground/cave2.png" type="Texture" id=29]
+[ext_resource path="res://sounds/breathing.ogg" type="AudioStream" id=30]
+[ext_resource path="res://sounds/cave_ambient.ogg" type="AudioStream" id=31]
+[ext_resource path="res://sounds/music_ingame.ogg" type="AudioStream" id=32]
 
 [sub_resource type="Environment" id=1]
 background_mode = 1
@@ -100,16 +101,16 @@ transform = Transform( 0.886994, 0, -0.461781, 0, 1, 0, 0.461781, 0, 0.886994, -
 script = ExtResource( 13 )
 
 [node name="DemogorgonKB" parent="StuffOnScreen/Enemies" instance=ExtResource( 14 )]
-transform = Transform( -0.995181, 0, 0.0980572, 0, 1, 0, -0.0980572, 0, -0.995181, 14.1982, -5.62731, 31.6527 )
+transform = Transform( -0.251385, 0, 0.967887, 0, 1, 0, -0.967887, 0, -0.251385, 14.1982, -5.62731, 32.9969 )
 
 [node name="DemogorgonKB2" parent="StuffOnScreen/Enemies" instance=ExtResource( 14 )]
-transform = Transform( -0.299998, 0, -0.95394, 0, 1, 0, 0.95394, 0, -0.299998, 50.4177, -6.1089, 2.6869 )
+transform = Transform( 0.555128, 0, -0.831765, 0, 1, 0, 0.831765, 0, 0.555128, 50.4177, -6.1089, 2.6869 )
 
 [node name="DemogorgonKB3" parent="StuffOnScreen/Enemies" instance=ExtResource( 14 )]
-transform = Transform( 0.575509, 0, -0.817796, 0, 1, 0, 0.817796, 0, 0.575509, 55.1631, -5.61804, -5.35535 )
+transform = Transform( 0.921188, 0, -0.389118, 0, 1, 0, 0.389118, 0, 0.921188, 57.4655, -5.61804, -5.35535 )
 
 [node name="DemogorgonKB4" parent="StuffOnScreen/Enemies" instance=ExtResource( 14 )]
-transform = Transform( 0.777961, -0.011468, -0.628207, 0.0139298, 0.999902, -0.00100291, 0.628158, -0.0079706, 0.778045, 50.3366, -5.99171, -1.34928 )
+transform = Transform( 0.777961, -0.011468, -0.628207, 0.0139298, 0.999902, -0.00100291, 0.628158, -0.0079706, 0.778045, 51.4111, -5.99171, -2.16993 )
 
 [node name="Bullets" type="Spatial" parent="StuffOnScreen"]
 editor/display_folded = true
@@ -137,20 +138,26 @@ transform = Transform( -1.64695, 0.471571, 1.03208, 0.359365, 1.94224, -0.313974
 [node name="rock3" parent="StuffOnScreen/Envorinment" instance=ExtResource( 19 )]
 transform = Transform( -0.157653, 0.0469499, 1.49054, 0.0261031, 1.19897, -0.0562485, -1.49146, 0.0160213, -0.15854, 8.97818, -7.00221, 4.27059 )
 
+[node name="rock3-darker" parent="StuffOnScreen/Envorinment" instance=ExtResource( 20 )]
+transform = Transform( -1.73587, -0.568443, -0.814643, -0.514593, 1.91752, -0.241499, 0.849685, 2.98023e-008, -1.81053, 24.4864, -5.58671, 14.0659 )
+
+[node name="rock3-darker2" parent="StuffOnScreen/Envorinment" instance=ExtResource( 20 )]
+transform = Transform( 1.42857, -0.116105, -1.39488, 0.295994, 1.97309, 0.13891, 1.36805, -0.30566, 1.42654, 25.1106, -3.83361, 14.437 )
+
+[node name="rock3-darker3" parent="StuffOnScreen/Envorinment" instance=ExtResource( 20 )]
+transform = Transform( 0.714286, -0.0580523, -0.697442, -0.289305, 0.882929, -0.369783, 0.637258, 0.465904, 0.613869, 26.9352, -5.51992, 19.3465 )
+
 [node name="tree2" parent="StuffOnScreen/Envorinment" instance=ExtResource( 18 )]
 transform = Transform( 0.995548, 0.0942577, 0, -0.0942577, 0.995548, 0, 0, 0, 1, 1.00249, -6.50266, -0.655462 )
 
-[node name="rock4" parent="StuffOnScreen/Envorinment" instance=ExtResource( 20 )]
+[node name="rock4" parent="StuffOnScreen/Envorinment" instance=ExtResource( 21 )]
 transform = Transform( 0.359155, 0, 0.933278, 0, 1, 0, -0.933278, 0, 0.359155, 19.8135, -7.48297, 0.953045 )
 
-[node name="rock5" parent="StuffOnScreen/Envorinment" instance=ExtResource( 20 )]
+[node name="rock5" parent="StuffOnScreen/Envorinment" instance=ExtResource( 21 )]
 transform = Transform( -0.678332, 0, -0.734755, 0, 1, 0, 0.734755, 0, -0.678332, 9.21072, -7.48297, 0.953045 )
 
-[node name="rock6" parent="StuffOnScreen/Envorinment" instance=ExtResource( 21 )]
+[node name="rock6" parent="StuffOnScreen/Envorinment" instance=ExtResource( 22 )]
 transform = Transform( -1.35666, 0, -1.46951, 0, 2, 0, 1.46951, 0, -1.35666, 0.195589, -6.77236, 11.9855 )
-
-[node name="rock7" parent="StuffOnScreen/Envorinment" instance=ExtResource( 21 )]
-transform = Transform( -1.78978, -0.301933, -0.839945, -0.27333, 1.97708, -0.128274, 0.849683, 0, -1.81053, 25.1245, -6.07092, 14.0659 )
 
 [node name="tree3" parent="StuffOnScreen/Envorinment" instance=ExtResource( 18 )]
 transform = Transform( 1.35826, 0.128599, 0, -0.151097, 1.59588, 0, 0, 0, 1.17665, 20.1526, -6.00431, 24.9288 )
@@ -158,10 +165,10 @@ transform = Transform( 1.35826, 0.128599, 0, -0.151097, 1.59588, 0, 0, 0, 1.1766
 [node name="rock8" parent="StuffOnScreen/Envorinment" instance=ExtResource( 19 )]
 transform = Transform( 1.56378, 0.191102, -1.2321, -0.0874427, 1.98831, 0.19741, 1.24376, -0.100484, 1.563, -0.114749, -6.65931, 28.5313 )
 
-[node name="rock9" parent="StuffOnScreen/Envorinment" instance=ExtResource( 20 )]
+[node name="rock9" parent="StuffOnScreen/Envorinment" instance=ExtResource( 21 )]
 transform = Transform( 0.688335, 0, 1.78866, 0, 1.21931, 0, -1.45946, 0, 0.561646, 2.96196, -6.24313, 26.8794 )
 
-[node name="rock10" parent="StuffOnScreen/Envorinment" instance=ExtResource( 20 )]
+[node name="rock10" parent="StuffOnScreen/Envorinment" instance=ExtResource( 21 )]
 transform = Transform( -0.857863, 0, 0.392031, 0, 0.961917, 0, -0.313092, 0, -0.723938, 1.15776, -4.49692, 26.8794 )
 
 [node name="tree4" parent="StuffOnScreen/Envorinment" instance=ExtResource( 18 )]
@@ -172,46 +179,46 @@ transform = Transform( -2.47042, 0.707355, 1.54812, 0.539047, 2.91335, -0.470961
 
 [node name="HTerrain" type="Spatial" parent="."]
 transform = Transform( 1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, -25.09, -7.11, -26.59 )
-script = ExtResource( 22 )
+script = ExtResource( 23 )
 __meta__ = {
 "_edit_lock_": true,
-"_editor_icon": ExtResource( 23 )
+"_editor_icon": ExtResource( 24 )
 }
 collision_enabled = true
 ambient_wind = 0.0
 lod_scale = 2.0
 map_scale = Vector3( 0.2, 0.2, 0.2 )
-_terrain_data = ExtResource( 24 )
+_terrain_data = ExtResource( 25 )
 chunk_size = 16
 shader_type = "Classic4Lite"
 custom_shader = null
 shader_params/u_ground_uv_scale = 20
 shader_params/u_depth_blending = true
 shader_params/u_triplanar = false
-ground/albedo_bump_0 = ExtResource( 25 )
+ground/albedo_bump_0 = ExtResource( 26 )
 ground/normal_roughness_0 = null
-ground/albedo_bump_1 = ExtResource( 26 )
+ground/albedo_bump_1 = ExtResource( 27 )
 ground/normal_roughness_1 = null
-ground/albedo_bump_2 = ExtResource( 27 )
+ground/albedo_bump_2 = ExtResource( 28 )
 ground/normal_roughness_2 = null
-ground/albedo_bump_3 = ExtResource( 28 )
+ground/albedo_bump_3 = ExtResource( 29 )
 ground/normal_roughness_3 = null
 _detail_objects_data = null
 
 [node name="JoinSoundPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 29 )
+stream = ExtResource( 30 )
 
 [node name="BreathingSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 29 )
+stream = ExtResource( 30 )
 volume_db = -30.0
 autoplay = true
 
 [node name="CaveAmbientPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 30 )
+stream = ExtResource( 31 )
 volume_db = -15.0
 autoplay = true
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 31 )
+stream = ExtResource( 32 )
 volume_db = -15.0
 autoplay = true
