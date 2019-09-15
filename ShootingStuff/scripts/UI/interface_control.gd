@@ -13,6 +13,7 @@ func _ready():
 	player_B_UI = null
 	$PlayerTopLeft.visible = false
 	$PlayerTopRight.visible = false
+	$ColorRect/AnimationPlayer.play("FadeIn")
 
 func register_player(player : PlayerCharacter) -> bool:
 	var result : bool = false
@@ -80,6 +81,14 @@ func player_hp_changed(player : PlayerCharacter, current_health : float) -> void
 		if current_health <= 0.0:
 			var pl = ui_node.find_node("PlayerNameLabel") as Label
 			pl.text = pl.text + " (DEAD)"
+			for player in global.players:
+				if player.player_node.health_points > 0.0:
+					return
+			yield(get_tree().create_timer(2.5), "timeout")
+			$CenterContainer/GAME_OVER.show()
+			$GameOverSoundPlayer.play()
+			yield(get_tree().create_timer(3.0), "timeout")
+			get_tree().change_scene("scenes/menu.tscn")
 	
 func player_switched_weapon(player : PlayerCharacter, weapon_name : String) -> void:
 	var ui_node = get_player_UI_node(player)
@@ -92,3 +101,10 @@ func set_health_points(ui_node : CanvasItem, hp : float) -> void:
 	var hp_bar = ui_node.find_node("HealthBar")
 	if hp_bar != null:
 		hp_bar.set_progress_value(hp)
+		
+func won():
+	$WinSoundPlayer.play()
+	$CenterContainer/WIN.show()
+	yield(get_tree().create_timer(10.0), "timeout")
+	get_tree().change_scene("scenes/menu.tscn")
+	

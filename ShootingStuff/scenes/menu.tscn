@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://textures/cavern_background.png" type="Texture" id=1]
 [ext_resource path="res://scripts/player/players_manager.gd" type="Script" id=2]
@@ -8,7 +8,7 @@
 [ext_resource path="res://sounds/bravo_join.ogg" type="AudioStream" id=6]
 [ext_resource path="res://prefabs/player/player_menu.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scripts/menu.gd" type="Script" id=8]
-[ext_resource path="res://fonts/zorque.ttf" type="DynamicFontData" id=9]
+[ext_resource path="res://fonts/main_font.tres" type="DynamicFont" id=9]
 [ext_resource path="res://sounds/cave_ambient.ogg" type="AudioStream" id=10]
 [ext_resource path="res://sounds/music_menu.ogg" type="AudioStream" id=11]
 
@@ -51,13 +51,9 @@ adjustment_saturation = 0.54
 
 [sub_resource type="SpatialMaterial" id=5]
 flags_transparent = true
-albedo_color = Color( 0, 0, 0, 0.862745 )
+albedo_color = Color( 0, 0, 0, 0.705882 )
 
-[sub_resource type="StyleBoxLine" id=7]
-
-[sub_resource type="DynamicFont" id=6]
-size = 32
-font_data = ExtResource( 9 )
+[sub_resource type="StyleBoxLine" id=6]
 
 [node name="GameLobby" type="Spatial"]
 
@@ -119,11 +115,10 @@ margin_right = 945.0
 margin_bottom = 482.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/panel = SubResource( 7 )
+custom_styles/panel = SubResource( 6 )
 script = ExtResource( 8 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="GameLobbyHUD"]
-editor/display_folded = true
 margin_left = 1.0
 margin_top = 1.0
 margin_right = 928.0
@@ -135,13 +130,12 @@ margin_right = 927.0
 margin_bottom = 462.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = ExtResource( 9 )
 text = "Loading..."
 align = 1
 valign = 1
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="GameLobbyHUD"]
-editor/display_folded = true
 margin_left = 1.0
 margin_top = 1.0
 margin_right = 928.0
@@ -153,13 +147,12 @@ margin_right = 927.0
 margin_bottom = 462.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = ExtResource( 9 )
 text = "ALL READY?"
 align = 1
 valign = 1
 
 [node name="VSplitContainer" type="VSplitContainer" parent="GameLobbyHUD"]
-editor/display_folded = true
 margin_left = 1.0
 margin_top = 1.0
 margin_right = 928.0
@@ -167,12 +160,10 @@ margin_bottom = 463.0
 dragger_visibility = 1
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="GameLobbyHUD/VSplitContainer"]
-editor/display_folded = true
 margin_right = 927.0
 margin_bottom = 462.0
 
 [node name="MarginContainer" type="MarginContainer" parent="GameLobbyHUD/VSplitContainer/HBoxContainer3"]
-editor/display_folded = true
 margin_right = 278.0
 margin_bottom = 462.0
 
@@ -186,7 +177,7 @@ margin_top = 338.0
 margin_right = 278.0
 margin_bottom = 377.0
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = ExtResource( 9 )
 text = "START NEW GAME"
 align = 1
 valign = 1
@@ -196,14 +187,13 @@ margin_top = 381.0
 margin_right = 278.0
 margin_bottom = 462.0
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = ExtResource( 9 )
 text = "QUIT
 "
 align = 1
 valign = 1
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="GameLobbyHUD"]
-editor/display_folded = true
 margin_left = 1.0
 margin_top = 1.0
 margin_right = 928.0
@@ -215,7 +205,7 @@ margin_left = 565.0
 margin_right = 927.0
 margin_bottom = 462.0
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = ExtResource( 9 )
 text = "PRESS ANY KEY TO JOIN"
 align = 1
 valign = 2

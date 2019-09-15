@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=2]
+[gd_scene load_steps=51 format=2]
 
 [ext_resource path="res://scripts/player/player_character.gd" type="Script" id=1]
 [ext_resource path="res://scripts/player/PlayerModel_Script.gd" type="Script" id=2]
@@ -23,6 +23,7 @@
 [ext_resource path="res://animations/player/Walk_Shoot.tres" type="Animation" id=21]
 [ext_resource path="res://sounds/ouch.wav" type="AudioStream" id=22]
 [ext_resource path="res://sounds/death.wav" type="AudioStream" id=23]
+[ext_resource path="res://sounds/portal_pass.wav" type="AudioStream" id=24]
 
 [sub_resource type="CapsuleShape" id=1]
 height = 1.65655
@@ -564,7 +565,7 @@ nodes/TimeScale/position = Vector2( 1520, 420 )
 nodes/Walk_Shoot-loop/node = SubResource( 25 )
 nodes/Walk_Shoot-loop/position = Vector2( 60, 520 )
 nodes/output/position = Vector2( 2140, 260 )
-node_connections = [ "output", 0, "OneShot_Spawn", "TimeScale", 0, "Death_1", "OneShot_Death", 0, "OneShot_Dash", "OneShot_Death", 1, "TimeScale", "Blend2_1", 0, "Blend3_1", "Blend2_1", 1, "Blend2_3", "OneShot_Dash", 0, "OneShot_Grenade", "OneShot_Dash", 1, "Dash_Roll", "OneShot_Spawn", 0, "OneShot_Death", "OneShot_Spawn", 1, "TimeScale 2", "Blend2_3", 0, "Stand_Shoot-loop", "Blend2_3", 1, "Walk_Shoot-loop", "OneShot_Grenade", 0, "Blend2_2", "OneShot_Grenade", 1, "Grenade_Throw", "TimeScale 2", 0, "Animation", "Blend3_1", 0, "Gun_Walk_Back-loop", "Blend3_1", 1, "Gun_Stand_Idle-loop", "Blend3_1", 2, "Gun_Walk-loop", "Blend2_2", 0, "Blend2_1", "Blend2_2", 1, "Gun_Sprint-loop" ]
+node_connections = [ "output", 0, "OneShot_Spawn", "TimeScale", 0, "Death_1", "OneShot_Death", 0, "OneShot_Dash", "OneShot_Death", 1, "TimeScale", "Blend3_1", 0, "Gun_Walk_Back-loop", "Blend3_1", 1, "Gun_Stand_Idle-loop", "Blend3_1", 2, "Gun_Walk-loop", "Blend2_3", 0, "Stand_Shoot-loop", "Blend2_3", 1, "Walk_Shoot-loop", "Blend2_1", 0, "Blend3_1", "Blend2_1", 1, "Blend2_3", "Blend2_2", 0, "Blend2_1", "Blend2_2", 1, "Gun_Sprint-loop", "OneShot_Spawn", 0, "OneShot_Death", "OneShot_Spawn", 1, "TimeScale 2", "OneShot_Grenade", 0, "Blend2_2", "OneShot_Grenade", 1, "Grenade_Throw", "OneShot_Dash", 0, "OneShot_Grenade", "OneShot_Dash", 1, "Dash_Roll", "TimeScale 2", 0, "Animation" ]
 
 [node name="PlayerKB" type="KinematicBody"]
 script = ExtResource( 1 )
@@ -918,7 +919,7 @@ mesh = SubResource( 3 )
 material/0 = SubResource( 4 )
 
 [node name="BA_RightHand" type="BoneAttachment" parent="Rotation_Helper/Model/Skeleton"]
-transform = Transform( 0.347893, 0.873678, 0.34008, 0.886264, -0.424781, 0.184652, 0.305786, 0.237165, -0.922089, -1.45536, 12.0525, 2.1211 )
+transform = Transform( 0.403477, 0.859957, 0.312533, 0.851032, -0.478164, 0.217028, 0.336077, 0.178413, -0.924781, -0.73831, 12.0414, 2.30906 )
 bone_name = "Bag_Retopo_Bag_Low_Bag_Retopo_RightHand"
 
 [node name="Weapon" type="Spatial" parent="Rotation_Helper/Model/Skeleton/BA_RightHand"]
@@ -931,7 +932,7 @@ transform = Transform( -0.012627, 0.0971998, -0.0198184, -0.0991492, -0.0130029,
 transform = Transform( 1.10029, 3.83647, -0.266401, -0.0641676, -0.258723, -3.99108, -3.84515, 1.10212, -0.00963855, 0.587789, 3.49523, 0.112236 )
 
 [node name="BA_LeftHand" type="BoneAttachment" parent="Rotation_Helper/Model/Skeleton"]
-transform = Transform( -0.919593, -0.380364, -0.0983336, 0.0432332, -0.346751, 0.93696, -0.390485, 0.857372, 0.335315, 2.53053, 11.3768, 1.6821 )
+transform = Transform( -0.935192, -0.351676, -0.0416551, 0.100805, -0.377115, 0.920664, -0.339486, 0.8568, 0.388125, 3.25476, 11.2322, 1.66321 )
 bone_name = "Bag_Retopo_Bag_Low_Bag_Retopo_LeftHand"
 
 [node name="WeaponLeftHand" type="Spatial" parent="Rotation_Helper/Model/Skeleton/BA_LeftHand"]
@@ -977,7 +978,6 @@ parameters/TimeScale/scale = 1.0
 
 [node name="SpotLight" type="SpotLight" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-008, 1, 0, -1, -4.37114e-008, 0, 6.60203, 0 )
-light_energy = 0.0
 spot_range = 7.5181
 spot_attenuation = 0.148651
 spot_angle = 20.382
@@ -995,3 +995,6 @@ stream = ExtResource( 23 )
 volume_db = -7.564
 
 [node name="RadioSoundPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="PortalPassSoundPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 24 )

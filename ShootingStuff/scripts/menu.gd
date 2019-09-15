@@ -21,7 +21,8 @@ func set_selected_option(option):
 	selected_option = option
 	
 func _on_player_joined():
-	set_menu_visible(global.players.size() > 0)
+	if not find_node("Ready").visible:
+		set_menu_visible(global.players.size() > 0)
 	set_invitation_visible(global.players.size() < global.PLAYER_NAMES.size())
 	
 func _on_player_left():
@@ -68,8 +69,10 @@ func _input(event):
 	var cam = get_tree().get_root().get_camera()
 	for player in global.players:
 		var pos = player.player_node.get_translation()
-		pos.y += 10
+		pos.y += 7
 		var screenPos = cam.unproject_position(pos)
+		screenPos.x -= 50
+		screenPos.y -= 20
 		
 		var readiness_node = player.player_node.find_node("Ready")
 		readiness_node.set_position(screenPos)

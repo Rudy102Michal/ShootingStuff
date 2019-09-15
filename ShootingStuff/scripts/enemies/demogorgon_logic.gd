@@ -9,9 +9,9 @@ const DE_ACCELERATION : float = 7.0
 const JUMP_SPEED : float = 3.5
 const VECTOR_UP : Vector3 = Vector3(0.0, 1.0, 0.0)
 const MAX_ROTATION_ANGLE : float = PI * 0.75;
-const VIEW_DISTANCE : float = 40.0
-const HEAR_DISTANCE : float = 25.0
-const DEMOGORGON_FOV : float = PI * 0.9 # about 160 degrees
+const VIEW_DISTANCE : float = 25.0
+const HEAR_DISTANCE : float = 15.0
+const DEMOGORGON_FOV : float = PI
 const AGGRO_MOD : float = 3.0
 
 # Controls
@@ -79,7 +79,6 @@ func _physics_process(delta):
 	handle_movement(delta)
 	
 func rotate_towards_seen_player(delta):
-	
 	# TODO: Make the rotation towards player less abrupt
 	if seen_player != null:
 		var player_position = seen_player.global_transform.origin
@@ -118,26 +117,28 @@ func check_if_player_seen():
 		return
 	
 	var front_vec : Vector3 = -get_global_transform().basis.z
-	front_vec.y = 0;
 	for player in players_container.get_children():
 		if player.visible == false or not player.alive:
 			continue
 
 		var vector_to_player = player.translation - self.translation
-		vector_to_player.y = 0
-		if vector_to_player.length() < HEAR_DISTANCE:
-			start_hunting(player)
-			return
-		var view_distance = VIEW_DISTANCE * min(0.5 + player.velocity.length() / 4, 1.0) + (1.0 if player.player.shoot else 0.0)
+		var shooting_multiplier = 2.0 if player.player.shoot else 1.0
+		#if vector_to_player.length() < HEAR_DISTANCE * shooting_multiplier + player.velocity.length():
+			#print("heard player")
+			#start_hunting(player)
+		#	return
+		var view_distance = VIEW_DISTANCE * min(0.4 + player.velocity.length() / 10, 1.0) * shooting_multiplier
 		if vector_to_player.length() > view_distance: # cannot see that player, it's too far
 			continue
-		var vector_dot = front_vec.dot(vector_to_player)
 		var angle_between_vectors = front_vec.angle_to(vector_to_player)
-		if abs(angle_between_vectors) <= DEMOGORGON_FOV / 2.0:
+		if abs(angle_between_vectors) <= DEMOGORGON_FOV + (0.1 * vector_to_player.length()):
+			print("saw player")
 			start_hunting(player)
 			return
 
 func start_hunting(player):
+	if not player.seen_enemy_before:
+		player.notice_enemy()
 	seen_player = player
 	patrolling = false
 	col_shape_patrolling.disabled = true
@@ -197,7 +198,7 @@ func handle_movement(delta):
 		var v2 = to_global(Vector3.ZERO)
 		distance_from_player = Vector2(v1.x, v1.z).distance_to(Vector2(v2.x, v2.z))
 	
-	if not (animation_tree.get("parameters/OneShot_Roar/active") or (seen_player and distance_from_player < 2)):
+	if not (animation_tree.get("parameters/OneShot_Roar/active") or (seen_player and distance_from_player < 3) or attacking_time > 0.3):
 		velocity = move_and_slide(velocity, VECTOR_UP)
 	
 func set_players_container(value):
@@ -234,6 +235,7 @@ func gorgon_dies() -> void:
 	remove_from_group("enemies")
 	alive = false
 	animation_tree.set("parameters/TimeScale/scale", 0.0)
+	$"..".alive_enemies -= 1
 
 func _on_AttackRange_body_entered(body):
 	var player : PlayerCharacter = body as PlayerCharacter

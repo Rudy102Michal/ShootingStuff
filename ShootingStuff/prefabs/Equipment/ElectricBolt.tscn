@@ -131,12 +131,12 @@ uniform sampler2D tex_frg_3;
 
 
 void vertex() {
-// Output:0
+// Konsola:0
 
 }
 
 void fragment() {
-// Input:2
+// Wejście:2
 	vec3 n_out2p0;
 	n_out2p0 = vec3(UV,0.0);
 
@@ -148,7 +148,7 @@ void fragment() {
 	n_out4p1 = n_out2p0.y;
 	n_out4p2 = n_out2p0.z;
 
-// Input:6
+// Wejście:6
 	float n_out6p0;
 	n_out6p0 = TIME;
 
@@ -200,13 +200,13 @@ void fragment() {
 	float n_out17p0;
 	n_out17p0 = round(n_out18p0);
 
-// Output:0
+// Konsola:0
 	ALPHA = n_out17p0;
 
 }
 
 void light() {
-// Output:0
+// Konsola:0
 
 }
 "

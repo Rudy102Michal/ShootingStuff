@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://models/environment/tree02.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://materials/rock3-darker.material" type="Material" id=2]
+
+[sub_resource type="CylinderShape" id=1]
+radius = 1.19383
+height = 4.10184
+
+[node name="tree2" type="StaticBody"]
+
+[node name="model" type="MeshInstance" parent="."]
+transform = Transform( 0.199593, 0.00236544, 0.0125358, 1.79427e-010, 0.196532, -0.0370845, -0.012757, 0.037009, 0.196132, -0.122672, -0.14951, 0.112592 )
+mesh = ExtResource( 1 )
+material/0 = ExtResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 0.999977, -0.00328807, -0.00604923, 0.00269868, 0.995476, -0.09497, 0.00633413, 0.0949514, 0.995462, -0.149347, 2.12265, 0.148957 )
+shape = SubResource( 1 )

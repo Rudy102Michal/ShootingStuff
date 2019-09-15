@@ -9,9 +9,9 @@ var xcom_can_shoot : bool = true;
 const SHOTGUN_FIRERATE : float = 1.0
 var shotgun_can_shoot : bool = true;
 const SHOTGUN_RANGE : float  = 30.0
-const SHOTGUN_SPREAD : float = PI / 6.0
-const SHOTGUN_PELLET_COUNT : int = 5
-const SHOTGUN_DMG : float = 0.2
+const SHOTGUN_SPREAD : float = PI / 5.0
+const SHOTGUN_PELLET_COUNT : int = 7
+const SHOTGUN_DMG : float = 0.25
 
 var shoot_timer : Timer
 var shotgun_timer : Timer

@@ -108,7 +108,7 @@ script = ExtResource( 1 )
 transform = Transform( 1, 0, 0, 0, -4.37114e-008, -1, 0, 1, -4.37114e-008, 0, 1, -0.971773 )
 
 [node name="Rotation" type="Spatial" parent="Translation"]
-transform = Transform( 1, 0, -1.74846e-007, 0, 1, 0, 1.74846e-007, 0, 1, 0, 0, 0 )
+transform = Transform( 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0, 0, 0 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Translation/Rotation"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
@@ -116,7 +116,7 @@ mesh = SubResource( 1 )
 material/0 = ExtResource( 2 )
 
 [node name="Particles" type="Particles" parent="."]
-transform = Transform( 0.2, 0, 0, 0, -8.74228e-009, -0.2, 0, 0.2, -8.74228e-009, 0, 1, 0 )
+transform = Transform( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0 )
 cast_shadow = 0
 amount = 20
 lifetime = 1.5

@@ -4,14 +4,14 @@ extends Spatial
 const DEMOGORGON = preload("res://prefabs/enemies/demogorgon.tscn")
 onready var players_container = get_node("../Players")
 
+var alive_enemies : int setget set_alive_enemies_count
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
-	# TODO: this is temporary - it spawns one enemy at (0,0,0)
-	# this will be handled in some loop with proper logic
-	
-	#var d = DEMOGORGON.instance()
-	#d.set_players_container(players_container)
-	#add_child(d)
-	
+	alive_enemies = get_child_count()
 	pass
+	
+func set_alive_enemies_count(count):
+	alive_enemies = count
+	if count == 0:
+		$"../../Interface".won()

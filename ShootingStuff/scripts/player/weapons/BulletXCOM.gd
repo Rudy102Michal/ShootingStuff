@@ -5,7 +5,7 @@ var shot_direction : Vector3
 var velocity : Vector3
 var active = true
 const SPEED = 25.0
-const DMG = 0.35
+const DMG = 0.15
 
 onready var shooting_manager : Spatial = get_parent()
 

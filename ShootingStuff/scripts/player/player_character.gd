@@ -8,13 +8,15 @@ signal player_weapon_changed(player_node, weapon_name)
 const Player = preload("res://scripts/player/player.gd")
 const Grenade = preload("res://prefabs/Equipment/Grenade.tscn")
 
+const EnemyNoticeSound = preload("res://sounds/aplha_enemy_contact.ogg")
+
 # Constants
 const GRAVITY : float = -20.0
 const ACCELERATION : float  = 3.0
 const DE_ACCELERATION : float = 7.0
 const VECTOR_UP : Vector3 = Vector3(0.0, 1.0, 0.0)
 const WALK_SPEED : float = 4.0
-const RUN_SPEED : float = 10.0
+const RUN_SPEED : float = 9.0
 
 # Game-wise traits
 var player_name : String = ""
@@ -27,6 +29,7 @@ var can_move : bool = false
 var alive : bool = false
 var velocity : Vector3
 var throw_grenade_sound: AudioStream
+var seen_enemy_before : bool = false
 
 # Weapons
 var weapons_node : BoneAttachment
@@ -56,6 +59,7 @@ func set_player(p: Player):
 	if (player != null):
 		return
 	player = p
+	$PortalPassSoundPlayer.play()
 	animation_tree.set("parameters/OneShot_Spawn/active", true)
 	
 func player_spawned():
@@ -171,7 +175,7 @@ func throw_grenade():
 		current_nade.global_transform = gtf
 		var front_vec : Vector3 = get_global_transform().basis.z.normalized()
 		var left_vec : Vector3 = VECTOR_UP.cross(front_vec)
-		var nade_vel : Vector3 = front_vec.rotated(-left_vec, PI / 4.0) * 10
+		var nade_vel : Vector3 = front_vec.rotated(-left_vec, PI / 4.0) * 8
 		current_nade.set_velocity(nade_vel)
 		current_nade.set_thrown(true)
 		current_nade = null
@@ -187,6 +191,13 @@ func get_hit(damage : float) -> void:
 		else:
 			$DeathSoundPlayer.play()
 		emit_signal("player_health_changed", self, health_points)
+		
+func notice_enemy():
+	seen_enemy_before = true
+	if player_name == "Alpha":
+		$RadioSoundPlayer.stream = EnemyNoticeSound
+		yield(get_tree().create_timer(2.5), "timeout")
+		$RadioSoundPlayer.play()
 	
 func lock_movement() -> void:
 	can_move = false

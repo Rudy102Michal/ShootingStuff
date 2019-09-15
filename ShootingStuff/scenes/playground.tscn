@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://scenes/UI/game_interface.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/Isometric_Camera.gd" type="Script" id=2]
@@ -22,16 +22,19 @@
 [ext_resource path="res://prefabs/environment/rock03-darker.tscn" type="PackedScene" id=20]
 [ext_resource path="res://prefabs/environment/rock02.tscn" type="PackedScene" id=21]
 [ext_resource path="res://prefabs/environment/rock03.tscn" type="PackedScene" id=22]
-[ext_resource path="res://addons/zylann.hterrain/hterrain.gd" type="Script" id=23]
-[ext_resource path="res://addons/zylann.hterrain/tools/icons/icon_heightmap_node.svg" type="Texture" id=24]
-[ext_resource path="res://playground_terrain/data.hterrain" type="Resource" id=25]
-[ext_resource path="res://textures/ground/burned_ground.png" type="Texture" id=26]
-[ext_resource path="res://textures/ground/cave1.png" type="Texture" id=27]
-[ext_resource path="res://textures/ground/cave3.png" type="Texture" id=28]
-[ext_resource path="res://textures/ground/cave2.png" type="Texture" id=29]
-[ext_resource path="res://sounds/breathing.ogg" type="AudioStream" id=30]
-[ext_resource path="res://sounds/cave_ambient.ogg" type="AudioStream" id=31]
-[ext_resource path="res://sounds/music_ingame.ogg" type="AudioStream" id=32]
+[ext_resource path="res://prefabs/environment/tree02.tscn" type="PackedScene" id=23]
+[ext_resource path="res://prefabs/environment/barrel.tscn" type="PackedScene" id=24]
+[ext_resource path="res://prefabs/environment/ruined_building.tscn" type="PackedScene" id=25]
+[ext_resource path="res://addons/zylann.hterrain/hterrain.gd" type="Script" id=26]
+[ext_resource path="res://addons/zylann.hterrain/tools/icons/icon_heightmap_node.svg" type="Texture" id=27]
+[ext_resource path="res://playground_terrain/data.hterrain" type="Resource" id=28]
+[ext_resource path="res://textures/ground/burned_ground.png" type="Texture" id=29]
+[ext_resource path="res://textures/ground/cave1.png" type="Texture" id=30]
+[ext_resource path="res://textures/ground/cave3.png" type="Texture" id=31]
+[ext_resource path="res://textures/ground/cave2.png" type="Texture" id=32]
+[ext_resource path="res://sounds/breathing.ogg" type="AudioStream" id=33]
+[ext_resource path="res://sounds/cave_ambient.ogg" type="AudioStream" id=34]
+[ext_resource path="res://sounds/music_ingame.ogg" type="AudioStream" id=35]
 
 [sub_resource type="Environment" id=1]
 background_mode = 1
@@ -52,6 +55,19 @@ light_specular = 0.81
 shadow_enabled = true
 shadow_bias = 0.7
 spot_range = 96.4
+spot_attenuation = 2.14355
+spot_angle = 58.2
+spot_angle_attenuation = 0.615572
+
+[node name="SpotLight2" type="SpotLight" parent="."]
+transform = Transform( -0.0997912, -0.325107, -0.940397, 0.207531, -0.93113, 0.299881, -0.973125, -0.165236, 0.160388, -24.5227, 12.9546, 33.055 )
+light_color = Color( 0.254902, 0.466667, 0.631373, 1 )
+light_energy = 2.0
+light_indirect_energy = 6.0
+light_specular = 0.81
+shadow_enabled = true
+shadow_bias = 0.7
+spot_range = 174.304
 spot_attenuation = 2.14355
 spot_angle = 58.2
 spot_angle_attenuation = 0.615572
@@ -78,6 +94,7 @@ script = ExtResource( 4 )
 [node name="Blasts" type="Spatial" parent="StuffOnScreen/Grenades"]
 
 [node name="Players" type="Spatial" parent="StuffOnScreen"]
+editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14.3398, -6.82957, -0.691459 )
 script = ExtResource( 5 )
 textures = [ ExtResource( 6 ), ExtResource( 7 ) ]
@@ -100,7 +117,16 @@ transform = Transform( 0.886994, 0, -0.461781, 0, 1, 0, 0.461781, 0, 0.886994, -
 script = ExtResource( 13 )
 
 [node name="DemogorgonKB" parent="StuffOnScreen/Enemies" instance=ExtResource( 14 )]
-transform = Transform( -0.251385, 0, 0.967887, 0, 1, 0, -0.967887, 0, -0.251385, 14.1982, -5.62731, 32.9969 )
+transform = Transform( -0.848668, 0.0107304, -0.528818, 0.0115809, 0.999931, 0.00170438, 0.5288, -0.00467775, -0.848734, 9.69419, -5.95855, 24.1922 )
+
+[node name="DemogorgonKB6" parent="StuffOnScreen/Enemies" instance=ExtResource( 14 )]
+transform = Transform( 0.98123, -0.0116924, 0.19249, 0.0115809, 0.999931, 0.00170438, -0.192497, 0.000556816, 0.981298, -14.7685, -5.15046, 45.5009 )
+
+[node name="DemogorgonKB8" parent="StuffOnScreen/Enemies" instance=ExtResource( 14 )]
+transform = Transform( 0.974265, -0.0116674, 0.225107, 0.0115809, 0.999931, 0.00170438, -0.225111, 0.000946419, 0.974333, -11.3959, -5.2057, 52.9438 )
+
+[node name="DemogorgonKB7" parent="StuffOnScreen/Enemies" instance=ExtResource( 14 )]
+transform = Transform( -0.999075, 0.0115004, 0.041447, 0.0115809, 0.999931, 0.00170438, -0.0414246, 0.00218281, -0.999139, -17.677, -4.82488, -11.1152 )
 
 [node name="DemogorgonKB2" parent="StuffOnScreen/Enemies" instance=ExtResource( 14 )]
 transform = Transform( 0.555128, 0, -0.831765, 0, 1, 0, 0.831765, 0, 0.555128, 50.4177, -6.1089, 2.6869 )
@@ -113,6 +139,12 @@ transform = Transform( 0.777961, -0.011468, -0.628207, 0.0139298, 0.999902, -0.0
 
 [node name="DemogorgonKB5" parent="StuffOnScreen/Enemies" instance=ExtResource( 14 )]
 transform = Transform( 0.999589, -0.0139003, 0.0250939, 0.0139298, 0.999902, -0.00100291, -0.0250775, 0.00135205, 0.999685, 45.2397, -5.99171, -8.12165 )
+
+[node name="DemogorgonKB9" parent="StuffOnScreen/Enemies" instance=ExtResource( 14 )]
+transform = Transform( -0.300125, 0.109386, 0.947607, 0.0454639, 0.993915, -0.100332, -0.952816, 0.0129697, -0.303272, 56.5633, -4.93548, 32.4891 )
+
+[node name="DemogorgonKB10" parent="StuffOnScreen/Enemies" instance=ExtResource( 14 )]
+transform = Transform( -0.300125, 0.109386, 0.947607, 0.0454639, 0.993915, -0.100332, -0.952816, 0.0129697, -0.303272, 56.5633, -4.62525, 57.8571 )
 
 [node name="Bullets" type="Spatial" parent="StuffOnScreen"]
 editor/display_folded = true
@@ -149,6 +181,15 @@ transform = Transform( 1.42857, -0.116105, -1.39488, 0.295994, 1.97309, 0.13891,
 [node name="rock3-darker3" parent="StuffOnScreen/Envorinment" instance=ExtResource( 20 )]
 transform = Transform( 0.714286, -0.0580523, -0.697442, -0.289305, 0.882929, -0.369783, 0.637258, 0.465904, 0.613869, 26.9352, -5.51992, 19.3465 )
 
+[node name="rock3-darker4" parent="StuffOnScreen/Envorinment" instance=ExtResource( 20 )]
+transform = Transform( 0.718531, 0.0808008, -0.690785, 0.0785505, 0.977445, 0.196037, 0.691044, -0.19512, 0.695978, -6.83714, -5.51992, 15.8791 )
+
+[node name="rock3-darker6" parent="StuffOnScreen/Envorinment" instance=ExtResource( 20 )]
+transform = Transform( 1.11174, 0.125018, -1.06881, 0.0785505, 0.977445, 0.196037, 0.937218, -0.264629, 0.94391, -16.6532, -5.84603, 54.5232 )
+
+[node name="rock3-darker5" parent="StuffOnScreen/Envorinment" instance=ExtResource( 20 )]
+transform = Transform( -1.25014, 0.219755, -0.594784, 0.0993891, 1.23675, 0.248044, 1.12356, 0.123704, -1.06699, -6.8982, -5.51992, 13.6652 )
+
 [node name="tree2" parent="StuffOnScreen/Envorinment" instance=ExtResource( 18 )]
 transform = Transform( 0.995548, 0.0942577, 0, -0.0942577, 0.995548, 0, 0, 0, 1, 1.00249, -6.50266, -0.655462 )
 
@@ -164,6 +205,9 @@ transform = Transform( -1.35666, 0, -1.46951, 0, 2, 0, 1.46951, 0, -1.35666, 0.1
 [node name="tree3" parent="StuffOnScreen/Envorinment" instance=ExtResource( 18 )]
 transform = Transform( 1.35826, 0.128599, 0, -0.151097, 1.59588, 0, 0, 0, 1.17665, 20.1526, -6.00431, 24.9288 )
 
+[node name="tree10" parent="StuffOnScreen/Envorinment" instance=ExtResource( 18 )]
+transform = Transform( 0.879503, 0.0832707, 0.896662, -0.151097, 1.59588, 0, -1.03506, -0.0979985, 0.761907, -19.3496, -5.04197, 47.5655 )
+
 [node name="rock8" parent="StuffOnScreen/Envorinment" instance=ExtResource( 19 )]
 transform = Transform( 1.56378, 0.191102, -1.2321, -0.0874427, 1.98831, 0.19741, 1.24376, -0.100484, 1.563, -0.114749, -6.65931, 28.5313 )
 
@@ -173,54 +217,96 @@ transform = Transform( 0.688335, 0, 1.78866, 0, 1.21931, 0, -1.45946, 0, 0.56164
 [node name="rock10" parent="StuffOnScreen/Envorinment" instance=ExtResource( 21 )]
 transform = Transform( -0.857863, 0, 0.392031, 0, 0.961917, 0, -0.313092, 0, -0.723938, 1.15776, -4.49692, 26.8794 )
 
+[node name="rock12" parent="StuffOnScreen/Envorinment" instance=ExtResource( 21 )]
+transform = Transform( -0.307272, 0.554115, -0.454599, -0.635593, 0.106928, 0.47449, 0.302903, 0.778963, 0.259431, -4.17362, -4.49692, 49.0835 )
+
 [node name="tree4" parent="StuffOnScreen/Envorinment" instance=ExtResource( 18 )]
 transform = Transform( 0.820443, 0.0776789, 0.937734, -0.151097, 1.59588, 0, -1.08247, -0.102487, 0.710742, 22.5093, -2.84316, 43.8232 )
 
 [node name="rock11" parent="StuffOnScreen/Envorinment" instance=ExtResource( 19 )]
 transform = Transform( -2.47042, 0.707355, 1.54812, 0.539047, 2.91335, -0.470961, -1.61445, -0.109655, -2.52617, 28.0542, -4.09984, 11.238 )
 
+[node name="tree5" parent="StuffOnScreen/Envorinment" instance=ExtResource( 23 )]
+transform = Transform( 0.914769, -0.0815067, 0.395669, 0.0251573, 0.989028, 0.145574, -0.403193, -0.123213, 0.906782, 2.07089, -6.39523, 29.4703 )
+
+[node name="tree6" parent="StuffOnScreen/Envorinment" instance=ExtResource( 23 )]
+transform = Transform( 0.914769, -0.0815067, 0.395669, 0.0251573, 0.989028, 0.145574, -0.403193, -0.123213, 0.906782, -8.70802, -3.69472, 9.78308 )
+
+[node name="tree7" parent="StuffOnScreen/Envorinment" instance=ExtResource( 23 )]
+transform = Transform( 0.446241, -0.450662, 0.773158, 0.178313, 0.8914, 0.416667, -0.876969, -0.0480697, 0.478137, 28.7262, -3.69472, -4.7597 )
+
+[node name="tree8" parent="StuffOnScreen/Envorinment" instance=ExtResource( 23 )]
+transform = Transform( -0.663368, -0.160997, 0.730768, 0.0130482, 0.973943, 0.226417, -0.74818, 0.159733, -0.643982, 35.9462, -5.72147, 17.7927 )
+
+[node name="tree11" parent="StuffOnScreen/Envorinment" instance=ExtResource( 23 )]
+transform = Transform( -0.663368, -0.160997, 0.730768, 0.0130482, 0.973943, 0.226417, -0.74818, 0.159733, -0.643982, -15.6129, -5.1857, 50.065 )
+
+[node name="barrel" parent="StuffOnScreen/Envorinment" instance=ExtResource( 24 )]
+transform = Transform( -0.132674, -0.0321995, 0.146154, 0.00260964, 0.194789, 0.0452833, -0.149636, 0.0319466, -0.128796, -13.488, -4.28473, -14.7856 )
+
+[node name="barrel2" parent="StuffOnScreen/Envorinment" instance=ExtResource( 24 )]
+transform = Transform( -0.023139, -0.197587, -0.0205861, 0.0316725, -0.0241294, 0.195996, -0.196116, 0.0194158, 0.0340821, -13.8945, -4.0681, -13.5188 )
+
+[node name="tree9" parent="StuffOnScreen/Envorinment" instance=ExtResource( 18 )]
+transform = Transform( 1.07085, 0.366778, 0.679554, -0.82075, 0.065724, 0.939581, 0.217599, -1.55709, 0.199731, 25.7737, -5.94531, 28.1345 )
+
+[node name="ruined_building" parent="StuffOnScreen/Envorinment" instance=ExtResource( 25 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 51.3916, -16.0696, 47.6767 )
+
+[node name="rock13" parent="StuffOnScreen/Envorinment" instance=ExtResource( 21 )]
+transform = Transform( -0.254197, 0.458403, -0.376077, -0.552768, 0.0929944, 0.412659, 0.194632, 0.500528, 0.166699, 3.8598, -3.48018, 60.1468 )
+
+[node name="tree12" parent="StuffOnScreen/Envorinment" instance=ExtResource( 23 )]
+transform = Transform( -0.663368, -0.160997, 0.730768, 0.0130482, 0.973943, 0.226417, -0.74818, 0.159733, -0.643982, 5.296, -2.54046, 60.7202 )
+
+[node name="barrel3" parent="StuffOnScreen/Envorinment" instance=ExtResource( 24 )]
+transform = Transform( -0.132674, -0.0321995, 0.146154, 0.00260964, 0.194789, 0.0452833, -0.149636, 0.0319466, -0.128796, 46.9671, -5.18606, 27.2751 )
+
+[node name="rock14" parent="StuffOnScreen/Envorinment" instance=ExtResource( 19 )]
+transform = Transform( -2.06665, -0.0754177, -0.155818, -0.0874427, 1.98831, 0.19741, 0.818471, 0.240189, -2.05664, 7.63669, -2.86117, 58.6816 )
+
 [node name="HTerrain" type="Spatial" parent="."]
 transform = Transform( 1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, -25.09, -7.11, -26.59 )
-script = ExtResource( 23 )
+script = ExtResource( 26 )
 __meta__ = {
 "_edit_lock_": true,
-"_editor_icon": ExtResource( 24 )
+"_editor_icon": ExtResource( 27 )
 }
 collision_enabled = true
 ambient_wind = 0.0
 lod_scale = 2.0
 map_scale = Vector3( 0.2, 0.2, 0.2 )
-_terrain_data = ExtResource( 25 )
+_terrain_data = ExtResource( 28 )
 chunk_size = 16
 shader_type = "Classic4Lite"
 custom_shader = null
 shader_params/u_ground_uv_scale = 20
 shader_params/u_depth_blending = true
 shader_params/u_triplanar = false
-ground/albedo_bump_0 = ExtResource( 26 )
+ground/albedo_bump_0 = ExtResource( 29 )
 ground/normal_roughness_0 = null
-ground/albedo_bump_1 = ExtResource( 27 )
+ground/albedo_bump_1 = ExtResource( 30 )
 ground/normal_roughness_1 = null
-ground/albedo_bump_2 = ExtResource( 28 )
+ground/albedo_bump_2 = ExtResource( 31 )
 ground/normal_roughness_2 = null
-ground/albedo_bump_3 = ExtResource( 29 )
+ground/albedo_bump_3 = ExtResource( 32 )
 ground/normal_roughness_3 = null
 _detail_objects_data = null
 
 [node name="JoinSoundPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 30 )
+stream = ExtResource( 33 )
 
 [node name="BreathingSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 30 )
+stream = ExtResource( 33 )
 volume_db = -30.0
 autoplay = true
 
 [node name="CaveAmbientPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 31 )
+stream = ExtResource( 34 )
 volume_db = -15.0
 autoplay = true
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 32 )
+stream = ExtResource( 35 )
 volume_db = -15.0
 autoplay = true

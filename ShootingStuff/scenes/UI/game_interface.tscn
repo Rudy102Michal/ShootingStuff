@@ -1,10 +1,27 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scripts/UI/interface_control.gd" type="Script" id=1]
 [ext_resource path="res://sprites/4179.jpg" type="Texture" id=2]
 [ext_resource path="res://sprites/tough_guy_1.png" type="Texture" id=3]
 [ext_resource path="res://fonts/main_font.tres" type="DynamicFont" id=4]
 [ext_resource path="res://scenes/UI/bar.tscn" type="PackedScene" id=5]
+[ext_resource path="res://sounds/game_over.wav" type="AudioStream" id=6]
+[ext_resource path="res://sounds/mission-accomplished.wav" type="AudioStream" id=7]
+
+[sub_resource type="Animation" id=1]
+resource_name = "FadeIn"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ) ]
+}
 
 [node name="Interface" type="Control"]
 anchor_right = 1.0
@@ -68,6 +85,7 @@ margin_bottom = 57.4149
 rect_scale = Vector2( 0.179202, 0.15544 )
 
 [node name="PlayerTopRight" type="NinePatchRect" parent="."]
+editor/display_folded = true
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -235.099
@@ -127,3 +145,47 @@ margin_top = 29.4149
 margin_right = 208.0
 margin_bottom = 57.4149
 rect_scale = Vector2( 0.179202, 0.15544 )
+
+[node name="GameOverSoundPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+
+[node name="WinSoundPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+margin_right = 1920.0
+margin_bottom = 1200.0
+
+[node name="GAME_OVER" type="Label" parent="CenterContainer"]
+visible = false
+margin_left = 866.0
+margin_top = 580.0
+margin_right = 1054.0
+margin_bottom = 619.0
+size_flags_horizontal = 0
+custom_fonts/font = ExtResource( 4 )
+text = "GAME OVER"
+valign = 1
+
+[node name="WIN" type="Label" parent="CenterContainer"]
+visible = false
+margin_left = 766.0
+margin_top = 580.0
+margin_right = 1154.0
+margin_bottom = 619.0
+size_flags_horizontal = 0
+custom_fonts/font = ExtResource( 4 )
+text = "MISSION ACCOMPLISHED"
+valign = 1
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = -14.978
+margin_top = -18.9724
+margin_right = 985.022
+margin_bottom = 981.028
+rect_min_size = Vector2( 100, 100 )
+rect_scale = Vector2( 2.93183, 1.93744 )
+color = Color( 0, 0, 0, 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ColorRect"]
+anims/FadeIn = SubResource( 1 )

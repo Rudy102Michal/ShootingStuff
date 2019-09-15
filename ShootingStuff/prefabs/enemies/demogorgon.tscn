@@ -78,7 +78,7 @@ autorestart_random_delay = -4.88673e+031
 [sub_resource type="AnimationNodeTimeScale" id=17]
 
 [sub_resource type="AnimationNodeBlendTree" id=18]
-graph_offset = Vector2( 669.293, 105 )
+graph_offset = Vector2( 77.3166, -260.25 )
 nodes/Animation/node = SubResource( 11 )
 nodes/Animation/position = Vector2( 80, 80 )
 "nodes/Animation 2/node" = SubResource( 6 )
@@ -466,7 +466,7 @@ mesh = SubResource( 4 )
 material/0 = ExtResource( 2 )
 
 [node name="BA_LeftHand" type="BoneAttachment" parent="RotationHelper/Model/Skeleton"]
-transform = Transform( 0.919224, -0.066291, -0.388115, -0.301432, -0.75265, -0.585368, -0.25331, 0.655074, -0.711836, 0.486105, -0.208793, 0.152466 )
+transform = Transform( 0.904834, -0.178053, -0.386745, -0.355686, -0.815376, -0.45678, -0.234012, 0.55087, -0.801111, 0.473515, -0.263946, 0.0384078 )
 bone_name = "mixamorig_LeftHandMiddle1"
 
 [node name="PawArea" type="Area" parent="RotationHelper/Model/Skeleton/BA_LeftHand"]
